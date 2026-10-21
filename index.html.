@@ -2,487 +2,312 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Casa Tito | Autoservicio Ferretero</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Casa Tito: ferretería, pinturas, herramientas y materiales para tus proyectos en Córdoba.">
+  <title>Casa Tito | Ferretería</title>
+  <style>
+    :root {
+      --negro: #111111;
+      --rojo: #e53935;
+      --gris: #f4f4f4;
+      --blanco: #ffffff;
+    }
 
-<style>
-:root {
-  --azul: #102b50;
-  --rojo: #e43135;
-  --gris: #f4f6f8;
-  --blanco: #ffffff;
-}
+    * { box-sizing: border-box; }
 
-* {
-  box-sizing: border-box;
-}
+    html { scroll-behavior: smooth; }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--gris);
-  color: var(--azul);
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--negro);
+      background: var(--blanco);
+      line-height: 1.6;
+    }
 
-header {
-  background: white;
-  padding: 16px;
-  border-bottom: 1px solid #e5e7eb;
-}
+    header {
+      background: var(--negro);
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-.nav {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+    .marca {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 900;
-  font-size: 27px;
-  color: var(--rojo);
-}
+    .marca span { color: var(--rojo); }
 
-.logo-icon {
-  background: var(--azul);
-  color: white;
-  border: 4px solid var(--rojo);
-  border-radius: 12px;
-  padding: 8px;
-  font-size: 23px;
-}
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
 
-.logo small {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--azul);
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
 
-.search {
-  flex: 1;
-  min-width: 180px;
-  max-width: 420px;
-}
+    .hero {
+      background: linear-gradient(120deg, #171717, #343434);
+      color: white;
+      padding: 76px 7%;
+    }
 
-input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #d5dbe3;
-  border-radius: 10px;
-  font-size: 15px;
-}
+    .hero-contenido { max-width: 720px; }
 
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 9px;
-  padding: 12px 16px;
-  font-weight: bold;
-  font-size: 14px;
-}
+    .etiqueta {
+      color: #ff6b65;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
 
-.cart-button {
-  background: var(--azul);
-  color: white;
-}
+    h1 {
+      font-size: clamp(38px, 8vw, 65px);
+      line-height: 1.08;
+      margin: 16px 0;
+    }
 
-.hero {
-  background: linear-gradient(120deg, #102b50, #234b78);
-  color: white;
-  padding: 55px 20px;
-}
+    .hero p {
+      color: #dedede;
+      font-size: 17px;
+      max-width: 540px;
+    }
 
-.hero-inner {
-  max-width: 1100px;
-  margin: auto;
-}
+    .boton {
+      display: inline-block;
+      background: var(--rojo);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 12px 8px 0 0;
+    }
 
-.hero h1 {
-  font-size: clamp(30px, 6vw, 52px);
-  max-width: 650px;
-  margin: 0 0 16px;
-  line-height: 1.1;
-}
+    .boton-secundario {
+      background: transparent;
+      border: 1px solid #aaa;
+    }
 
-.hero p {
-  font-size: 17px;
-  color: #e0e8f2;
-  max-width: 550px;
-  line-height: 1.6;
-}
+    section { padding: 55px 7%; }
 
-.hero button {
-  background: var(--rojo);
-  color: white;
-  margin-top: 12px;
-}
+    .subtitulo {
+      color: var(--rojo);
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
 
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 28px 16px 60px;
-}
+    h2 {
+      font-size: clamp(27px, 5vw, 38px);
+      line-height: 1.2;
+      margin: 8px 0 14px;
+    }
 
-h2 {
-  font-size: 25px;
-  margin: 0 0 20px;
-}
+    .intro {
+      max-width: 600px;
+      color: #606060;
+    }
 
-.categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-bottom: 32px;
-}
+    .productos {
+      background: var(--gris);
+    }
 
-.category {
-  background: white;
-  color: var(--azul);
-  border: 1px solid #dbe1e8;
-}
+    .rejilla {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
 
-.category.active {
-  background: var(--azul);
-  color: white;
-}
+    .tarjeta {
+      background: white;
+      padding: 24px;
+      border-radius: 9px;
+      border: 1px solid #e5e5e5;
+    }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-}
+    .simbolo {
+      font-size: 31px;
+      margin-bottom: 8px;
+    }
 
-.product {
-  background: white;
-  border-radius: 13px;
-  overflow: hidden;
-  border: 1px solid #e4e8ed;
-}
+    .tarjeta h3 { margin: 5px 0; }
 
-.product-image {
-  height: 145px;
-  background: #eaf0f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 55px;
-}
+    .tarjeta p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 0;
+    }
 
-.product-info {
-  padding: 15px;
-}
+    .consulta {
+      background: var(--negro);
+      color: white;
+      text-align: center;
+    }
 
-.product-info small {
-  color: #718096;
-}
+    .consulta p {
+      color: #d1d1d1;
+      max-width: 520px;
+      margin: 14px auto;
+    }
 
-.product-info h3 {
-  font-size: 16px;
-  min-height: 38px;
-  margin: 8px 0;
-}
+    .ubicacion {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
 
-.price {
-  font-size: 15px;
-  font-weight: bold;
-  margin: 12px 0;
-}
+    .dato {
+      padding: 22px;
+      background: var(--gris);
+      border-radius: 8px;
+    }
 
-.add {
-  width: 100%;
-  background: var(--rojo);
-  color: white;
-}
+    footer {
+      padding: 22px;
+      text-align: center;
+      background: #080808;
+      color: #ccc;
+      font-size: 13px;
+    }
 
-.empty {
-  padding: 30px;
-  text-align: center;
-  background: white;
-  border-radius: 12px;
-}
-
-footer {
-  background: var(--azul);
-  color: white;
-  padding: 30px 18px;
-  text-align: center;
-}
-
-footer p {
-  color: #dce5ef;
-}
-
-@media (max-width: 800px) {
-  .products {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .product-image {
-    height: 120px;
-  }
-}
-
-@media (max-width: 380px) {
-  .logo {
-    font-size: 23px;
-  }
-
-  .product-info {
-    padding: 11px;
-  }
-}
-</style>
+    @media (max-width: 480px) {
+      header { padding: 16px 5%; }
+      .marca { font-size: 24px; }
+      nav { gap: 12px; }
+      .hero { padding: 55px 6%; }
+      section { padding: 42px 6%; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <div class="nav">
+  <header>
+    <div class="marca">CASA <span>TITO</span></div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
 
-    <div class="logo">
-      <div class="logo-icon">🔩</div>
-      <div>
-        Tito
-        <small>AUTOSERVICIO FERRETERO</small>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-contenido">
+        <div class="etiqueta">Tu ferretería de confianza</div>
+        <h1>Todo para tus proyectos.</h1>
+        <p>
+          Herramientas, pinturas y materiales para construir,
+          reparar y renovar. En Casa Tito te ayudamos a encontrar
+          lo que necesitás.
+        </p>
+        <a class="boton" href="#productos">Conocé nuestros productos</a>
+        <a class="boton boton-secundario"
+           href="#contacto">Cómo encontrarnos</a>
       </div>
-    </div>
+    </section>
 
-    <div class="search">
-      <input
-        id="search"
-        type="search"
-        placeholder="¿Qué producto estás buscando?"
-      >
-    </div>
+    <section class="productos" id="productos">
+      <div class="subtitulo">Nuestro rubro</div>
+      <h2>Soluciones para cada trabajo</h2>
+      <p class="intro">
+        Encontrá distintas opciones para tus arreglos, obras
+        y proyectos de todos los días.
+      </p>
 
-    <button class="cart-button" onclick="sendOrder()">
-      🛒 Pedido (<span id="cart-count">0</span>)
-    </button>
+      <div class="rejilla">
+        <article class="tarjeta">
+          <div class="simbolo">🎨</div>
+          <h3>Pinturas</h3>
+          <p>Látex, fijadores, enduidos, membranas y más opciones
+          para renovar tus espacios.</p>
+        </article>
 
-  </div>
-</header>
+        <article class="tarjeta">
+          <div class="simbolo">🔧</div>
+          <h3>Herramientas</h3>
+          <p>Elementos para reparaciones, mantenimiento y trabajos
+          profesionales.</p>
+        </article>
 
-<section class="hero">
-  <div class="hero-inner">
-    <h1>Todo para tus proyectos, en un solo lugar.</h1>
-    <p>
-      Herramientas, materiales y soluciones para tu hogar,
-      obra o negocio. La experiencia de Casa Tito desde 1953.
-    </p>
-    <button onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">
-      Explorar productos →
-    </button>
-  </div>
-</section>
+        <article class="tarjeta">
+          <div class="simbolo">🧱</div>
+          <h3>Ferretería</h3>
+          <p>Artículos y accesorios para resolver los trabajos
+          de todos los días.</p>
+        </article>
 
-<main id="catalogo">
-
-  <h2>Encontrá lo que necesitás</h2>
-
-  <div class="categories" id="categories"></div>
-
-  <h2>Productos de nuestra ferretería</h2>
-
-  <div class="products" id="products"></div>
-
-</main>
-
-<footer>
-  <h2>Casa Tito</h2>
-  <p>Autoservicio Ferretero · Sucesores de Pablo Antonini</p>
-  <p>Desde 1953, acompañando tus proyectos.</p>
-</footer>
-
-<script>
-const WHATSAPP = "549351XXXXXXXX";
-
-// Productos de demostración.
-// Reemplazá estos ejemplos por los productos reales.
-const products = [
-  {
-    id: 1,
-    name: "Taladro eléctrico",
-    category: "Herramientas",
-    price: "Consultar precio",
-    emoji: "🔧"
-  },
-  {
-    id: 2,
-    name: "Juego de destornilladores",
-    category: "Herramientas",
-    price: "Consultar precio",
-    emoji: "🪛"
-  },
-  {
-    id: 3,
-    name: "Tornillos y bulones",
-    category: "Bulonería",
-    price: "Consultar precio",
-    emoji: "🔩"
-  },
-  {
-    id: 4,
-    name: "Pintura para interiores",
-    category: "Pinturas",
-    price: "Consultar precio",
-    emoji: "🪣"
-  },
-  {
-    id: 5,
-    name: "Cinta métrica",
-    category: "Herramientas",
-    price: "Consultar precio",
-    emoji: "📏"
-  },
-  {
-    id: 6,
-    name: "Accesorios de plomería",
-    category: "Plomería",
-    price: "Consultar precio",
-    emoji: "🚰"
-  },
-  {
-    id: 7,
-    name: "Guantes de trabajo",
-    category: "Seguridad",
-    price: "Consultar precio",
-    emoji: "🧤"
-  },
-  {
-    id: 8,
-    name: "Elementos eléctricos",
-    category: "Electricidad",
-    price: "Consultar precio",
-    emoji: "💡"
-  }
-];
-
-let cart = [];
-let selectedCategory = "Todos";
-
-function renderCategories() {
-  const categories = [
-    "Todos",
-    ...new Set(products.map(p => p.category))
-  ];
-
-  document.getElementById("categories").innerHTML =
-    categories.map(category => `
-      <button
-        class="category ${selectedCategory === category ? 'active' : ''}"
-        onclick="selectCategory('${category}')">
-        ${category}
-      </button>
-    `).join("");
-}
-
-function selectCategory(category) {
-  selectedCategory = category;
-  renderCategories();
-  renderProducts();
-}
-
-function renderProducts() {
-  const search = document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-  const filtered = products.filter(product => {
-    const matchesSearch =
-      product.name.toLowerCase().includes(search) ||
-      product.category.toLowerCase().includes(search);
-
-    const matchesCategory =
-      selectedCategory === "Todos" ||
-      product.category === selectedCategory;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  const container = document.getElementById("products");
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="empty">
-        No encontramos productos con esa búsqueda.
+        <article class="tarjeta">
+          <div class="simbolo">🏠</div>
+          <h3>Construcción</h3>
+          <p>Materiales y soluciones para avanzar con tus
+          proyectos de obra.</p>
+        </article>
       </div>
-    `;
-    return;
-  }
+    </section>
 
-  container.innerHTML = filtered.map(product => `
-    <article class="product">
-      <div class="product-image">${product.emoji}</div>
-      <div class="product-info">
-        <small>${product.category}</small>
-        <h3>${product.name}</h3>
-        <div class="price">${product.price}</div>
-        <button class="add" onclick="addToCart(${product.id})">
-          Agregar al pedido
-        </button>
+    <section id="nosotros">
+      <div class="subtitulo">Sobre nosotros</div>
+      <h2>Una mano para cada proyecto</h2>
+      <p class="intro">
+        En Casa Tito trabajamos para ofrecerte productos y
+        soluciones para tu hogar, tu obra o tu negocio.
+        Queremos que encuentres lo que buscás y puedas seguir
+        adelante con tu proyecto.
+      </p>
+    </section>
+
+    <section class="consulta">
+      <div class="subtitulo">Estamos para ayudarte</div>
+      <h2>¿Qué estás buscando?</h2>
+      <p>
+        Consultanos por los productos que necesitás y te
+        ayudaremos a encontrar la mejor opción.
+      </p>
+      <a class="boton" href="#contacto">Contactar a Casa Tito</a>
+    </section>
+
+    <section id="contacto">
+      <div class="subtitulo">Visitá nuestro local</div>
+      <h2>Encontranos en Córdoba</h2>
+
+      <div class="ubicacion">
+        <div class="dato">
+          <h3>📍 Dirección</h3>
+          <p>Fuerza Aérea 3118, Córdoba.</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Fuerza+Aerea+3118+Cordoba+Argentina"
+             target="_blank" rel="noopener">Ver en Google Maps →</a>
+        </div>
+
+        <div class="dato">
+          <h3>💬 Consultas</h3>
+          <p>Escribinos para consultar por productos y disponibilidad.</p>
+          <p>El contacto por WhatsApp se habilitará cuando agreguemos
+          el número del negocio.</p>
+        </div>
       </div>
-    </article>
-  `).join("");
-}
+    </section>
+  </main>
 
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  const existing = cart.find(p => p.id === id);
-
-  if (existing) {
-    existing.quantity++;
-  } else {
-    cart.push({...product, quantity: 1});
-  }
-
-  document.getElementById("cart-count").textContent =
-    cart.reduce((total, p) => total + p.quantity, 0);
-}
-
-function sendOrder() {
-  if (cart.length === 0) {
-    alert("Todavía no agregaste productos al pedido.");
-    return;
-  }
-
-  if (WHATSAPP.includes("X")) {
-    alert("Primero tenemos que configurar el WhatsApp de Casa Tito.");
-    return;
-  }
-
-  const message = [
-    "Hola Casa Tito, quiero consultar por este pedido:",
-    "",
-    ...cart.map(p => `${p.quantity} x ${p.name}`),
-    "",
-    "¿Me pasan los precios y la disponibilidad?"
-  ].join("\n");
-
-  window.open(
-    "https://wa.me/" + WHATSAPP + "?text=" +
-    encodeURIComponent(message),
-    "_blank"
-  );
-}
-
-document.getElementById("search").addEventListener(
-  "input",
-  renderProducts
-);
-
-renderCategories();
-renderProducts();
-</script>
+  <footer>
+    © 2026 Casa Tito · Ferretería y soluciones para tus proyectos
+  </footer>
 
 </body>
 </html>
-
