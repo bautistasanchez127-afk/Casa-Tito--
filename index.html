@@ -1,313 +1,355 @@
-# Casa-Tito--
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111111">
-  <meta name="description" content="Casa Tito: ferretería, pinturas, herramientas y materiales para tus proyectos en Córdoba.">
-  <title>Casa Tito | Ferretería</title>
+  <meta name="theme-color" content="#c91d2e">
+  <meta name="description" content="Casa Tito: ferretería, herramientas, pinturas y productos para construcción en Córdoba.">
+  <title>Casa Tito | Ferretería en Córdoba</title>
+
   <style>
     :root {
-      --negro: #111111;
-      --rojo: #e53935;
+      --rojo: #c91d2e;
+      --negro: #171717;
       --gris: #f4f4f4;
       --blanco: #ffffff;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--negro);
-      background: var(--blanco);
       line-height: 1.6;
+      background: var(--blanco);
     }
+
+    a { text-decoration: none; }
 
     header {
       background: var(--negro);
-      color: white;
-      padding: 18px 6%;
+      color: var(--blanco);
+      padding: 17px 6%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 15px;
       flex-wrap: wrap;
     }
 
-    .marca {
-      font-size: 27px;
+    .logo {
+      color: var(--blanco);
+      font-size: 25px;
       font-weight: 900;
       letter-spacing: 1px;
     }
 
-    .marca span { color: var(--rojo); }
+    .logo span { color: var(--rojo); }
 
     nav {
       display: flex;
-      gap: 18px;
       flex-wrap: wrap;
+      gap: 18px;
     }
 
     nav a {
-      color: white;
-      text-decoration: none;
+      color: var(--blanco);
       font-size: 14px;
+      font-weight: bold;
     }
+
+    nav a:hover { color: #ff5a68; }
 
     .hero {
-      background: linear-gradient(120deg, #171717, #343434);
-      color: white;
-      padding: 76px 7%;
+      background: linear-gradient(135deg, #191919 0%, #303030 100%);
+      color: var(--blanco);
+      text-align: center;
+      padding: 85px 20px;
     }
-
-    .hero-contenido { max-width: 720px; }
 
     .etiqueta {
-      color: #ff6b65;
-      text-transform: uppercase;
+      display: inline-block;
+      background: var(--rojo);
+      padding: 6px 13px;
+      border-radius: 4px;
       font-size: 12px;
       font-weight: bold;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
     }
 
-    h1 {
-      font-size: clamp(38px, 8vw, 65px);
-      line-height: 1.08;
-      margin: 16px 0;
+    .hero h1 {
+      font-size: clamp(36px, 7vw, 62px);
+      line-height: 1.1;
+      margin-bottom: 20px;
     }
+
+    .hero h1 span { color: #ff4658; }
 
     .hero p {
-      color: #dedede;
-      font-size: 17px;
-      max-width: 540px;
+      max-width: 620px;
+      margin: 0 auto 30px;
+      color: #e0e0e0;
+      font-size: 18px;
+    }
+
+    .botones {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .boton {
       display: inline-block;
+      padding: 13px 23px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .boton:hover { transform: translateY(-2px); }
+
+    .boton-rojo {
       background: var(--rojo);
       color: white;
-      padding: 13px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 12px 8px 0 0;
     }
 
-    .boton-secundario {
-      background: transparent;
-      border: 1px solid #aaa;
-    }
-
-    section { padding: 55px 7%; }
-
-    .subtitulo {
-      color: var(--rojo);
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    h2 {
-      font-size: clamp(27px, 5vw, 38px);
-      line-height: 1.2;
-      margin: 8px 0 14px;
-    }
-
-    .intro {
-      max-width: 600px;
-      color: #606060;
-    }
-
-    .productos {
-      background: var(--gris);
-    }
-
-    .rejilla {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
-      margin-top: 28px;
-    }
-
-    .tarjeta {
+    .boton-blanco {
       background: white;
-      padding: 24px;
-      border-radius: 9px;
-      border: 1px solid #e5e5e5;
+      color: var(--negro);
     }
 
-    .simbolo {
-      font-size: 31px;
+    section { padding: 65px 6%; }
+
+    .titulo {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .titulo h2 {
+      font-size: clamp(27px, 4vw, 38px);
       margin-bottom: 8px;
     }
 
-    .tarjeta h3 { margin: 5px 0; }
+    .titulo p { color: #666; }
 
-    .tarjeta p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 0;
+    .categorias {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
     }
 
-    .consulta {
+    .categoria {
+      background: var(--gris);
+      border: 1px solid #e7e7e7;
+      border-radius: 12px;
+      padding: 26px 22px;
+      transition: 0.2s;
+    }
+
+    .categoria:hover {
+      border-color: var(--rojo);
+      transform: translateY(-4px);
+    }
+
+    .categoria .icono {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .categoria h3 {
+      margin-bottom: 7px;
+      font-size: 20px;
+    }
+
+    .categoria p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .nosotros {
+      background: var(--gris);
+      text-align: center;
+    }
+
+    .nosotros p {
+      max-width: 720px;
+      margin: 0 auto 20px;
+      color: #444;
+      font-size: 17px;
+    }
+
+    .ubicacion {
+      text-align: center;
+    }
+
+    .direccion {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 12px 0 22px;
+    }
+
+    .contacto {
       background: var(--negro);
       color: white;
       text-align: center;
     }
 
-    .consulta p {
-      color: #d1d1d1;
-      max-width: 520px;
-      margin: 14px auto;
-    }
-
-    .ubicacion {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 25px;
-    }
-
-    .dato {
-      padding: 22px;
-      background: var(--gris);
-      border-radius: 8px;
+    .contacto p {
+      color: #ddd;
+      margin-bottom: 24px;
     }
 
     footer {
-      padding: 22px;
+      background: #101010;
+      color: #aaa;
       text-align: center;
-      background: #080808;
-      color: #ccc;
+      padding: 22px 15px;
       font-size: 13px;
     }
 
-    @media (max-width: 480px) {
-      header { padding: 16px 5%; }
-      .marca { font-size: 24px; }
-      nav { gap: 12px; }
-      .hero { padding: 55px 6%; }
-      section { padding: 42px 6%; }
+    .whatsapp-flotante {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 10;
+      background: #25d366;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 4px 14px #0003;
+    }
+
+    @media (max-width: 600px) {
+      header { justify-content: center; text-align: center; }
+      nav { justify-content: center; gap: 12px; }
+      .hero { padding: 65px 18px; }
+      section { padding: 48px 5%; }
     }
   </style>
 </head>
+
 <body>
 
   <header>
-    <div class="marca">CASA <span>TITO</span></div>
+    <a href="#inicio" class="logo">CASA <span>TITO.</span></a>
     <nav>
       <a href="#inicio">Inicio</a>
       <a href="#productos">Productos</a>
       <a href="#nosotros">Nosotros</a>
+      <a href="#ubicacion">Ubicación</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="inicio">
-      <div class="hero-contenido">
-        <div class="etiqueta">Tu ferretería de confianza</div>
-        <h1>Todo para tus proyectos.</h1>
-        <p>
-          Herramientas, pinturas y materiales para construir,
-          reparar y renovar. En Casa Tito te ayudamos a encontrar
-          lo que necesitás.
-        </p>
-        <a class="boton" href="#productos">Conocé nuestros productos</a>
-        <a class="boton boton-secundario"
-           href="#contacto">Cómo encontrarnos</a>
+      <div class="etiqueta">FERRETERÍA · CÓRDOBA</div>
+      <h1>Todo para tus proyectos.<br><span>Todo en Casa Tito.</span></h1>
+      <p>Herramientas, pinturas y materiales para tus arreglos, obras y proyectos. ¡Estamos para ayudarte!</p>
+      <div class="botones">
+        <a class="boton boton-rojo"
+           href="https://wa.me/5493517535587?text=Hola%20Casa%20Tito%2C%20quer%C3%ADa%20consultar%20por%20un%20producto."
+           target="_blank" rel="noopener">
+          Consultar por WhatsApp
+        </a>
+        <a class="boton boton-blanco" href="#productos">Ver categorías</a>
       </div>
     </section>
 
-    <section class="productos" id="productos">
-      <div class="subtitulo">Nuestro rubro</div>
-      <h2>Soluciones para cada trabajo</h2>
-      <p class="intro">
-        Encontrá distintas opciones para tus arreglos, obras
-        y proyectos de todos los días.
-      </p>
+    <section id="productos">
+      <div class="titulo">
+        <h2>¿Qué estás buscando?</h2>
+        <p>Encontrá lo que necesitás para tu casa, taller u obra.</p>
+      </div>
 
-      <div class="rejilla">
-        <article class="tarjeta">
-          <div class="simbolo">🎨</div>
+      <div class="categorias">
+        <article class="categoria">
+          <div class="icono">🖌️</div>
           <h3>Pinturas</h3>
-          <p>Látex, fijadores, enduidos, membranas y más opciones
-          para renovar tus espacios.</p>
+          <p>Látex, esmaltes, fijadores, enduidos y productos para renovar tus espacios.</p>
         </article>
 
-        <article class="tarjeta">
-          <div class="simbolo">🔧</div>
+        <article class="categoria">
+          <div class="icono">🔧</div>
           <h3>Herramientas</h3>
-          <p>Elementos para reparaciones, mantenimiento y trabajos
-          profesionales.</p>
+          <p>Herramientas manuales y eléctricas para tus trabajos y reparaciones.</p>
         </article>
 
-        <article class="tarjeta">
-          <div class="simbolo">🧱</div>
+        <article class="categoria">
+          <div class="icono">🧰</div>
           <h3>Ferretería</h3>
-          <p>Artículos y accesorios para resolver los trabajos
-          de todos los días.</p>
+          <p>Tornillos, fijaciones, adhesivos y artículos para resolver el día a día.</p>
         </article>
 
-        <article class="tarjeta">
-          <div class="simbolo">🏠</div>
+        <article class="categoria">
+          <div class="icono">🧱</div>
           <h3>Construcción</h3>
-          <p>Materiales y soluciones para avanzar con tus
-          proyectos de obra.</p>
+          <p>Productos y materiales para mantenimiento, reformas y construcción.</p>
         </article>
       </div>
     </section>
 
-    <section id="nosotros">
-      <div class="subtitulo">Sobre nosotros</div>
-      <h2>Una mano para cada proyecto</h2>
-      <p class="intro">
-        En Casa Tito trabajamos para ofrecerte productos y
-        soluciones para tu hogar, tu obra o tu negocio.
-        Queremos que encuentres lo que buscás y puedas seguir
-        adelante con tu proyecto.
-      </p>
-    </section>
-
-    <section class="consulta">
-      <div class="subtitulo">Estamos para ayudarte</div>
-      <h2>¿Qué estás buscando?</h2>
-      <p>
-        Consultanos por los productos que necesitás y te
-        ayudaremos a encontrar la mejor opción.
-      </p>
-      <a class="boton" href="#contacto">Contactar a Casa Tito</a>
-    </section>
-
-    <section id="contacto">
-      <div class="subtitulo">Visitá nuestro local</div>
-      <h2>Encontranos en Córdoba</h2>
-
-      <div class="ubicacion">
-        <div class="dato">
-          <h3>📍 Dirección</h3>
-          <p>Fuerza Aérea 3118, Córdoba.</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Fuerza+Aerea+3118+Cordoba+Argentina"
-             target="_blank" rel="noopener">Ver en Google Maps →</a>
-        </div>
-
-        <div class="dato">
-          <h3>💬 Consultas</h3>
-          <p>Escribinos para consultar por productos y disponibilidad.</p>
-          <p>El contacto por WhatsApp se habilitará cuando agreguemos
-          el número del negocio.</p>
-        </div>
+    <section class="nosotros" id="nosotros">
+      <div class="titulo">
+        <h2>Somos Casa Tito</h2>
       </div>
+      <p>
+        Queremos ayudarte a encontrar lo que necesitás para cada proyecto,
+        con atención cercana y soluciones prácticas para tu hogar y tu trabajo.
+      </p>
+      <a class="boton boton-rojo"
+         href="https://wa.me/5493517535587?text=Hola%20Casa%20Tito"
+         target="_blank" rel="noopener">
+        Hablá con nosotros
+      </a>
+    </section>
+
+    <section class="ubicacion" id="ubicacion">
+      <div class="titulo">
+        <h2>Vení a visitarnos</h2>
+        <p>Te esperamos en nuestro local.</p>
+      </div>
+      <div class="direccion">📍 Fuerza Aérea 3118, Córdoba</div>
+      <a class="boton boton-rojo"
+         href="https://www.google.com/maps/search/?api=1&query=Fuerza+Aerea+3118+Cordoba+Argentina"
+         target="_blank" rel="noopener">
+        Cómo llegar
+      </a>
+    </section>
+
+    <section class="contacto" id="contacto">
+      <div class="titulo">
+        <h2>¿Necesitás algo?</h2>
+        <p>Escribinos y consultá por productos y disponibilidad.</p>
+      </div>
+      <a class="boton boton-rojo"
+         href="https://wa.me/5493517535587?text=Hola%20Casa%20Tito%2C%20tengo%20una%20consulta."
+         target="_blank" rel="noopener">
+        Contactar por WhatsApp
+      </a>
     </section>
   </main>
 
   <footer>
-    © 2026 Casa Tito · Ferretería y soluciones para tus proyectos
+    <p><strong>CASA TITO</strong> · Ferretería en Córdoba</p>
+    <p>Fuerza Aérea 3118 · © 2026 Todos los derechos reservados</p>
   </footer>
+
+  <a class="whatsapp-flotante"
+     href="https://wa.me/5493517535587?text=Hola%20Casa%20Tito"
+     target="_blank" rel="noopener"
+     aria-label="Escribir a Casa Tito por WhatsApp">
+    WhatsApp
+  </a>
 
 </body>
 </html>
