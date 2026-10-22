@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 <head>
+  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#173B70">
@@ -892,72 +893,260 @@ const categorias = {
     descripcion: "Pinturas, rodillos, pinceles y complementos.",
     imagen: imagenes.pintura,
     productos: [
-      {
-        nombre: "Pinturas látex",
-        descripcion: "Pinturas para renovar paredes y ambientes interiores o exteriores. Consultá marcas, colores y presentaciones.",
-        imagen: imagenes.pintura
-      },
-      {
-        nombre: "Rodillos",
-        descripcion: "Rodillos para distintas superficies y trabajos de pintura. Consultá las opciones disponibles.",
-        imagen: imagenes.rodillos
-      },
-      {
-        nombre: "Pinceles",
-        descripcion: "Pinceles para pintar, retocar y trabajar sobre distintas superficies. Consultá medidas y tipos disponibles.",
-        imagen: imagenes.pincel
-      },
-      {
-        nombre: "Fijador",
-        descripcion: "Productos para preparar superficies antes de pintar. Consultá presentaciones y disponibilidad.",
-        imagen: imagenes.pintura
-      },
-      {
-        nombre: "Enduido",
-        descripcion: "Material para preparar y alisar superficies antes de pintar.",
-        imagen: imagenes.pintura
-      },
-      {
-        nombre: "Membranas",
-        descripcion: "Soluciones para trabajos de impermeabilización. Consultá tipos y presentaciones.",
-        imagen: imagenes.construccion
-      },
-      {
-        nombre: "Membrana líquida",
-        descripcion: "Revestimiento para trabajos de impermeabilización. Consultá marcas y presentaciones.",
-        imagen: imagenes.pintura
-      },
-      {
-        nombre: "Esmaltes y protectores",
-        descripcion: "Opciones para proteger y renovar distintas superficies.",
-        imagen: imagenes.pintura
-      }
+      { nombre: "Pinturas látex", descripcion: "Pinturas para renovar paredes y ambientes interiores o exteriores. Consultá marcas, colores y presentaciones.", imagen: imagenes.pintura },
+      { nombre: "Rodillos", descripcion: "Rodillos para distintas superficies y trabajos de pintura. Consultá las opciones disponibles.", imagen: imagenes.rodillos },
+      { nombre: "Pinceles", descripcion: "Pinceles para pintar, retocar y trabajar sobre distintas superficies. Consultá medidas y tipos disponibles.", imagen: imagenes.pincel },
+      { nombre: "Fijador", descripcion: "Productos para preparar superficies antes de pintar. Consultá presentaciones y disponibilidad.", imagen: imagenes.pintura },
+      { nombre: "Enduido", descripcion: "Material para preparar y alisar superficies antes de pintar.", imagen: imagenes.pintura },
+      { nombre: "Membranas", descripcion: "Soluciones para trabajos de impermeabilización. Consultá tipos y presentaciones.", imagen: imagenes.construccion },
+      { nombre: "Membrana líquida", descripcion: "Revestimiento para trabajos de impermeabilización. Consultá marcas y presentaciones.", imagen: imagenes.pintura },
+      { nombre: "Esmaltes y protectores", descripcion: "Opciones para proteger y renovar distintas superficies.", imagen: imagenes.pintura }
     ]
   },
-
   herramientas: {
     nombre: "Herramientas",
     descripcion: "Elementos para reparaciones y trabajos.",
     imagen: imagenes.herramientas,
     productos: [
-      {
-        nombre: "Herramientas manuales",
-        descripcion: "Herramientas para reparación, mantenimiento y trabajos cotidianos.",
-        imagen: imagenes.herramientas
-      },
-      {
-        nombre: "Herramientas de medición",
-        descripcion: "Elementos para medir y marcar con precisión.",
-        imagen: imagenes.herramientas
-      },
-      {
-        nombre: "Accesorios para herramientas",
-        descripcion: "Complementos para distintos trabajos y herramientas.",
-        imagen: imagenes.ferreteria
-      }
+      { nombre: "Herramientas manuales", descripcion: "Herramientas para reparación, mantenimiento y trabajos cotidianos.", imagen: imagenes.herramientas },
+      { nombre: "Herramientas de medición", descripcion: "Elementos para medir y marcar con precisión.", imagen: imagenes.herramientas },
+      { nombre: "Accesorios para herramientas", descripcion: "Complementos para distintos trabajos y herramientas.", imagen: imagenes.ferreteria }
     ]
   },
-
   ferreteria: {
     nombre: "Ferretería",
-    descripcion: "Artí
+    descripcion: "Artículos para arreglos, mantenimiento y uso cotidiano.",
+    imagen: imagenes.ferreteria,
+    productos: [
+      { nombre: "Cerraduras y candados", descripcion: "Opciones para asegurar puertas, portones y distintos espacios. Consultá modelos y medidas.", imagen: imagenes.ferreteria },
+      { nombre: "Bisagras y herrajes", descripcion: "Herrajes y accesorios para puertas, muebles y reparaciones.", imagen: imagenes.ferreteria },
+      { nombre: "Adhesivos y selladores", descripcion: "Productos para pegar, sellar y resolver distintos trabajos de mantenimiento.", imagen: imagenes.pintura },
+      { nombre: "Electricidad", descripcion: "Artículos y accesorios para instalaciones y reparaciones eléctricas. Consultá disponibilidad.", imagen: imagenes.herramientas },
+      { nombre: "Plomería", descripcion: "Accesorios y elementos para reparaciones de agua y mantenimiento del hogar.", imagen: imagenes.ferreteria }
+    ]
+  },
+  fijaciones: {
+    nombre: "Fijaciones",
+    descripcion: "Tornillos, tarugos, clavos y elementos de sujeción.",
+    imagen: imagenes.tornillos,
+    productos: [
+      { nombre: "Tornillos", descripcion: "Tornillos para distintos materiales y aplicaciones. Consultá medidas y tipos disponibles.", imagen: imagenes.tornillos },
+      { nombre: "Tarugos", descripcion: "Tarugos para fijaciones en diferentes superficies. Consultá medidas y presentaciones.", imagen: imagenes.tornillos },
+      { nombre: "Clavos", descripcion: "Clavos para trabajos de carpintería, construcción y reparaciones.", imagen: imagenes.tornillos },
+      { nombre: "Bulones y tuercas", descripcion: "Elementos de fijación para montajes, reparaciones y trabajos diversos.", imagen: imagenes.tornillos },
+      { nombre: "Arandelas", descripcion: "Arandelas para complementar distintos sistemas de fijación.", imagen: imagenes.tornillos }
+    ]
+  },
+  construccion: {
+    nombre: "Construcción",
+    descripcion: "Materiales y complementos para obras y reparaciones.",
+    imagen: imagenes.construccion,
+    productos: [
+      { nombre: "Impermeabilización", descripcion: "Productos para proteger superficies de la humedad y las filtraciones. Consultá opciones disponibles.", imagen: imagenes.construccion },
+      { nombre: "Espumas y selladores", descripcion: "Soluciones para sellar juntas, rellenar espacios y realizar terminaciones.", imagen: imagenes.construccion },
+      { nombre: "Accesorios de obra", descripcion: "Elementos complementarios para trabajos de construcción y mantenimiento.", imagen: imagenes.herramientas },
+      { nombre: "Protección y seguridad", descripcion: "Artículos para acompañar tareas de obra y trabajos generales. Consultá disponibilidad.", imagen: imagenes.construccion }
+    ]
+  },
+  otros: {
+    nombre: "Otros",
+    descripcion: "Más artículos útiles para tu casa, obra o trabajo.",
+    imagen: imagenes.pincel,
+    productos: [
+      { nombre: "Artículos para el hogar", descripcion: "Productos útiles para tareas cotidianas, mantenimiento y pequeñas reparaciones.", imagen: imagenes.ferreteria },
+      { nombre: "Accesorios varios", descripcion: "Una selección de artículos complementarios. Escribinos para consultar lo que necesitás.", imagen: imagenes.herramientas },
+      { nombre: "Productos de temporada", descripcion: "Consultá por productos disponibles según la temporada y las necesidades de tu proyecto.", imagen: imagenes.construccion }
+    ]
+  }
+};
+
+/* ELEMENTOS Y ESTADO DEL CATÁLOGO */
+const portadaInicial = document.getElementById("portadaInicial");
+const entrarCatalogo = document.getElementById("entrarCatalogo");
+const vistaCategorias = document.getElementById("vistaCategorias");
+const vistaCategoria = document.getElementById("vistaCategoria");
+const vistaProducto = document.getElementById("vistaProducto");
+const listaCategorias = document.getElementById("listaCategorias");
+const listaProductos = document.getElementById("listaProductos");
+const tituloCatalogo = document.getElementById("tituloCatalogo");
+const descripcionCatalogo = document.getElementById("descripcionCatalogo");
+const tituloCategoria = document.getElementById("tituloCategoria");
+const rutaCategoria = document.getElementById("rutaCategoria");
+const rutaProducto = document.getElementById("rutaProducto");
+const imagenDetalle = document.getElementById("imagenDetalle");
+const categoriaDetalle = document.getElementById("categoriaDetalle");
+const nombreDetalle = document.getElementById("nombreDetalle");
+const descripcionDetalle = document.getElementById("descripcionDetalle");
+const whatsappProducto = document.getElementById("whatsappProducto");
+
+let categoriaActual = null;
+let productoActual = null;
+const CLAVE_CORTINA_VISTA = "casaTitoCortinaVista";
+
+/* CORTINA: UNA VEZ POR SESIÓN DE PESTAÑA */
+function ocultarPortadaAlCargarSiYaSeVio() {
+  try {
+    if (sessionStorage.getItem(CLAVE_CORTINA_VISTA) === "si") {
+      portadaInicial.style.display = "none";
+      document.body.classList.remove("bloqueado");
+      return;
+    }
+  } catch (error) {
+    // Si el navegador bloquea sessionStorage, el botón sigue funcionando normalmente.
+  }
+  document.body.classList.add("bloqueado");
+}
+
+function salirDeLaPortada() {
+  if (!portadaInicial || portadaInicial.classList.contains("saliendo")) return;
+
+  try {
+    sessionStorage.setItem(CLAVE_CORTINA_VISTA, "si");
+  } catch (error) {
+    // La animación funciona aunque el almacenamiento no esté disponible.
+  }
+
+  portadaInicial.classList.add("saliendo");
+  document.body.classList.remove("bloqueado");
+
+  const finalizarSalida = () => {
+    portadaInicial.style.display = "none";
+    portadaInicial.removeEventListener("animationend", alTerminarAnimacion);
+  };
+  const alTerminarAnimacion = (event) => {
+    if (event.target === portadaInicial && event.animationName === "salirCortina") {
+      finalizarSalida();
+    }
+  };
+
+  portadaInicial.addEventListener("animationend", alTerminarAnimacion);
+  // Respaldo para navegadores que no disparen animationend.
+  window.setTimeout(finalizarSalida, 1000);
+}
+
+entrarCatalogo.addEventListener("click", salirDeLaPortada);
+ocultarPortadaAlCargarSiYaSeVio();
+
+/* TARJETAS DE CATEGORÍAS */
+function crearTarjeta(nombre, descripcion, imagen, textoAccion, accion) {
+  const article = document.createElement("article");
+  article.className = "tarjeta";
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.setAttribute("aria-label", `${textoAccion}: ${nombre}`);
+
+  const img = document.createElement("img");
+  img.src = imagen;
+  img.alt = nombre;
+  img.loading = "lazy";
+  img.onerror = () => { img.style.display = "none"; };
+
+  const info = document.createElement("div");
+  info.className = "tarjeta-info";
+  const h3 = document.createElement("h3");
+  h3.textContent = nombre;
+  const p = document.createElement("p");
+  p.textContent = descripcion;
+  const explorar = document.createElement("span");
+  explorar.className = "enlace-explorar";
+  explorar.textContent = `${textoAccion} →`;
+
+  info.append(h3, p, explorar);
+  button.append(img, info);
+  button.addEventListener("click", accion);
+  article.appendChild(button);
+  return article;
+}
+
+function mostrarCategorias() {
+  categoriaActual = null;
+  productoActual = null;
+  vistaCategorias.classList.remove("oculto");
+  vistaCategoria.classList.add("oculto");
+  vistaProducto.classList.add("oculto");
+  tituloCatalogo.textContent = "¿Qué estás buscando?";
+  descripcionCatalogo.textContent = "Elegí una categoría para descubrir los productos disponibles.";
+  listaCategorias.innerHTML = "";
+
+  Object.entries(categorias).forEach(([id, categoria]) => {
+    listaCategorias.appendChild(crearTarjeta(
+      categoria.nombre,
+      categoria.descripcion,
+      categoria.imagen,
+      "Ver productos",
+      () => mostrarProductos(id)
+    ));
+  });
+}
+
+function mostrarProductos(id) {
+  const categoria = categorias[id];
+  if (!categoria) return;
+  categoriaActual = id;
+  productoActual = null;
+  vistaCategorias.classList.add("oculto");
+  vistaCategoria.classList.remove("oculto");
+  vistaProducto.classList.add("oculto");
+  tituloCatalogo.textContent = categoria.nombre;
+  descripcionCatalogo.textContent = categoria.descripcion;
+  tituloCategoria.textContent = categoria.nombre;
+  rutaCategoria.innerHTML = "Catálogo / <strong></strong>";
+  rutaCategoria.querySelector("strong").textContent = categoria.nombre;
+  listaProductos.innerHTML = "";
+
+  categoria.productos.forEach((producto, indice) => {
+    listaProductos.appendChild(crearTarjeta(
+      producto.nombre,
+      producto.descripcion,
+      producto.imagen,
+      "Ver detalle",
+      () => mostrarDetalle(id, indice)
+    ));
+  });
+  document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function mostrarDetalle(id, indice) {
+  const categoria = categorias[id];
+  const producto = categoria && categoria.productos[indice];
+  if (!producto) return;
+  categoriaActual = id;
+  productoActual = indice;
+  vistaCategorias.classList.add("oculto");
+  vistaCategoria.classList.add("oculto");
+  vistaProducto.classList.remove("oculto");
+
+  rutaProducto.innerHTML = "Catálogo / <strong></strong> / <span></span>";
+  rutaProducto.querySelector("strong").textContent = categoria.nombre;
+  rutaProducto.querySelector("span").textContent = producto.nombre;
+  imagenDetalle.src = producto.imagen;
+  imagenDetalle.alt = producto.nombre;
+  imagenDetalle.onerror = () => { imagenDetalle.style.visibility = "hidden"; };
+  imagenDetalle.onload = () => { imagenDetalle.style.visibility = "visible"; };
+  categoriaDetalle.textContent = categoria.nombre;
+  nombreDetalle.textContent = producto.nombre;
+  descripcionDetalle.textContent = producto.descripcion;
+
+  const mensaje = `Hola Casa Tito, quisiera consultar por ${producto.nombre}. ¿Me podrían informar disponibilidad, marcas y precio?`;
+  whatsappProducto.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+  document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function volverAProductos() {
+  if (categoriaActual) mostrarProductos(categoriaActual);
+}
+
+document.getElementById("volverCategorias").addEventListener("click", () => {
+  mostrarCategorias();
+  document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+document.getElementById("volverProductos").addEventListener("click", volverAProductos);
+document.getElementById("volverLista").addEventListener("click", volverAProductos);
+
+/* AÑO AUTOMÁTICO Y ARRANQUE */
+document.getElementById("anio").textContent = new Date().getFullYear();
+mostrarCategorias();
+</script>
+</body>
+</html>
