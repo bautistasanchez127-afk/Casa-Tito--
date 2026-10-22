@@ -1,1152 +1,880 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#173B70">
-
-<title>Casa Tito | Autoservicio Ferretero</title>
-<meta name="description" content="Casa Tito, sucesores de Pablo Antonini. Desde 1953 acompañando a Córdoba.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800;900&display=swap" rel="stylesheet">
-
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#244A78" />
+    <meta name="description" content="Casa Tito — maqueta visual premium de una ferretería de trayectoria." />
+    <title>Casa Tito — Todo empieza con una buena elección</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
 :root {
-  --azul: #173B70;
-  --oscuro: #102947;
-  --rojo: #D62839;
-  --amarillo: #F2C230;
-  --gris: #667085;
-  --fondo: #F5F7FA;
-  --verde: #168A45;
+  --red: #b52b32;
+  --red-dark: #8d2028;
+  --blue: #244a78;
+  --blue-deep: #173657;
+  --gold: #d4ad43;
+  --gold-soft: #e5c56a;
+  --cream: #f5f3ee;
+  --warm: #fbfaf7;
+  --ink: #17222d;
+  --muted: #6d767b;
+  --line: rgba(23, 34, 45, 0.15);
+  --white-line: rgba(255, 255, 255, 0.2);
+  --shadow: 0 24px 55px rgba(23, 34, 45, 0.12);
+  --sans: "DM Sans", Arial, sans-serif;
+  --display: "Manrope", "DM Sans", Arial, sans-serif;
+  --mono: "DM Mono", monospace;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
-}
-
-body {
-  margin: 0;
-  font-family: 'Inter', Arial, sans-serif;
-  color: #20242A;
-  background: var(--fondo);
-  line-height: 1.6;
-}
-
-body.bloqueado {
-  overflow: hidden;
-}
-
-button, input {
-  font: inherit;
-}
-
-a {
-  color: inherit;
-}
-
-/* CORTINA DE ENTRADA */
-
-.portada-inicial {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 24px;
-  color: white;
-  background: linear-gradient(135deg, var(--oscuro), var(--azul) 72%, #24518B);
-  animation: entrarCortina .8s cubic-bezier(.76, 0, .24, 1) both;
-  will-change: transform;
-}
-
-.portada-inicial::before,
-.portada-inicial::after {
-  content: "";
-  position: absolute;
-  border: 45px solid #ffffff0b;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.portada-inicial::before {
-  width: 320px;
-  height: 320px;
-  right: -130px;
-  top: -130px;
-}
-
-.portada-inicial::after {
-  width: 250px;
-  height: 250px;
-  left: -130px;
-  bottom: -130px;
-}
-
-.portada-inicial.saliendo {
-  animation: salirCortina .8s cubic-bezier(.76, 0, .24, 1) forwards;
-  pointer-events: none;
-}
-
-.portada-contenido {
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--cream); font-family: var(--sans); font-size: 16px; line-height: 1.5; overflow-x: hidden; }
+body.drawer-open { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { border: 0; cursor: pointer; }
+img { display: block; width: 100%; object-fit: cover; }
+.shell { width: min(1160px, calc(100% - 64px)); margin: 0 auto; }
+.section-light { background: var(--warm); }
+.section-cream { background: var(--cream); }
+.section-dark { color: var(--cream); background: var(--blue-deep); position: relative; overflow: hidden; }
+.demo-bar { min-height: 32px; padding: 7px 24px; display: flex; justify-content: center; align-items: center; gap: 20px; background: var(--gold); color: var(--blue-deep); font: 11px var(--mono); letter-spacing: .01em; text-align: center; position: relative; z-index: 20; }
+.demo-bar b { font-weight: 500; letter-spacing: .08em; }
+.demo-bar i { display: inline-block; width: 4px; height: 4px; margin: 0 9px 2px; border-radius: 50%; background: var(--blue-deep); }
+.demo-bar__close { position: absolute; right: 22px; top: 2px; padding: 3px 7px; color: var(--blue-deep); background: transparent; font-size: 20px; font-weight: 300; }
+.site-header { position: sticky; top: 0; z-index: 15; background: rgba(245,243,238,.94); border-bottom: 1px solid transparent; transition: .35s ease; backdrop-filter: blur(12px); }
+.site-header.is-scrolled { border-color: var(--line); box-shadow: 0 3px 20px rgba(23,34,45,.06); }
+.nav-wrap { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
+.brand__mark { width: 40px; height: 40px; display: grid; place-items: center; position: relative; color: var(--cream); background: var(--red); border-radius: 50%; font: 700 16px/1 var(--display); transform: rotate(-8deg); }
+.brand__mark span:first-child { position: absolute; top: 8px; left: 10px; }
+.brand__mark span:last-child { position: absolute; right: 8px; bottom: 7px; color: var(--gold-soft); }
+.brand__name { display: flex; flex-direction: column; color: var(--blue-deep); font: 700 21px/1 var(--display); letter-spacing: -.04em; }
+.brand__name b { color: var(--red); font-weight: 700; }
+.brand__name small { margin-top: 5px; color: var(--muted); font: 7px/1 var(--mono); letter-spacing: .1em; }
+.desktop-nav { display: flex; align-items: center; gap: clamp(19px, 3vw, 42px); margin-left: auto; }
+.desktop-nav a { padding: 30px 0; position: relative; color: #52606a; font-size: 13px; transition: color .25s ease; }
+.desktop-nav a::after { content: ""; position: absolute; left: 0; bottom: 22px; width: 0; height: 2px; background: var(--red); transition: width .25s ease; }
+.desktop-nav a:hover { color: var(--red); }
+.desktop-nav a:hover::after { width: 100%; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.icon-button, .cart-button { color: var(--blue-deep); background: transparent; }
+.icon-button { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 50%; font-size: 26px; line-height: 1; transition: background .25s ease, color .25s ease; }
+.icon-button:hover { color: var(--cream); background: var(--blue); }
+.cart-button { padding: 9px 0 9px 12px; display: flex; gap: 9px; align-items: center; border-left: 1px solid var(--line); font: 500 12px var(--mono); }
+.cart-count { min-width: 21px; height: 21px; display: grid; place-items: center; border-radius: 50%; color: var(--cream); background: var(--red); font-size: 10px; }
+.menu-toggle { display: none; width: 38px; height: 38px; background: transparent; }
+.menu-toggle span { display: block; width: 21px; height: 1px; margin: 6px auto; background: var(--blue-deep); transition: .3s ease; }
+.mobile-menu { display: none; }
+.hero { min-height: 690px; padding: 92px 0 50px; background: radial-gradient(circle at 90% 20%, rgba(212,173,67,.14), transparent 25%), var(--blue-deep); }
+.hero__grain { position: absolute; inset: 0; opacity: .05; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E"); pointer-events: none; }
+.hero__grid { min-height: 495px; display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; gap: 8%; position: relative; z-index: 1; }
+.eyebrow { margin: 0 0 21px; display: flex; gap: 11px; align-items: center; color: var(--blue); font: 10px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+.eyebrow span { display: inline-block; width: 28px; height: 1px; background: var(--red); }
+.eyebrow--light { color: var(--gold-soft); }
+.eyebrow--light span { background: var(--gold); }
+.hero h1 { max-width: 570px; margin: 0; font: 700 clamp(50px, 6.1vw, 88px)/.98 var(--display); letter-spacing: -.065em; }
+h1 em, h2 em { color: var(--gold-soft); font-style: italic; font-weight: 600; }
+.hero__lead { max-width: 445px; margin: 29px 0 34px; color: rgba(245,243,238,.73); font-size: 16px; line-height: 1.65; }
+.hero__actions { display: flex; align-items: center; gap: 28px; }
+.button { min-height: 48px; padding: 13px 20px; display: inline-flex; align-items: center; justify-content: center; gap: 17px; border: 1px solid transparent; font-size: 12px; font-weight: 700; transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+.button span { font-size: 17px; font-weight: 400; }
+.button:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,.14); }
+.button--gold { color: var(--blue-deep); background: var(--gold); }
+.button--blue { color: var(--cream); background: var(--blue); }
+.button--outline { color: var(--blue); border-color: rgba(36,74,120,.3); background: transparent; }
+.button--outline:hover { color: var(--cream); background: var(--blue); }
+.text-link { padding-bottom: 7px; display: inline-flex; gap: 15px; align-items: center; color: var(--blue); border-bottom: 1px solid var(--gold); font: 500 12px var(--mono); transition: gap .25s ease, color .25s ease; }
+.text-link:hover { gap: 22px; color: var(--red); }
+.text-link--light { color: var(--cream); border-color: var(--gold); }
+.hero__note { margin-top: 60px; display: flex; align-items: center; gap: 13px; color: rgba(245,243,238,.46); font: 9px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.note-line { width: 40px; height: 1px; background: var(--red); }
+.hero__visual { min-height: 510px; position: relative; display: flex; align-items: center; }
+.hero__image-wrap { width: 86%; height: 470px; margin-left: auto; position: relative; overflow: hidden; background: var(--red); clip-path: polygon(7% 0, 100% 0, 100% 93%, 93% 100%, 0 100%, 0 7%); }
+.hero__image { height: 100%; opacity: .9; filter: saturate(.76) contrast(1.06); transform: scale(1.06); transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.hero__visual:hover .hero__image { transform: scale(1.11); }
+.hero__image-shade { position: absolute; inset: 0; background: linear-gradient(145deg, rgba(23,54,87,.3), transparent 50%, rgba(181,43,50,.35)); mix-blend-mode: multiply; }
+.hero__stamp { position: absolute; left: 0; top: 36px; width: 101px; height: 101px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; color: var(--blue-deep); background: var(--gold); border-radius: 50%; transform: rotate(-12deg); box-shadow: 8px 12px 0 rgba(23,54,87,.2); }
+.hero__stamp span { font: 700 24px var(--display); }
+.hero__stamp small { font: 10px/1.05 var(--mono); text-transform: uppercase; }
+.hero__float-card { position: absolute; right: -15px; bottom: 8px; width: 170px; min-height: 110px; padding: 17px 16px; display: flex; flex-direction: column; justify-content: space-between; color: var(--blue-deep); background: var(--cream); box-shadow: var(--shadow); }
+.float-card__number { color: var(--red); font: 11px var(--mono); }
+.float-card__label { font: 13px/1.15 var(--display); }
+.float-card__label b { font-weight: 700; }
+.float-card__arrow { align-self: flex-end; color: var(--red); font-size: 21px; line-height: .7; }
+.hero__bottom { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; color: rgba(245,243,238,.46); font: 9px var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+.hero__bottom .scroll-line { width: 76px; height: 1px; background: var(--gold); }
+.hero__bottom span:last-child { margin-left: auto; color: var(--gold-soft); }
+.trust-strip { background: var(--red); color: var(--cream); }
+.trust-strip__inner { min-height: 128px; display: grid; grid-template-columns: repeat(3, 1fr) 1.4fr; align-items: center; gap: 25px; }
+.trust-strip__inner > div:not(.trust-strip__quote) { display: flex; gap: 14px; align-items: center; border-right: 1px solid rgba(245,243,238,.25); }
+.trust-index { color: var(--gold-soft); font: 11px var(--mono); }
+.trust-strip strong { font: 600 13px/1.25 var(--sans); }
+.trust-strip__quote { padding-left: 30px; color: rgba(245,243,238,.85); font: italic 22px var(--display); }
+.categories, .featured, .story, .principles { padding: 128px 0; }
+.section-heading { margin-bottom: 56px; }
+.section-heading--split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+.section-heading--row { display: flex; align-items: end; justify-content: space-between; gap: 30px; }
+.section-heading h2 { margin: 0; color: var(--blue-deep); font: 700 clamp(37px, 4.2vw, 60px)/1.04 var(--display); letter-spacing: -.06em; }
+      .section-heading__aside { max-width: 335px; padding-bottom: 3px; }
+.section-heading__aside p { margin: 0 0 25px; color: var(--muted); font-size: 14px; line-height: 1.75; }
+.category-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 285px 175px; gap: 14px; }
+.category-card { min-height: 0; padding: 24px; position: relative; overflow: hidden; color: var(--cream); background: var(--blue); text-align: left; transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
+.category-card:hover { transform: translateY(-7px); box-shadow: 0 23px 30px rgba(23,34,45,.18); }
+.category-card--large { grid-row: span 2; }
+.category-card--wide { background: var(--red); }
+.category-card--blue { background: var(--blue); }
+.category-card img { position: absolute; inset: 0; height: 100%; opacity: .85; filter: saturate(.72); transition: transform .65s cubic-bezier(.2,.7,.2,1), opacity .4s ease; }
+.category-card:hover img { transform: scale(1.08); opacity: 1; }
+.category-card__wash { position: absolute; inset: 0; background: linear-gradient(150deg, rgba(23,54,87,.15), rgba(23,54,87,.9)); }
+.category-card__meta { position: absolute; top: 23px; left: 24px; right: 24px; display: flex; justify-content: space-between; color: var(--gold-soft); font: 11px var(--mono); }
+.category-card__meta i { font-size: 20px; font-style: normal; transition: transform .25s ease; }
+.category-card:hover .category-card__meta i { transform: translate(4px,-4px); }
+.category-card__title { position: absolute; left: 24px; bottom: 46px; font: 700 clamp(24px, 2.7vw, 35px)/1 var(--display); letter-spacing: -.04em; }
+.category-card__caption { position: absolute; left: 24px; bottom: 22px; color: rgba(245,243,238,.7); font: 10px var(--mono); }
+.category-card--wide .category-card__title { bottom: 38px; font-size: 29px; }
+.category-card--wide .category-card__caption { bottom: 18px; }
+.category-card__pattern { position: absolute; inset: 0; opacity: .18; background: repeating-linear-gradient(135deg, transparent 0 21px, rgba(245,243,238,.4) 22px 23px, transparent 24px 45px); }
+.category-card__pattern--blue { background: radial-gradient(circle at 70% 20%, rgba(212,173,67,.7) 0 1px, transparent 2px 100px), repeating-radial-gradient(circle at 80% 60%, transparent 0 19px, rgba(245,243,238,.14) 20px 21px); }
+.category-card__symbol { position: absolute; right: 35px; bottom: 12px; color: rgba(245,243,238,.22); font: 104px/1 var(--display); }
+.featured { background: #eeeae1; }
+.featured-tools { display: flex; align-items: center; gap: 12px; }
+.search-field { height: 43px; min-width: 245px; padding: 0 13px; display: flex; gap: 8px; align-items: center; border-bottom: 1px solid var(--blue); color: var(--blue); }
+.search-field span { font-size: 22px; }
+.search-field input { width: 100%; padding: 5px 0; outline: 0; border: 0; color: var(--ink); background: transparent; font-size: 12px; }
+.search-field input::placeholder { color: #899096; }
+.filter-button { padding: 10px 0; display: inline-flex; gap: 7px; color: var(--muted); background: transparent; font: 10px var(--mono); }
+.filter-button span { color: var(--red); font-size: 18px; line-height: .6; }
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.product-card { min-width: 0; background: var(--warm); transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 18px 34px rgba(23,34,45,.1); }
+.product-card__media { height: 280px; position: relative; overflow: hidden; background: #ddd8ce; }
+.product-card__media img { height: 100%; filter: saturate(.7); transition: transform .7s ease, filter .5s ease; }
+.product-card:hover .product-card__media img { transform: scale(1.07); filter: saturate(.95); }
+.product-tag { position: absolute; top: 13px; left: 13px; z-index: 1; padding: 6px 8px; color: var(--cream); background: var(--red); font: 8px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+.product-tag--blue { background: var(--blue); }
+.product-tag--gold { color: var(--blue-deep); background: var(--gold); }
+.product-tag--red { background: var(--red-dark); }
+.product-card__quick { width: 31px; height: 31px; position: absolute; right: 13px; bottom: 13px; z-index: 1; display: grid; place-items: center; color: var(--blue-deep); background: var(--gold); border-radius: 50%; font-size: 21px; font-weight: 300; transition: transform .25s ease; }
+.product-card__quick:hover { transform: rotate(90deg); }
+.product-card__body { padding: 18px 15px 16px; }
+.product-card__brand { margin: 0 0 8px; color: var(--red); font: 9px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.product-card h3 { min-height: 41px; margin: 0; color: var(--blue-deep); font: 700 18px/1.15 var(--display); letter-spacing: -.03em; }
+.product-card__bottom { min-height: 45px; margin-top: 18px; padding-top: 13px; display: flex; gap: 8px; align-items: end; justify-content: space-between; border-top: 1px solid var(--line); }
+.product-card__price { color: var(--blue); font: 700 14px var(--mono); white-space: nowrap; }
+.product-card__price small { display: block; margin-top: 2px; color: #9ba1a1; font: 8px var(--mono); font-weight: 400; }
+.add-button { padding: 5px 0; display: flex; gap: 7px; align-items: center; color: var(--red); background: transparent; font: 600 10px var(--mono); }
+.add-button span { font-size: 17px; transition: transform .25s ease; }
+.add-button:hover span { transform: translate(3px,-3px); }
+.no-results { padding: 80px 0; text-align: center; color: var(--muted); }
+.no-results > span { color: var(--red); font-size: 40px; }
+.no-results p { margin: 7px 0 20px; font-size: 14px; }
+.section-end-link { margin-top: 31px; padding-top: 17px; display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); color: #858b8c; font: 9px var(--mono); }
+.story { background: var(--warm); }
+.story__grid { display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: 12%; }
+.story__visual { min-height: 550px; position: relative; }
+.story__visual::after { content: ""; position: absolute; right: -28px; bottom: -28px; width: 160px; height: 160px; z-index: 0; background: var(--gold); }
+.story__visual img { width: calc(100% - 43px); height: 530px; position: relative; z-index: 1; filter: saturate(.65); }
+.story__seal { width: 112px; height: 112px; padding-top: 27px; position: absolute; right: 0; top: 72px; z-index: 2; color: var(--cream); background: var(--red); border-radius: 50%; text-align: center; font: 9px/1.18 var(--mono); letter-spacing: .1em; transform: rotate(11deg); }
+.story__seal b { font: 700 21px var(--display); letter-spacing: -.05em; }
+.story__vertical { position: absolute; bottom: 23px; left: 14px; z-index: 2; color: var(--cream); font: 9px var(--mono); letter-spacing: .15em; transform: rotate(-90deg); transform-origin: left bottom; }
+.story__copy { max-width: 480px; }
+.story__copy h2 { margin: 0 0 27px; color: var(--blue-deep); font: 700 clamp(38px, 4.6vw, 64px)/1.03 var(--display); letter-spacing: -.065em; }
+.story__copy h2 em { color: var(--red); }
+.story__copy > p:not(.eyebrow) { margin: 0 0 17px; color: var(--muted); font-size: 15px; line-height: 1.76; }
+.story__copy .button { margin-top: 18px; }
+.principles { background: var(--cream); }
+.principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.principle { min-height: 255px; padding: 23px 25px 25px; position: relative; border-top: 1px solid var(--blue); background: rgba(255,255,255,.35); transition: background .3s ease, transform .3s ease; }
+.principle:hover { background: var(--warm); transform: translateY(-5px); }
+.principle__number { color: var(--red); font: 11px var(--mono); }
+.principle__icon { position: absolute; top: 13px; right: 20px; color: var(--gold); font-size: 31px; }
+.principle h3 { margin: 58px 0 10px; color: var(--blue-deep); font: 700 25px var(--display); letter-spacing: -.04em; }
+.principle p { max-width: 250px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.principle__line { width: 45px; height: 2px; position: absolute; bottom: 25px; left: 25px; background: var(--gold); }
+      .welcome-screen__visual {
   position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 700px;
-  text-align: center;
-  animation: aparecer .8s .15s ease both;
+  width: min(100%, 470px);
+  height: 520px;
+  justify-self: end;
+  transform-style: preserve-3d;
+  animation: welcome-visual-in 1.1s .2s cubic-bezier(.2,.7,.2,1) both;
 }
-
-.portada-linea {
-  width: 65px;
-  height: 5px;
-  margin: 0 auto 25px;
-  background: var(--amarillo);
-  border-radius: 10px;
-}
-
-.portada-inicial h1 {
-  margin: 0;
-  color: white;
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: clamp(44px, 9vw, 76px);
-  font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -2px;
-}
-
-.portada-inicial h1 span {
-  color: var(--amarillo);
-}
-
-.portada-subtitulo {
-  margin: 18px 0 0;
-  color: #E4EAF2;
-  font-size: clamp(15px, 3vw, 19px);
-  font-weight: 600;
-}
-
-.portada-antiguedad {
-  display: table;
-  margin: 30px auto;
-  padding: 10px 19px;
-  border-radius: 30px;
-  background: var(--amarillo);
-  color: var(--oscuro);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.portada-pie {
-  margin-top: 24px;
-  color: #CBD5E1;
-  font-size: 12px;
-}
-
-@keyframes entrarCortina {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes salirCortina {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
-}
-
-@keyframes aparecer {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* BARRA Y NAVEGACIÓN */
-
-.barra {
-  padding: 8px 12px;
-  background: var(--oscuro);
-  color: white;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .5px;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: white;
-  border-bottom: 3px solid var(--rojo);
-  box-shadow: 0 3px 14px #00000008;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  max-width: 1150px;
-  margin: auto;
-  padding: 12px 20px;
-}
-
-.logo {
-  color: var(--azul);
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: 23px;
-  font-weight: 900;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.logo span {
-  color: var(--rojo);
-}
-
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-}
-
-.links a {
-  color: var(--azul);
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.links a:hover {
-  color: var(--rojo);
-}
-
-/* BOTONES */
-
-.boton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 13px 19px;
-  border: 0;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform .2s, box-shadow .2s;
-}
-
-.boton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 14px #00000020;
-}
-
-.rojo { background: var(--rojo); color: white; }
-.azul { background: var(--azul); color: white; }
-.verde { background: var(--verde); color: white; }
-.blanco { background: white; color: var(--azul); border: 1px solid #D5DDE7; }
-
-/* PORTADA INTERIOR */
-
-.hero {
-  padding: 38px 20px;
-  background: linear-gradient(135deg, var(--oscuro), var(--azul));
-  color: white;
-  text-align: center;
-  border-bottom: 5px solid var(--amarillo);
-}
-
-.hero h2 {
-  margin: 0 0 10px;
-  color: white;
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: clamp(28px, 5vw, 42px);
-  line-height: 1.2;
-}
-
-.hero p {
-  max-width: 620px;
-  margin: 0 auto;
-  color: #E4EAF2;
-}
-
-.hero .desde {
-  margin-bottom: 5px;
-  color: var(--amarillo);
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-/* SECCIONES */
-
-section {
-  padding: 62px 20px;
-}
-
-.contenedor {
-  max-width: 1150px;
-  margin: auto;
-}
-
-.cabecera-seccion {
-  margin-bottom: 28px;
-}
-
-.cabecera-seccion h2 {
-  margin: 0 0 10px;
-  color: var(--azul);
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.2;
-}
-
-.cabecera-seccion p,
-.mensaje-catalogo {
-  color: var(--gris);
-}
-
-.etiqueta-seccion {
-  display: inline-block;
-  margin-bottom: 7px;
-  color: var(--rojo);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-/* CATEGORÍAS Y PRODUCTOS */
-
-.cuadricula {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  margin-top: 28px;
-}
-
-.tarjeta {
+.welcome-screen__visual-frame {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  border: 1px solid #E2E8F0;
-  border-radius: 14px;
-  background: white;
-  box-shadow: 0 5px 18px #173B700A;
-  transition: transform .2s, box-shadow .2s;
+  border: 1px solid rgba(212,173,67,.35);
+  transform: rotateY(-9deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  animation: welcome-image-float 7s ease-in-out infinite;
 }
-
-.tarjeta:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 26px #173B7018;
-}
-
-.tarjeta button {
-  display: block;
+.welcome-screen__visual-frame img {
   width: 100%;
   height: 100%;
-  padding: 0;
-  border: 0;
-  background: white;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.tarjeta img {
-  display: block;
-  width: 100%;
-  height: 190px;
   object-fit: cover;
-  background: #E9EEF4;
 }
-
-.tarjeta-info {
-  padding: 18px;
-}
-
-.tarjeta h3 {
-  margin: 0 0 8px;
-  color: var(--azul);
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: 19px;
-  line-height: 1.3;
-}
-
-.tarjeta p {
-  margin: 0;
-  color: var(--gris);
-  font-size: 14px;
-}
-
-.enlace-explorar {
-  display: inline-block;
-  margin-top: 14px;
-  color: var(--rojo);
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.oculto {
-  display: none !important;
-}
-
-.barra-catalogo {
+.welcome-screen__floating-card {
+  position: absolute;
+  right: -35px;
+  bottom: 55px;
+  z-index: 2;
+  width: 185px;
+  min-height: 105px;
+  padding: 17px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 25px 0 12px;
+  flex-direction: column;
+  gap: 9px;
+  color: var(--blue-deep);
+  background: var(--cream);
+  box-shadow: 0 20px 45px rgba(0,0,0,.2);
+  transform: translateZ(55px) rotateY(-3deg);
+  animation: welcome-card-in 1s .55s cubic-bezier(.2,.7,.2,1) both;
+}
+.welcome-screen__floating-card span { color: var(--red); font: 11px var(--mono); }
+.welcome-screen__floating-card b { font: 700 18px/1.1 var(--display); }
+.welcome-screen__floating-card i { align-self: flex-end; color: var(--red); font-size: 22px; font-style: normal; line-height: .8; }
+.welcome-screen__orbit { position: absolute; z-index: -1; width: 72%; aspect-ratio: 1; top: 8%; left: 10%; border: 1px solid rgba(212,173,67,.24); border-radius: 50%; transform: translateZ(-50px) rotateX(65deg) rotateZ(-20deg); }
+.welcome-screen__glow { position: absolute; z-index: -1; border-radius: 50%; filter: blur(2px); pointer-events: none; }
+.welcome-screen__glow--one { width: 280px; height: 280px; right: 8%; top: -110px; background: rgba(212,173,67,.1); }
+.welcome-screen__glow--two { width: 420px; height: 420px; left: -230px; bottom: -260px; background: rgba(181,43,50,.12); }
+.welcome-screen__side-note { position: absolute; right: 20px; bottom: 30px; writing-mode: vertical-rl; color: rgba(245,243,238,.32); font: 8px var(--mono); letter-spacing: .16em; }
+@keyframes welcome-copy-in { from { opacity: 0; transform: translate3d(0,24px,-35px) rotateX(4deg); } to { opacity: 1; transform: translate3d(0,0,0) rotateX(0); } }
+@keyframes welcome-visual-in { from { opacity: 0; transform: translate3d(40px,0,-100px) rotateY(-12deg); } to { opacity: 1; transform: translate3d(0,0,0) rotateY(0); } }
+@keyframes welcome-card-in { from { opacity: 0; transform: translate3d(25px,25px,-40px) rotateY(-12deg); } to { opacity: 1; transform: translate3d(0,0,55px) rotateY(-3deg); } }
+@keyframes welcome-image-float { 0%,100% { transform: rotateY(-9deg) rotateX(2deg) translateY(0); } 50% { transform: rotateY(-7deg) rotateX(1deg) translateY(-7px); } }
+
+@media (max-width: 800px) {
+  .welcome-screen { grid-template-columns: 1fr; grid-template-rows: auto minmax(180px, 30vh); align-content: center; gap: 20px; padding: 26px 25px 32px; overflow-y: auto; }
+  .welcome-screen__content { width: 100%; margin: 0; }
+  .welcome-screen__brand { margin-bottom: clamp(24px, 5vh, 48px); }
+  .welcome-screen__brand-name { font-size: 22px; }
+  .welcome-screen__content h1 { font-size: clamp(66px, 14vw, 92px); }
+  .welcome-screen__tagline { margin-top: 16px; font-size: clamp(16px, 4vw, 19px); }
+  .welcome-screen__description { max-width: 390px; margin: 12px 0 20px; font-size: 12px; }
+  .welcome-screen__foot { margin-top: 25px; font-size: 8px; }
+  .welcome-screen__visual { width: min(78%, 370px); height: 25vh; min-height: 175px; max-height: 235px; justify-self: center; margin: 0 15px 5px 0; }
+  .welcome-screen__floating-card { right: -18px; bottom: 4%; width: 140px; min-height: 85px; padding: 11px; }
+  .welcome-screen__floating-card b { font-size: 15px; }
+  .welcome-screen__floating-card span { font-size: 9px; }
+  .welcome-screen__floating-card i { font-size: 18px; }
+  .welcome-screen__side-note { right: 8px; bottom: 15px; font-size: 7px; }
+}
+@media (max-width: 390px) {
+  .welcome-screen { padding: 22px 19px 27px; gap: 14px; }
+  .welcome-screen__brand { margin-bottom: 24px; }
+  .welcome-screen__content h1 { font-size: clamp(58px, 16vw, 66px); }
+  .welcome-screen__tagline { font-size: 15px; }
+  .welcome-screen__eyebrow { font-size: 8px; gap: 7px; }
+  .welcome-screen__description { margin: 11px 0 17px; }
+  .welcome-screen__visual { width: 74%; height: 20vh; min-height: 145px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-screen, .welcome-screen *, .welcome-screen::before {
+    animation: none !important; transition-duration: .01ms !important;
+  }
+  .welcome-screen__visual-frame { transform: none; }
 }
 
-.breadcrumb {
-  color: var(--gris);
-  font-size: 13px;
-  font-weight: 600;
+@media (max-width: 980px) { .shell { width: min(100% - 42px, 720px); }.desktop-nav { gap: 20px; }.desktop-nav a { font-size: 12px; }.hero { padding-top: 67px; }.hero__grid { gap: 4%; }.hero__image-wrap { width: 90%; }.product-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }.product-card__media { height: 260px; }.story__grid { gap: 7%; }.story__visual { min-height: 470px; }.story__visual img { height: 450px; }.footer__links { grid-template-columns: repeat(3, 1fr); }.footer__closing { grid-column: 1 / -1; padding: 28px 0 0; border: 0; border-top: 1px solid rgba(245,243,238,.18); text-align: left; }.footer__closing small { margin-top: 23px; } }
+@media (max-width: 700px) { .shell { width: calc(100% - 38px); }.demo-bar { padding-right: 42px; font-size: 9px; }.demo-bar__close { right: 10px; }.nav-wrap { min-height: 72px; }.desktop-nav, .nav-actions .search-toggle { display: none; }.menu-toggle { display: block; }.mobile-menu { max-height: 0; display: flex; flex-direction: column; overflow: hidden; background: var(--cream); transition: max-height .35s ease; }.mobile-menu.is-open { max-height: 310px; padding: 13px 19px 25px; border-top: 1px solid var(--line); }.mobile-menu a { padding: 13px 0; display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); color: var(--blue-deep); font: 700 20px var(--display); }.mobile-menu a span { color: var(--red); font: 20px var(--mono); }.mobile-menu p { margin: 18px 0 0; color: var(--muted); font: 9px/1.5 var(--mono); }.cart-button { border: 0; }.cart-button__label { display: none; }.hero { min-height: auto; padding: 72px 0 42px; }.hero__grid { display: flex; flex-direction: column; align-items: stretch; gap: 46px; }.hero h1 { font-size: clamp(47px, 14vw, 68px); }.hero__lead { margin-top: 22px; font-size: 14px; }.hero__actions { align-items: flex-start; flex-direction: column; gap: 20px; }.hero__note { margin-top: 39px; }.hero__visual { min-height: 385px; }.hero__image-wrap { width: 91%; height: 340px; }.hero__stamp { width: 83px; height: 83px; padding: 16px; top: 22px; }.hero__stamp span { font-size: 20px; }.hero__stamp small { font-size: 8px; }.hero__float-card { right: -2px; bottom: 0; width: 145px; min-height: 95px; padding: 13px; }.hero__bottom { margin-top: 31px; }.trust-strip__inner { min-height: auto; padding: 29px 0; grid-template-columns: 1fr 1fr; gap: 23px 10px; }.trust-strip__inner > div:not(.trust-strip__quote) { border-right: 0; }.trust-strip__quote { grid-column: 1 / -1; padding: 16px 0 0; border-top: 1px solid rgba(245,243,238,.25); font-size: 19px; }.categories, .featured, .story, .principles { padding: 79px 0; }.section-heading--split, .section-heading--row { display: block; }.section-heading__aside { margin-top: 24px; }.section-heading { margin-bottom: 37px; }.section-heading h2 { font-size: 45px; }.category-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 260px 190px 190px; gap: 10px; }.category-card--large { grid-column: 1 / -1; grid-row: auto; }.category-card--wide { grid-column: auto; }.category-card__title, .category-card--wide .category-card__title { left: 16px; bottom: 37px; font-size: 25px; }.category-card__caption, .category-card--wide .category-card__caption { left: 16px; bottom: 16px; font-size: 8px; }.category-card__meta { top: 16px; left: 16px; right: 16px; }.category-card__symbol { right: 17px; font-size: 75px; }.featured-tools { margin-top: 25px; justify-content: space-between; }.search-field { min-width: 0; flex: 1; }.product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }.product-card__media { height: 190px; }.product-card__body { padding: 14px 11px 12px; }.product-card h3 { min-height: 44px; font-size: 16px; }.product-card__brand { font-size: 8px; }.product-card__price { font-size: 11px; }.product-card__price small { font-size: 7px; }.add-button { font-size: 0; }.add-button span { font-size: 19px; }.product-tag { top: 9px; left: 9px; padding: 5px; font-size: 7px; }.product-card__quick { right: 9px; bottom: 9px; }.section-end-link { display: block; line-height: 2; }.section-end-link .text-link { margin-top: 13px; }.story__grid { display: flex; flex-direction: column; gap: 55px; }.story__visual { width: 100%; min-height: 330px; }.story__visual img { width: calc(100% - 30px); height: 330px; }.story__visual::after { right: -12px; bottom: -12px; width: 105px; height: 105px; }.story__seal { width: 90px; height: 90px; right: -1px; top: 35px; padding-top: 21px; font-size: 7px; }.story__seal b { font-size: 17px; }.story__vertical { left: 7px; bottom: 15px; font-size: 7px; }.story__copy h2 { font-size: 45px; }.principles-grid { grid-template-columns: 1fr; gap: 10px; }.principle { min-height: 218px; }.principle h3 { margin-top: 48px; }.closing-cta { min-height: 520px; padding: 87px 0 60px; }.closing-cta h2 { font-size: 53px; }.closing-cta__shape { width: 350px; height: 350px; right: -160px; top: -40px; }.closing-cta__mark { right: 12px; bottom: 22px; font-size: 130px; }.closing-cta__actions { align-items: flex-start; flex-direction: column; gap: 22px; }.footer__top { align-items: flex-start; flex-wrap: wrap; }.footer__note { width: calc(100% - 65px); margin-left: 0; text-align: left; }.footer__back { width: 100%; padding: 18px 0 0; border-left: 0; border-top: 1px solid rgba(245,243,238,.18); }.footer__links { grid-template-columns: 1fr 1fr; gap: 28px 18px; }.footer__closing { grid-column: 1 / -1; }.cart-drawer { padding: 24px 19px; }.toast { right: 14px; bottom: 14px; min-width: 0; max-width: calc(100% - 28px); }.reveal { transform: translateY(14px); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .reveal { opacity: 1; transform: none !important; }
 }
 
-.breadcrumb strong {
-  color: var(--azul);
+
+/* Ajustes de identidad: industrial limpio, fondos planos y botones sin flechas decorativas. */
+.welcome-screen {
+  background: var(--blue-deep) !important;
 }
-
-.volver {
-  padding: 10px 14px;
-  border: 1px solid #D5DDE7;
-  border-radius: 8px;
-  background: white;
-  color: var(--azul);
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
+.welcome-screen::before { display: none !important; }
+.welcome-screen__glow { display: none !important; }
+.welcome-screen__button {
+  justify-content: center;
+  min-width: 205px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: none;
+  letter-spacing: .055em;
+  }
+.welcome-screen__button:hover {
+  transform: translateY(-2px);
+  background: var(--gold-soft);
+  box-shadow: 0 8px 18px rgba(0,0,0,.12);
 }
-
-.volver:hover {
-  background: #EAF0F7;
+.welcome-screen__button-arrow { display: none !important; }
+.welcome-screen__visual-frame { box-shadow: 0 22px 48px rgba(0,0,0,.2); }
+.welcome-screen__visual-shade {
+  background: rgba(23,54,87,.12) !important;
+  mix-blend-mode: multiply;
 }
-
-.titulo-lista {
-  margin: 18px 0 5px;
-  color: var(--azul);
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: 25px;
+.hero {
+  background: var(--blue-deep) !important;
 }
-
-/* FICHA DEL PRODUCTO */
-
-.ficha-producto {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 35px;
-  margin-top: 25px;
-  padding: 25px;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 5px 22px #173B700A;
-}
-
-.ficha-producto > img {
-  width: 100%;
-  height: 360px;
-  border-radius: 11px;
-  object-fit: cover;
-  background: #E9EEF4;
-}
-
-.ficha-info .categoria {
-  color: var(--rojo);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
+.hero__grain { display: none !important; }
+.hero h1 {
+  max-width: 570px;
+  font-size: clamp(54px, 7.2vw, 96px);
+  line-height: .88;
+  letter-spacing: -.075em;
   text-transform: uppercase;
 }
+.hero h1 span { color: var(--cream); }
+.hero h1 em {
+  color: var(--gold-soft);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -.07em;
+}
+.hero__tagline {
+  margin: 18px 0 0;
+  color: var(--cream);
+  font: 700 clamp(17px, 1.8vw, 22px)/1.35 var(--display);
+  letter-spacing: -.025em;
+}
+.hero__lead { margin-top: 20px; }
+.hero__actions { gap: 24px; }
+.button--gold {
+  min-height: 54px;
+  padding: 0 24px;
+  border-radius: 2px;
+  box-shadow: none;
+  letter-spacing: .055em;
+}
+.button--gold:hover { box-shadow: 0 8px 18px rgba(0,0,0,.12); }
 
-.ficha-info h3 {
-  margin: 12px 0;
-  color: var(--azul);
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: clamp(27px, 4vw, 36px);
-  line-height: 1.2;
+.text-link--light { text-decoration: none; border-bottom: 1px solid rgba(212,173,67,.55); padding-bottom: 5px; }
+.text-link--light span { display: none; }
+.hero__image-shade {
+  background: rgba(23,54,87,.12) !important;
+  mix-blend-mode: multiply;
+}
+.featured { background: var(--cream); }
+@media (max-width: 800px) {
+  .hero h1 { font-size: clamp(56px, 14vw, 82px); }
+  .hero__tagline { font-size: 18px; }
+  .hero__actions { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .button--gold { min-width: 205px; }
 }
 
-.ficha-info p {
-  color: var(--gris);
-  margin-bottom: 22px;
+
+/* Ajustes de limpieza visual: marca tipográfica y menos elementos decorativos. */
+.brand--wordmark { gap: 0; }
+.brand--wordmark .brand__name { flex-direction: row; align-items: baseline; gap: 7px; font-size: 23px; letter-spacing: -.055em; font-weight: 800; }
+.brand--wordmark .brand__name b { color: var(--red); }
+.welcome-screen__content { margin-left: max(0px, calc((100vw - 1160px) / 2 - 18px)); }
+.welcome-screen__brand, .welcome-screen__eyebrow, .welcome-screen__description,
+.welcome-screen__foot, .welcome-screen__side-note, .welcome-screen__floating-card,
+.welcome-screen__orbit, .welcome-screen__visual-index { display: none !important; }
+.welcome-screen__content h1 { margin-bottom: 17px; }
+.welcome-screen__tagline { margin: 0 0 28px; color: var(--gold-soft); font-size: clamp(15px, 1.5vw, 19px); letter-spacing: .015em; }
+.welcome-screen__visual-frame { transform: none; }
+.welcome-screen__visual-shade { background: rgba(23,54,87,.12) !important; }
+.hero__stamp, .hero__float-card { display: none !important; }
+.category-card__meta i, .mobile-menu a span, .float-card__arrow { display: none !important; }
+
+@media (max-width: 800px) {
+  .welcome-screen__content { margin: 0; }
+  .welcome-screen__visual { width: min(82%, 370px); }
+  .welcome-screen__content h1 { font-size: clamp(58px, 15vw, 88px); }
+  .welcome-screen__tagline { margin-bottom: 22px; }
 }
 
-.ficha-acciones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+
+
+/* Ajuste visual v5: menos numeración técnica y menos líneas decorativas. */
+.trust-index,
+.category-card__meta,
+.principle__number,
+.story__vertical { display: none !important; }
+.principle__line { display: none !important; }
+.section-end-link { border-top: 0 !important; padding-top: 8px !important; }
+/* Se conserva la indicación “DESLIZA” y su línea guía para orientar al visitante. */
+.hero__bottom .scroll-line { display: inline-block !important; }
+.hero__bottom { font-family: var(--sans) !important; font-size: 10px !important; letter-spacing: .08em !important; }
+.category-card__caption { font-family: var(--sans) !important; font-size: 11px !important; letter-spacing: 0 !important; }
+.product-tag { font-family: var(--sans) !important; font-size: 9px !important; letter-spacing: .02em !important; }
+.footer__links p, .footer__closing small { font-family: var(--sans) !important; letter-spacing: .04em !important; }
+
+
+/* Ajuste v6: portada industrial limpia, fotos protagonistas y menos ruido visual. */
+.hero { background: var(--blue-deep) !important; }
+.hero__grain { display: none !important; }
+.hero__image-wrap { width: 92%; height: 490px; clip-path: none; border-radius: 3px; background: #243c51; }
+.hero__image { opacity: 1; filter: saturate(.9) contrast(1.04); }
+.hero__image-shade { background: linear-gradient(90deg, rgba(23,54,87,.08), transparent 42%, rgba(23,54,87,.12)) !important; mix-blend-mode: normal; }
+.hero__bottom { margin-top: 12px; color: rgba(245,243,238,.7); font-family: var(--sans) !important; font-size: 11px !important; font-weight: 600; letter-spacing: .02em !important; text-transform: none; }
+.hero__bottom .scroll-line { display: none !important; }
+.hero__note { font-family: var(--sans); font-size: 11px; letter-spacing: .015em; text-transform: none; }
+.hero__note .note-line { display: none; }
+.eyebrow { font-family: var(--sans); font-size: 11px; letter-spacing: .035em; text-transform: none; }
+.welcome-screen { background: var(--blue-deep) !important; }
+.welcome-screen::before { display: none !important; }
+.welcome-screen__glow { display: none !important; }
+.welcome-screen__visual-frame { border-radius: 3px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.18); }
+.welcome-screen__visual-frame img { opacity: .94; filter: saturate(.88) contrast(1.04); }
+.welcome-screen__visual-shade { background: linear-gradient(90deg, rgba(23,54,87,.03), transparent 65%) !important; }
+.welcome-screen__tagline { font-weight: 600; }
+.category-card img { filter: saturate(.84); }
+.product-card__media { background: #f0eee8; }
+.product-card__media img { filter: saturate(.84); }
+.product-tag { border-radius: 2px; }
+@media (max-width: 800px) {
+  .hero__image-wrap { width: 100%; height: 350px; }
+  .hero__bottom { margin-top: 22px; }
+  .welcome-screen__visual-frame { box-shadow: 0 15px 36px rgba(0,0,0,.18); }
 }
 
-.ficha-aviso {
-  margin-top: 13px;
-  color: var(--gris);
-  font-size: 12px;
+
+
+/* Ajuste v7: marca centrada y fondo azul translúcido preparado para la foto real del local. */
+.welcome-screen {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 32px 22px !important;
+  background: var(--blue-deep) !important;
 }
-
-/* NOSOTROS */
-
-#nosotros {
-  background: white;
-  border-top: 1px solid #E5EAF0;
+.welcome-screen__visual {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  z-index: 0 !important;
+  animation: none !important;
+  pointer-events: none !important;
 }
-
-.historia {
-  max-width: 800px;
-  padding: 22px;
-  border-left: 5px solid var(--amarillo);
-  border-radius: 8px;
-  background: var(--fondo);
+.welcome-screen__visual-frame {
+  inset: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  animation: none !important;
 }
-
-.historia strong {
-  color: var(--azul);
+.welcome-screen__visual-frame img {
+  opacity: .34 !important;
+  filter: saturate(.72) contrast(1.02) !important;
+  transform: none !important;
 }
-
-.historia p {
-  margin-bottom: 0;
-  color: var(--gris);
+.welcome-screen__visual-shade {
+  background: rgba(23,54,87,.76) !important;
+  mix-blend-mode: normal !important;
 }
-
-/* CONTACTO */
-
-#contacto {
-  background: #EAF0F7;
+.welcome-screen__content {
+  z-index: 2 !important;
+  width: min(100%, 820px) !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  animation: welcome-copy-in 1s cubic-bezier(.2,.7,.2,1) both;
 }
-
-.contacto-caja {
-  padding: 28px;
-  border-top: 5px solid var(--amarillo);
-  border-radius: 14px;
-  background: white;
-  box-shadow: 0 5px 20px #173B7010;
+.welcome-screen__content h1 {
+  font-size: clamp(76px, 12vw, 150px) !important;
+  line-height: .9 !important;
+  letter-spacing: -.075em !important;
+  margin: 0 0 24px !important;
 }
-
-.contacto-caja h3 {
-  margin-top: 0;
-  color: var(--azul);
-  font-family: 'Manrope', Arial, sans-serif;
-  font-size: 22px;
+.welcome-screen__tagline {
+  margin: 0 0 30px !important;
+  color: var(--cream) !important;
+  font-size: clamp(16px, 2vw, 22px) !important;
 }
-
-.contacto-caja p {
-  color: var(--gris);
+.welcome-screen__button { margin: 0 auto !important; }
+.hero__grid {
+  grid-template-columns: 1fr !important;
+  justify-items: center !important;
 }
-
-.contacto-botones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
+.hero__copy {
+  width: 100% !important;
+  max-width: 900px !important;
+  text-align: center !important;
+  margin: 0 auto !important;
 }
-
-/* PIE */
-
-footer {
-  padding: 30px 15px;
-  border-top: 5px solid var(--rojo);
-  background: var(--oscuro);
-  color: white;
-  text-align: center;
-}
-
-footer p {
-  margin-bottom: 0;
-  color: #CBD5E1;
-  font-size: 13px;
-}
-
-/* CELULAR Y TABLET */
-
-@media(max-width: 800px) {
-  nav {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .links {
-    justify-content: center;
-    gap: 16px;
-  }
-
-  .cuadricula {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .tarjeta img {
-    height: 165px;
-  }
-
-  .ficha-producto {
-    gap: 22px;
-    padding: 18px;
-  }
-
-  .ficha-producto > img {
-    height: 300px;
-  }
-}
-
-@media(max-width: 480px) {
-  .barra { font-size: 10px; }
-
-  nav {
-    padding: 10px 12px;
-    gap: 10px;
-  }
-
-  .logo { font-size: 21px; }
-
-  .links {
-    width: 100%;
-    gap: 18px;
-  }
-
-  .links a { font-size: 13px; }
-
-  section { padding: 45px 16px; }
-
-  .cuadricula {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .tarjeta img { height: 220px; }
-
-  .tarjeta-info { padding: 17px; }
-
-  .barra-catalogo { align-items: flex-start; }
-
-  .ficha-producto {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 15px;
-  }
-
-  .ficha-producto > img { height: 260px; }
-
-  .ficha-acciones { flex-direction: column; }
-
-  .ficha-acciones .boton { width: 100%; }
-
-  .contacto-caja { padding: 20px; }
-
-  .portada-inicial { padding: 22px; }
-
-  .portada-inicial h1 { letter-spacing: -1.5px; }
-
-  .portada-antiguedad {
-    padding: 9px 14px;
-    font-size: 12px;
-  }
-}
-
-@media(prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-
-  .portada-inicial,
-  .portada-contenido {
-    animation-duration: .01ms !important;
-  }
-
-  .tarjeta,
-  .boton {
-    transition-duration: .01ms !important;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- CORTINA DE BIENVENIDA -->
-
-<div class="portada-inicial" id="portadaInicial">
-  <div class="portada-contenido">
-    <div class="portada-linea"></div>
-
-    <h1>CASA <span>TITO</span></h1>
-
-    <p class="portada-subtitulo">
-      Sucesores de Pablo Antonini
-    </p>
-
-    <div class="portada-antiguedad">
-      Desde 1953 · 73 años acompañándote
-    </div>
-
-    <button class="boton rojo" id="entrarCatalogo" type="button">
-      Ver productos <span aria-hidden="true">→</span>
-    </button>
-
-    <p class="portada-pie">
-      Autoservicio Ferretero · Córdoba
-    </p>
-  </div>
-</div>
-
-<div class="barra">
-  CASA TITO · AUTOSERVICIO FERRETERO · CÓRDOBA
-</div>
-
-<header>
-  <nav>
-    <a class="logo" href="#inicio">CASA <span>TITO</span></a>
-
-    <div class="links">
-      <a href="#catalogo">Catálogo</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#contacto">Contacto</a>
-    </div>
-  </nav>
-</header>
-
-<main id="inicio">
-
-  <section class="hero">
-    <div class="contenedor">
-      <p class="desde">DESDE 1953</p>
-      <h2>Todo para tus proyectos.</h2>
-      <p>
-        Pinturas, herramientas y artículos de ferretería.
-        Encontrá lo que necesitás para tu casa, obra o trabajo.
-      </p>
-    </div>
-  </section>
-
-  <!-- CATÁLOGO -->
-
-  <section id="catalogo">
-    <div class="contenedor">
-
-      <div class="cabecera-seccion">
-        <span class="etiqueta-seccion">Explorá nuestra tienda</span>
-        <h2 id="tituloCatalogo">¿Qué estás buscando?</h2>
-        <p id="descripcionCatalogo">
-          Elegí una categoría para descubrir los productos disponibles.
-        </p>
+.hero h1 {
+  max-width: none !important;
+  text-align: center !important;
+                </style>
+  </head>
+  <body class="intro-active">
+    <!-- Portada de bienvenida 3D: se retira al pulsar «Ver productos». -->
+    <section class="welcome-screen" id="welcome-screen" aria-label="Bienvenida a Casa Tito">
+      <div class="welcome-screen__glow welcome-screen__glow--one"></div>
+      <div class="welcome-screen__glow welcome-screen__glow--two"></div>
+      <div class="welcome-screen__content">
+        <h1><span>CASA</span><br /><em>TITO</em></h1>
+        <p class="welcome-screen__tagline">Soluciones para cada proyecto</p>
+        <button class="welcome-screen__button" id="welcome-enter" type="button">
+          <span>VER PRODUCTOS</span>
+        </button>
       </div>
-
-      <div id="vistaCategorias">
-        <div class="cuadricula" id="listaCategorias"></div>
+      <div class="welcome-screen__visual" aria-hidden="true">
+        <div class="welcome-screen__visual-frame">
+          <img src="assets/tools-wall.jpg" alt="" />
+          <div class="welcome-screen__visual-shade"></div>
+        </div>
       </div>
+    </section>
+    <div class="demo-bar">
+      <span><b>MAQUETA VISUAL</b> Contenido, precios y contactos de ejemplo</span>
+      <button class="demo-bar__close" aria-label="Cerrar aviso">×</button>
+    </div>
 
-      <div id="vistaCategoria" class="oculto">
-        <div class="barra-catalogo">
-          <div class="breadcrumb" id="rutaCategoria"></div>
-          <button type="button" class="volver" id="volverCategorias">
-            ← Todas las categorías
+    <header class="site-header" id="top">
+      <div class="shell nav-wrap">
+        <a class="brand brand--wordmark" href="#top" aria-label="Casa Tito, volver al inicio">
+          <span class="brand__name">CASA <b>TITO</b></span>
+        </a>
+        <nav class="desktop-nav" aria-label="Navegación principal">
+          <a href="#categorias">Categorías</a>
+          <a href="#destacados">Destacados</a>
+          <a href="#casa-tito">Nuestra casa</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="icon-button search-toggle" aria-label="Abrir buscador"><span>⌕</span></button>
+          <button class="cart-button" data-cart-open aria-label="Abrir carrito demostrativo">
+            <span class="cart-button__label">Mi selección</span>
+            <span class="cart-button__count" id="cart-count">0</span>
+          </button>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span>
           </button>
         </div>
-
-        <h3 class="titulo-lista" id="tituloCategoria"></h3>
-        <p class="mensaje-catalogo">
-          Elegí un producto para ver su información y consultar.
-        </p>
-
-        <div class="cuadricula" id="listaProductos"></div>
       </div>
+      <nav class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="#categorias">Categorías <span>↗</span></a>
+        <a href="#destacados">Destacados <span>↗</span></a>
+        <a href="#casa-tito">Nuestra casa <span>↗</span></a>
+        <a href="#contacto">Contacto <span>↗</span></a>
+        <p>FERRETERÍA · HERRAMIENTAS · SOLUCIONES</p>
+      </nav>
+    </header>
 
-      <div id="vistaProducto" class="oculto">
-        <div class="barra-catalogo">
-          <div class="breadcrumb" id="rutaProducto"></div>
-          <button type="button" class="volver" id="volverProductos">
-            ← Volver a productos
-          </button>
-        </div>
-
-        <div class="ficha-producto">
-          <img id="imagenDetalle" src="" alt="">
-
-          <div class="ficha-info">
-            <span class="categoria" id="categoriaDetalle"></span>
-            <h3 id="nombreDetalle"></h3>
-            <p id="descripcionDetalle"></p>
-
-            <div class="ficha-acciones">
-              <a
-                class="boton verde"
-                id="whatsappProducto"
-                href="#"
-                target="_blank"
-                rel="noopener"
-              >
-                Consultar por WhatsApp ↗
-              </a>
-
-              <button type="button" class="boton blanco" id="volverLista">
-                Seguir explorando
-              </button>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="shell">
+          <div class="hero__grid">
+            <div class="hero__copy reveal">
+              <div class="eyebrow"><span class="eyebrow__line"></span> FERRETERÍA · DESDE SIEMPRE</div>
+              <h1 id="hero-title">TODO PARA<br /><em>CONSTRUIR</em><br />MEJOR.</h1>
+              <p class="hero__tagline">Soluciones para cada proyecto</p>
+              <p class="hero__lead">Herramientas, materiales y atención de confianza para que cada idea pase del plano a la realidad.</p>
+              <div class="hero__actions">
+                <a class="button button--gold" href="#destacados">Explorar productos <span>↗</span></a>
+                <a class="text-link text-link--light" href="#casa-tito">Conocé nuestra historia <span>↗</span></a>
+              </div>
+              <div class="hero__note"><span class="note-line"></span> LO QUE NECESITÁS, CERCA TUYO.</div>
             </div>
+            <div class="hero__visual" aria-label="Herramientas de ferretería">
+              <div class="hero__image-wrap">
+                <img class="hero__image" src="assets/tools-wall.jpg" alt="Herramientas y materiales de ferretería" />
+                <div class="hero__image-shade"></div>
+              </div>
+              <div class="hero__stamp"><span>CT</span><small>CALIDAD<br />DE SIEMPRE</small></div>
+              <div class="hero__float-card">
+                <span class="float-card__label">PARA CADA PROYECTO</span>
+                <b>Ideas que<br />se construyen.</b>
+                <span class="float-card__arrow">↗</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero__bottom"><span class="scroll-line"></span> DESLIZA PARA DESCUBRIR</div>
+        </div>
+      </section>
 
-            <p class="ficha-aviso">
-              Imagen ilustrativa. Consultá disponibilidad, marcas y precio.
-            </p>
+      <section class="trust-strip" aria-label="Nuestra propuesta">
+        <div class="shell trust-strip__inner">
+          <div><span class="trust-index">01</span><b>Calidad de siempre</b><small>Productos confiables</small></div>
+          <div><span class="trust-index">02</span><b>Atención cercana</b><small>Te ayudamos a elegir</small></div>
+          <div><span class="trust-index">03</span><b>Para cada proyecto</b><small>De principio a fin</small></div>
+          <div class="trust-strip__quote">“Construimos confianza, todos los días.”</div>
+        </div>
+      </section>
+
+      <section class="categories" id="categorias">
+        <div class="shell">
+          <div class="section-heading section-heading--split reveal">
+            <div><div class="eyebrow"><span class="eyebrow__line"></span> ENCONTRÁ LO QUE BUSCÁS</div><h2>Todo empieza<br />por una buena <em>idea.</em></h2></div>
+            <div class="section-heading__aside"><p>Desde ese arreglo pendiente hasta el proyecto que tenés en mente, encontrá lo necesario para hacerlo realidad.</p><a class="text-link" href="#destacados">Ver selección <span>↗</span></a></div>
+          </div>
+          <div class="category-grid">
+            <button class="category-card category-card--large reveal" data-category="herramientas" data-filter="Herramientas">
+              <img src="assets/category-tools.jpg" alt="Herramientas manuales" loading="lazy" />
+              <span class="category-card__meta"><span>01 / HERRAMIENTAS</span><i>↗</i></span>
+              <span class="category-card__title">Herramientas<br />para crear.</span>
+              <span class="category-card__caption">Precisión en cada detalle.</span>
+              <span class="category-card__symbol">⌁</span>
+            </button>
+            <button class="category-card reveal" data-category="pintura" data-filter="Pintura">
+              <img src="assets/category-paint.jpg" alt="Pinturas y accesorios" loading="lazy" />
+              <span class="category-card__meta"><span>02 / PINTURA</span><i>↗</i></span>
+              <span class="category-card__title">Color para<br />renovar.</span>
+              <span class="category-card__caption">Dale vida a tus espacios.</span>
+              <span class="category-card__symbol">◒</span>
+            </button>
+            <button class="category-card category-card--wide reveal" data-category="construccion" data-filter="Construcción">
+              <img src="assets/category-build.jpg" alt="Materiales para construcción" loading="lazy" />
+              <span class="category-card__meta"><span>03 / CONSTRUCCIÓN</span><i>↗</i></span>
+              <span class="category-card__title">Bases sólidas,<br />grandes proyectos.</span>
+              <span class="category-card__caption">Todo para construir mejor.</span>
+              <span class="category-card__symbol">⌂</span>
+            </button>
           </div>
         </div>
-      </div>
+      </section>
 
-      <p class="mensaje-catalogo">
-        Las imágenes son ilustrativas. Consultá disponibilidad, marcas y precios.
-      </p>
+      <section class="featured" id="destacados">
+        <div class="shell">
+          <div class="section-heading section-heading--row reveal">
+            <div><div class="eyebrow"><span class="eyebrow__line"></span> SELECCIÓN CASA TITO</div><h2>Los elegidos<br />para tu <em>próximo paso.</em></h2></div>
+            <div class="featured-tools"><label class="search-field"><span>⌕</span><input id="product-search" type="search" placeholder="Buscar producto..." autocomplete="off" /><button id="clear-search" aria-label="Limpiar búsqueda">×</button></label></div>
+          </div>
+          <div class="product-grid" id="product-grid">
+            <article class="product-card reveal" data-name="Taladro percutor 650W" data-category="herramientas">
+              <div class="product-card__media"><img src="assets/product-drill.jpg" alt="Taladro percutor" loading="lazy" /><span class="product-tag">MÁS ELEGIDO</span><button class="product-card__quick" data-cart-open aria-label="Ver selección">+</button></div>
+              <div class="product-card__body"><p class="product-card__brand">HERRAMIENTAS</p><h3>Taladro percutor 650W</h3><div class="product-card__bottom"><p class="product-card__price">$ 58.900 <small>ARS</small></p><button class="add-button" data-add="Taladro percutor 650W">Sumar <span>+</span></button></div></div>
+            </article>
+            <article class="product-card reveal" data-name="Set de llaves combinadas" data-category="herramientas">
+              <div class="product-card__media"><img src="assets/product-wrenches.jpg" alt="Set de llaves combinadas" loading="lazy" /><span class="product-tag">INFALTABLE</span><button class="product-card__quick" data-cart-open aria-label="Ver selección">+</button></div>
+              <div class="product-card__body"><p class="product-card__brand">HERRAMIENTAS</p><h3>Set de llaves combinadas</h3><div class="product-card__bottom"><p class="product-card__price">$ 42.500 <small>ARS</small></p><button class="add-button" data-add="Set de llaves combinadas">Sumar <span>+</span></button></div></div>
+            </article>
+            <article class="product-card reveal" data-name="Pincel premium 3 pulgadas" data-category="pintura">
+              <div class="product-card__media"><img src="assets/product-brush.jpg" alt="Pincel premium" loading="lazy" /><span class="product-tag">DETALLE PRO</span><button class="product-card__quick" data-cart-open aria-label="Ver selección">+</button></div>
+              <div class="product-card__body"><p class="product-card__brand">PINTURA</p><h3>Pincel premium 3 pulgadas</h3><div class="product-card__bottom"><p class="product-card__price">$ 8.900 <small>ARS</small></p><button class="add-button" data-add="Pincel premium 3 pulgadas">Sumar <span>+</span></button></div></div>
+            </article>
+            <article class="product-card reveal" data-name="Kit organizador de obra" data-category="construccion">
+              <div class="product-card__media"><img src="assets/product-organizer.jpg" alt="Kit organizador de obra" loading="lazy" /><span class="product-tag">ORDEN TOTAL</span><button class="product-card__quick" data-cart-open aria-label="Ver selección">+</button></div>
+              <div class="product-card__body"><p class="product-card__brand">ORGANIZACIÓN</p><h3>Kit organizador de obra</h3><div class="product-card__bottom"><p class="product-card__price">$ 25.900 <small>ARS</small></p><button class="add-button" data-add="Kit organizador de obra">Sumar <span>+</span></button></div></div>
+            </article>
+          </div>
+          <p class="no-results" id="no-results" hidden>No encontramos productos con esa búsqueda. Probá con otra palabra.</p>
+          <div class="section-end-link"><span>Una selección para empezar.</span><button class="text-link" id="reset-results">Ver todos los productos <span>↗</span></button></div>
+        </div>
+      </section>
 
-    </div>
-  </section>
+      <section class="story" id="casa-tito">
+        <div class="shell story__grid">
+          <div class="story__visual reveal">
+            <img src="assets/storefront.jpg" alt="Frente de Casa Tito" loading="lazy" />
+            <div class="story__seal">DESDE SIEMPRE <b>CT</b> CERCA TUYO</div>
+            <span class="story__vertical">CASA TITO · FERRETERÍA</span>
+          </div>
+          <div class="story__copy reveal">
+            <div class="eyebrow"><span class="eyebrow__line"></span> NUESTRA CASA</div>
+            <h2>Más que una ferretería.<br /><em>Un vecino más.</em></h2>
+            <p>Creemos que detrás de cada arreglo hay una historia, y detrás de cada proyecto, alguien con ganas de hacerlo realidad. Por eso elegimos estar cerca, escuchar y ayudarte a encontrar justo lo que necesitás.</p>
+            <p>Porque los buenos resultados empiezan con buenos materiales, pero también con la confianza de saber que no estás solo.</p>
+            <a class="button button--blue" href="#contacto">Conocé Casa Tito <span>↗</span></a>
+          </div>
+        </div>
+      </section>
 
-  <!-- NOSOTROS -->
+      <section class="principles">
+        <div class="shell">
+          <div class="section-heading reveal"><div class="eyebrow"><span class="eyebrow__line"></span> NUESTRA FORMA DE TRABAJAR</div><h2>Lo que nos hace<br /><em>Casa Tito.</em></h2></div>
+          <div class="principles-grid">
+            <article class="principle reveal"><span class="principle__number">01</span><div class="principle__icon">✳</div><h3>Calidad que acompaña.</h3><p>Elegimos productos confiables para acompañarte en cada etapa.</p><span class="principle__line"></span></article>
+            <article class="principle reveal"><span class="principle__number">02</span><div class="principle__icon">⌘</div><h3>Atención de verdad.</h3><p>Te escuchamos y te ayudamos a encontrar la mejor solución.</p><span class="principle__line"></span></article>
+            <article class="principle reveal"><span class="principle__number">03</span><div class="principle__icon">↗</div><h3>Cerca de tus proyectos.</h3><p>Desde lo más simple hasta ese proyecto que tanto esperabas.</p><span class="principle__line"></span></article>
+          </div>
+        </div>
+      </section>
 
-  <section id="nosotros">
-    <div class="contenedor">
-      <div class="cabecera-seccion">
-        <span class="etiqueta-seccion">Nuestra historia</span>
-        <h2>Casa Tito, cerca tuyo.</h2>
-        <p>Sucesores de Pablo Antonini · Desde 1953.</p>
-      </div>
+      <section class="closing-cta">
+        <div class="closing-cta__shape"></div><div class="closing-cta__mark">CT</div>
+        <div class="shell closing-cta__inner reveal">
+          <div class="eyebrow"><span class="eyebrow__line"></span> TU PRÓXIMO PROYECTO EMPIEZA ACÁ</div>
+          <h2>¿Qué vamos<br />a construir <em>hoy?</em></h2>
+          <p>Acercate, consultanos y encontremos juntos lo que necesitás.</p>
+          <div class="closing-cta__actions"><a class="button button--gold" href="#contacto">Hablemos de tu proyecto <span>↗</span></a><a class="text-link text-link--light" href="#destacados">Explorar productos <span>↗</span></a></div>
+        </div>
+      </section>
+    </main>
 
-      <div class="historia">
-        <strong>73 años acompañándote.</strong>
-        <p>
-          Somos un autoservicio ferretero de Córdoba.
-          Queremos ayudarte a encontrar los productos que necesitás
-          para tus proyectos, reparaciones y trabajos de todos los días.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTO -->
-
-  <section id="contacto">
-    <div class="contenedor">
-      <div class="cabecera-seccion">
-        <span class="etiqueta-seccion">Estamos para ayudarte</span>
-        <h2>Contactanos</h2>
-        <p>Escribinos o acercate al local.</p>
-      </div>
-
-      <div class="contacto-caja">
-        <h3>Casa Tito · Autoservicio Ferretero</h3>
-
-        <p><strong>Dirección:</strong> Fuerza Aérea 3118, Córdoba.</p>
-        <p><strong>Consultas:</strong> disponibilidad, marcas y precios por WhatsApp.</p>
-
-        <div class="contacto-botones">
-          <a
-            class="boton verde"
-            href="https://wa.me/5493517535587?text=Hola%20Casa%20Tito%2C%20quiero%20hacer%20una%20consulta."
-            target="_blank"
-            rel="noopener"
-          >
-            Abrir WhatsApp
-          </a>
-
-          <a
-            class="boton azul"
-            href="https://www.google.com/maps/search/?api=1&query=Fuerza+Aerea+3118+Cordoba+Argentina"
-            target="_blank"
-            rel="noopener"
-          >
-            Cómo llegar ↗
-          </a>
+    <footer class="footer" id="contacto">
+      <div class="shell">
+        <div class="footer__top">
+          <a class="brand brand--footer" href="#top"><span class="brand__mark">CT</span><span class="brand__name">CASA <b>TITO</b><small>FERRETERÍA</small></span></a>
+          <p class="footer__note">Lo que necesitás para construir, reparar y renovar. <b>Cerca tuyo, como siempre.</b></p>
+          <a class="footer__back" href="#top">VOLVER ARRIBA ↑</a>
+        </div>
+        <div class="footer__links">
+          <div><p>EXPLORÁ</p><a href="#categorias">Categorías</a><a href="#destacados">Productos destacados</a><a href="#casa-tito">Nuestra historia</a></div>
+          <div><p>TE AYUDAMOS</p><a href="#contacto">Consultas</a><a href="#contacto">Atención al cliente</a><a href="#contacto">Encontrá lo que buscás</a></div>
+          <div><p>CASA TITO</p><a href="#top">Inicio</a><a href="#contacto">Contacto</a><a href="#categorias">Herramientas y materiales</a></div>
+          <div class="footer__closing"><span>CASA TITO © 2026</span><small>HECHO PARA CONSTRUIR, TODOS LOS DÍAS.</small></div>
         </div>
       </div>
-    </div>
-  </section>
+    </footer>
 
-</main>
+    <div class="drawer-backdrop" id="drawer-backdrop" data-cart-close></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Mi selección" aria-hidden="true">
+      <div class="cart-drawer__head"><div><p>CASA TITO</p><h2>Mi selección</h2></div><button class="cart-drawer__close" data-cart-close aria-label="Cerrar carrito">×</button></div>
+      <p class="cart-drawer__intro">Estos son los productos que sumaste a tu selección de muestra.</p>
+      <ul class="cart-list" id="cart-list"></ul>
+      <p class="cart-empty" id="cart-empty">Todavía no sumaste productos.</p>
+      <div class="cart-drawer__total"><span>Total estimado</span><b id="cart-total">$ 0</b></div>
+      <button class="button button--gold cart-drawer__checkout" id="demo-checkout">Continuar consulta <span>↗</span></button>
+      <p class="cart-drawer__disclaimer">Maqueta demostrativa: no procesa pagos ni genera pedidos reales.</p>
+    </aside>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span>✓</span><p>Producto agregado</p></div>
 
-<footer>
-  <strong>CASA TITO · AUTOSERVICIO FERRETERO</strong>
-  <p>© <span id="anio"></span> Casa Tito. Todos los derechos reservados.</p>
-</footer>
+    <script>
+const body = document.body;
+const welcomeScreen = document.querySelector('#welcome-screen');
+const welcomeEnter = document.querySelector('#welcome-enter');
+const demoBar = document.querySelector('.demo-bar');
+const header = document.querySelector('.site-header');
+const menuToggle = document.querySelector('#menu-toggle');
+const mobileMenu = document.querySelector('#mobile-menu');
+const cartDrawer = document.querySelector('#cart-drawer');
+const drawerBackdrop = document.querySelector('#drawer-backdrop');
+const cartList = document.querySelector('#cart-list');
+const cartEmpty = document.querySelector('#cart-empty');
+const cartCount = document.querySelector('#cart-count');
+const cartTotal = document.querySelector('#cart-total');
+const toast = document.querySelector('#toast');
+const searchInput = document.querySelector('#product-search');
+const productCards = [...document.querySelectorAll('.product-card')];
+const noResults = document.querySelector('#no-results');
+const cartItems = [];
 
-<script>
-/* CONFIGURACIÓN */
-
-const NUMERO_WHATSAPP = "5493517535587";
-
-const imagenes = {
-  pintura: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=900&q=85",
-  rodillos: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=900&q=85",
-  herramientas: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=85",
-  ferreteria: "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=900&q=85",
-  tornillos: "https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?auto=format&fit=crop&w=900&q=85",
-  construccion: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=85",
-  pincel: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=900&q=85"
-};
-
-const categorias = {
-  pintureria: {
-    nombre: "Pinturería",
-    descripcion: "Pinturas, rodillos, pinceles y complementos.",
-    imagen: imagenes.pintura,
-    productos: [
-      { nombre: "Pinturas látex", descripcion: "Pinturas para renovar paredes y ambientes interiores o exteriores. Consultá marcas, colores y presentaciones.", imagen: imagenes.pintura },
-      { nombre: "Rodillos", descripcion: "Rodillos para distintas superficies y trabajos de pintura. Consultá las opciones disponibles.", imagen: imagenes.rodillos },
-      { nombre: "Pinceles", descripcion: "Pinceles para pintar, retocar y trabajar sobre distintas superficies. Consultá medidas y tipos disponibles.", imagen: imagenes.pincel },
-      { nombre: "Fijador", descripcion: "Productos para preparar superficies antes de pintar. Consultá presentaciones y disponibilidad.", imagen: imagenes.pintura },
-      { nombre: "Enduido", descripcion: "Material para preparar y alisar superficies antes de pintar.", imagen: imagenes.pintura },
-      { nombre: "Membranas", descripcion: "Soluciones para trabajos de impermeabilización. Consultá tipos y presentaciones.", imagen: imagenes.construccion },
-      { nombre: "Membrana líquida", descripcion: "Revestimiento para trabajos de impermeabilización. Consultá marcas y presentaciones.", imagen: imagenes.pintura },
-      { nombre: "Esmaltes y protectores", descripcion: "Opciones para proteger y renovar distintas superficies.", imagen: imagenes.pintura }
-    ]
-  },
-  herramientas: {
-    nombre: "Herramientas",
-    descripcion: "Elementos para reparaciones y trabajos.",
-    imagen: imagenes.herramientas,
-    productos: [
-      { nombre: "Herramientas manuales", descripcion: "Herramientas para reparación, mantenimiento y trabajos cotidianos.", imagen: imagenes.herramientas },
-      { nombre: "Herramientas de medición", descripcion: "Elementos para medir y marcar con precisión.", imagen: imagenes.herramientas },
-      { nombre: "Accesorios para herramientas", descripcion: "Complementos para distintos trabajos y herramientas.", imagen: imagenes.ferreteria }
-    ]
-  },
-  ferreteria: {
-    nombre: "Ferretería",
-    descripcion: "Artículos para arreglos, mantenimiento y uso cotidiano.",
-    imagen: imagenes.ferreteria,
-    productos: [
-      { nombre: "Cerraduras y candados", descripcion: "Opciones para asegurar puertas, portones y distintos espacios. Consultá modelos y medidas.", imagen: imagenes.ferreteria },
-      { nombre: "Bisagras y herrajes", descripcion: "Herrajes y accesorios para puertas, muebles y reparaciones.", imagen: imagenes.ferreteria },
-      { nombre: "Adhesivos y selladores", descripcion: "Productos para pegar, sellar y resolver distintos trabajos de mantenimiento.", imagen: imagenes.pintura },
-      { nombre: "Electricidad", descripcion: "Artículos y accesorios para instalaciones y reparaciones eléctricas. Consultá disponibilidad.", imagen: imagenes.herramientas },
-      { nombre: "Plomería", descripcion: "Accesorios y elementos para reparaciones de agua y mantenimiento del hogar.", imagen: imagenes.ferreteria }
-    ]
-  },
-  fijaciones: {
-    nombre: "Fijaciones",
-    descripcion: "Tornillos, tarugos, clavos y elementos de sujeción.",
-    imagen: imagenes.tornillos,
-    productos: [
-      { nombre: "Tornillos", descripcion: "Tornillos para distintos materiales y aplicaciones. Consultá medidas y tipos disponibles.", imagen: imagenes.tornillos },
-      { nombre: "Tarugos", descripcion: "Tarugos para fijaciones en diferentes superficies. Consultá medidas y presentaciones.", imagen: imagenes.tornillos },
-      { nombre: "Clavos", descripcion: "Clavos para trabajos de carpintería, construcción y reparaciones.", imagen: imagenes.tornillos },
-      { nombre: "Bulones y tuercas", descripcion: "Elementos de fijación para montajes, reparaciones y trabajos diversos.", imagen: imagenes.tornillos },
-      { nombre: "Arandelas", descripcion: "Arandelas para complementar distintos sistemas de fijación.", imagen: imagenes.tornillos }
-    ]
-  },
-  construccion: {
-    nombre: "Construcción",
-    descripcion: "Materiales y complementos para obras y reparaciones.",
-    imagen: imagenes.construccion,
-    productos: [
-      { nombre: "Impermeabilización", descripcion: "Productos para proteger superficies de la humedad y las filtraciones. Consultá opciones disponibles.", imagen: imagenes.construccion },
-      { nombre: "Espumas y selladores", descripcion: "Soluciones para sellar juntas, rellenar espacios y realizar terminaciones.", imagen: imagenes.construccion },
-      { nombre: "Accesorios de obra", descripcion: "Elementos complementarios para trabajos de construcción y mantenimiento.", imagen: imagenes.herramientas },
-      { nombre: "Protección y seguridad", descripcion: "Artículos para acompañar tareas de obra y trabajos generales. Consultá disponibilidad.", imagen: imagenes.construccion }
-    ]
-  },
-  otros: {
-    nombre: "Otros",
-    descripcion: "Más artículos útiles para tu casa, obra o trabajo.",
-    imagen: imagenes.pincel,
-    productos: [
-      { nombre: "Artículos para el hogar", descripcion: "Productos útiles para tareas cotidianas, mantenimiento y pequeñas reparaciones.", imagen: imagenes.ferreteria },
-      { nombre: "Accesorios varios", descripcion: "Una selección de artículos complementarios. Escribinos para consultar lo que necesitás.", imagen: imagenes.herramientas },
-      { nombre: "Productos de temporada", descripcion: "Consultá por productos disponibles según la temporada y las necesidades de tu proyecto.", imagen: imagenes.construccion }
-    ]
-  }
-};
-
-/* ELEMENTOS Y ESTADO DEL CATÁLOGO */
-const portadaInicial = document.getElementById("portadaInicial");
-const entrarCatalogo = document.getElementById("entrarCatalogo");
-const vistaCategorias = document.getElementById("vistaCategorias");
-const vistaCategoria = document.getElementById("vistaCategoria");
-const vistaProducto = document.getElementById("vistaProducto");
-const listaCategorias = document.getElementById("listaCategorias");
-const listaProductos = document.getElementById("listaProductos");
-const tituloCatalogo = document.getElementById("tituloCatalogo");
-const descripcionCatalogo = document.getElementById("descripcionCatalogo");
-const tituloCategoria = document.getElementById("tituloCategoria");
-const rutaCategoria = document.getElementById("rutaCategoria");
-const rutaProducto = document.getElementById("rutaProducto");
-const imagenDetalle = document.getElementById("imagenDetalle");
-const categoriaDetalle = document.getElementById("categoriaDetalle");
-const nombreDetalle = document.getElementById("nombreDetalle");
-const descripcionDetalle = document.getElementById("descripcionDetalle");
-const whatsappProducto = document.getElementById("whatsappProducto");
-
-let categoriaActual = null;
-let productoActual = null;
-const CLAVE_CORTINA_VISTA = "casaTitoCortinaVista";
-
-/* CORTINA: UNA VEZ POR SESIÓN DE PESTAÑA */
-function ocultarPortadaAlCargarSiYaSeVio() {
-  try {
-    if (sessionStorage.getItem(CLAVE_CORTINA_VISTA) === "si") {
-      portadaInicial.style.display = "none";
-      document.body.classList.remove("bloqueado");
-      return;
-    }
-  } catch (error) {
-    // Si el navegador bloquea sessionStorage, el botón sigue funcionando normalmente.
-  }
-  document.body.classList.add("bloqueado");
-}
-
-function salirDeLaPortada() {
-  if (!portadaInicial || portadaInicial.classList.contains("saliendo")) return;
-
-  try {
-    sessionStorage.setItem(CLAVE_CORTINA_VISTA, "si");
-  } catch (error) {
-    // La animación funciona aunque el almacenamiento no esté disponible.
-  }
-
-  portadaInicial.classList.add("saliendo");
-  document.body.classList.remove("bloqueado");
-
-  const finalizarSalida = () => {
-    portadaInicial.style.display = "none";
-    portadaInicial.removeEventListener("animationend", alTerminarAnimacion);
-  };
-  const alTerminarAnimacion = (event) => {
-    if (event.target === portadaInicial && event.animationName === "salirCortina") {
-      finalizarSalida();
-    }
-  };
-
-  portadaInicial.addEventListener("animationend", alTerminarAnimacion);
-  // Respaldo para navegadores que no disparen animationend.
-  window.setTimeout(finalizarSalida, 1000);
-}
-
-entrarCatalogo.addEventListener("click", salirDeLaPortada);
-ocultarPortadaAlCargarSiYaSeVio();
-
-/* TARJETAS DE CATEGORÍAS */
-function crearTarjeta(nombre, descripcion, imagen, textoAccion, accion) {
-  const article = document.createElement("article");
-  article.className = "tarjeta";
-
-  const button = document.createElement("button");
-  button.type = "button";
-  button.setAttribute("aria-label", `${textoAccion}: ${nombre}`);
-
-  const img = document.createElement("img");
-  img.src = imagen;
-  img.alt = nombre;
-  img.loading = "lazy";
-  img.onerror = () => { img.style.display = "none"; };
-
-  const info = document.createElement("div");
-  info.className = "tarjeta-info";
-  const h3 = document.createElement("h3");
-  h3.textContent = nombre;
-  const p = document.createElement("p");
-  p.textContent = descripcion;
-  const explorar = document.createElement("span");
-  explorar.className = "enlace-explorar";
-  explorar.textContent = `${textoAccion} →`;
-
-  info.append(h3, p, explorar);
-  button.append(img, info);
-  button.addEventListener("click", accion);
-  article.appendChild(button);
-  return article;
-}
-
-function mostrarCategorias() {
-  categoriaActual = null;
-  productoActual = null;
-  vistaCategorias.classList.remove("oculto");
-  vistaCategoria.classList.add("oculto");
-  vistaProducto.classList.add("oculto");
-  tituloCatalogo.textContent = "¿Qué estás buscando?";
-  descripcionCatalogo.textContent = "Elegí una categoría para descubrir los productos disponibles.";
-  listaCategorias.innerHTML = "";
-
-  Object.entries(categorias).forEach(([id, categoria]) => {
-    listaCategorias.appendChild(crearTarjeta(
-      categoria.nombre,
-      categoria.descripcion,
-      categoria.imagen,
-      "Ver productos",
-      () => mostrarProductos(id)
-    ));
-  });
-}
-
-function mostrarProductos(id) {
-  const categoria = categorias[id];
-  if (!categoria) return;
-  categoriaActual = id;
-  productoActual = null;
-  vistaCategorias.classList.add("oculto");
-  vistaCategoria.classList.remove("oculto");
-  vistaProducto.classList.add("oculto");
-  tituloCatalogo.textContent = categoria.nombre;
-  descripcionCatalogo.textContent = categoria.descripcion;
-  tituloCategoria.textContent = categoria.nombre;
-  rutaCategoria.innerHTML = "Catálogo / <strong></strong>";
-  rutaCategoria.querySelector("strong").textContent = categoria.nombre;
-  listaProductos.innerHTML = "";
-
-  categoria.productos.forEach((producto, indice) => {
-    listaProductos.appendChild(crearTarjeta(
-      producto.nombre,
-      producto.descripcion,
-      producto.imagen,
-      "Ver detalle",
-      () => mostrarDetalle(id, indice)
-    ));
-  });
-  document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function mostrarDetalle(id, indice) {
-  const categoria = categorias[id];
-  const producto = categoria && categoria.productos[indice];
-  if (!producto) return;
-  categoriaActual = id;
-  productoActual = indice;
-  vistaCategorias.classList.add("oculto");
-  vistaCategoria.classList.add("oculto");
-  vistaProducto.classList.remove("oculto");
-
-  rutaProducto.innerHTML = "Catálogo / <strong></strong> / <span></span>";
-  rutaProducto.querySelector("strong").textContent = categoria.nombre;
-  rutaProducto.querySelector("span").textContent = producto.nombre;
-  imagenDetalle.src = producto.imagen;
-  imagenDetalle.alt = producto.nombre;
-  imagenDetalle.onerror = () => { imagenDetalle.style.visibility = "hidden"; };
-  imagenDetalle.onload = () => { imagenDetalle.style.visibility = "visible"; };
-  categoriaDetalle.textContent = categoria.nombre;
-  nombreDetalle.textContent = producto.nombre;
-  descripcionDetalle.textContent = producto.descripcion;
-
-  const mensaje = `Hola Casa Tito, quisiera consultar por ${producto.nombre}. ¿Me podrían informar disponibilidad, marcas y precio?`;
-  whatsappProducto.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-  document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function volverAProductos() {
-  if (categoriaActual) mostrarProductos(categoriaActual);
-}
-
-document.getElementById("volverCategorias").addEventListener("click", () => {
-  mostrarCategorias();
-  document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
+welcomeEnter.addEventListener('click', () => {
+  welcomeScreen.classList.add('is-hidden');
+  body.classList.remove('intro-active');
+  window.setTimeout(() => welcomeScreen.remove(), 850);
 });
-document.getElementById("volverProductos").addEventListener("click", volverAProductos);
-document.getElementById("volverLista").addEventListener("click", volverAProductos);
 
-/* AÑO AUTOMÁTICO Y ARRANQUE */
-document.getElementById("anio").textContent = new Date().getFullYear();
-mostrarCategorias();
-</script>
-</body>
+const prices = {
+  'Taladro percutor 650W': 58900,
+  'Set de llaves combinadas': 42500,
+  'Pincel premium 3 pulgadas': 8900,
+  'Kit organizador de obra': 25900,
+};
+
+function formatPrice(value) {
+  return `$ ${value.toLocaleString('es-AR')}`;
+}
+
+function showToast(message) {
+  toast.querySelector('p').textContent = message;
+  toast.classList.add('is-visible');
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(() => toast.classList.remove('is-visible'), 3200);
+}
+
+function setMenu(open) {
+  menuToggle.setAttribute('aria-expanded', String(open));
+  mobileMenu.classList.toggle('is-open', open);
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  menuToggle.classList.toggle('is-active', open);
+}
+
+function setCart(open) {
+  cartDrawer.classList.toggle('is-open', open);
+  drawerBackdrop.classList.toggle('is-open', open);
+  cartDrawer.setAttribute('aria-hidden', String(!open));
+  body.classList.toggle('drawer-open', open);
+}
+
+function renderCart() {
+  cartList.innerHTML = '';
+  cartItems.forEach((item) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${item.name}</strong><span>${formatPrice(item.price)}</span>`;
+    cartList.appendChild(li);
+  });
+  cartEmpty.hidden = cartItems.length > 0;
+  cartCount.textContent = cartItems.length;
+  cartTotal.textContent = formatPrice(cartItems.reduce((total, item) => total + item.price, 0));
+}
+
+function addToCart(name) {
+  cartItems.push({ name, price: prices[name] || 0 });
+  renderCart();
+  showToast(`${name} se sumó a tu selección de muestra.`);
+}
+
+function filterProducts(query) {
+  const normalizedQuery = query.trim().toLowerCase();
+  let visible = 0;
+  productCards.forEach((card) => {
+    const haystack = `${card.dataset.name} ${card.dataset.category}`;
+    const matches = !normalizedQuery || haystack.includes(normalizedQuery);
+    card.hidden = !matches;
+    if (matches) visible += 1;
+  });
+  noResults.hidden = visible > 0;
+}
+
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: .12 });
+
+document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+window.addEventListener('scroll', () => header.classList.toggle('is-scrolled', window.scrollY > 12), { passive: true });
+      menuToggle.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('is-open')));
+document.querySelectorAll('.mobile-menu a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+demoBar.querySelector('.demo-bar__close').addEventListener('click', () => demoBar.remove());
+document.querySelectorAll('[data-cart-open]').forEach((button) => button.addEventListener('click', () => setCart(true)));
+document.querySelectorAll('[data-cart-close]').forEach((button) => button.addEventListener('click', () => setCart(false)));
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setCart(false); setMenu(false); } });
+
+document.querySelectorAll('.add-button').forEach((button) => button.addEventListener('click', () => addToCart(button.dataset.add)));
+searchInput.addEventListener('input', (event) => filterProducts(event.target.value));
+document.querySelector('#clear-search').addEventListener('click', () => { searchInput.value = ''; filterProducts(''); searchInput.focus(); });
+document.querySelector('#reset-results').addEventListener('click', () => { searchInput.value = ''; filterProducts(''); });
+document.querySelectorAll('.category-card').forEach((card) => card.addEventListener('click', () => {
+  searchInput.value = card.dataset.filter;
+  filterProducts(card.dataset.category);
+  document.querySelector('#destacados').scrollIntoView({ behavior: 'smooth' });
+  showToast(`Mostrando la selección de ${card.dataset.filter.toLowerCase()}.`);
+}));
+document.querySelector('#demo-checkout').addEventListener('click', () => showToast('Demo: el siguiente paso conectaría la consulta o compra real.'));
+
+const visual = document.querySelector('.hero__visual');
+if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const heroImage = visual.querySelector('.hero__image-wrap');
+  const heroStamp = visual.querySelector('.hero__stamp');
+  const heroFloatCard = visual.querySelector('.hero__float-card');
+
+  visual.addEventListener('pointermove', (event) => {
+    const rect = visual.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - .5;
+    const y = (event.clientY - rect.top) / rect.height - .5;
+
+    /* Parallax por capas: una profundidad pequeña y suave, sin WebGL ni librerías externas. */
+    heroImage.style.transform = `perspective(1000px) translate3d(${x * 7}px, ${y * 7}px, 0) rotateY(${x * 1.8}deg) rotateX(${-y * 1.4}deg) scale(1.035)`;
+    if (heroStamp) heroStamp.style.transform = `translate3d(${x * -9}px, ${y * -9}px, 18px) rotate(-12deg)`;
+    if (heroFloatCard) heroFloatCard.style.transform = `translate3d(${x * 8}px, ${y * 8}px, 24px)`;
+  });
+
+  visual.addEventListener('pointerleave', () => {
+    heroImage.style.transform = '';
+    if (heroStamp) heroStamp.style.transform = '';
+    if (heroFloatCard) heroFloatCard.style.transform = '';
+  });
+}
+
+renderCart();
+
+    </script>
+  </body>
 </html>
