@@ -4,8 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173657">
-  <meta name="description" content="Casa Tito: autoservicio ferretero fundado en 1953. Encontrá categorías, productos de referencia y consultá por WhatsApp.">
+  <meta name="description" content="Casa Tito: autoservicio ferretero fundado en 1953. Explorá productos, imágenes completas y consultá por WhatsApp.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23173657'/%3E%3Cpath d='M8 29 32 11l24 18' fill='none' stroke='%23d4ad43' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 27v25h34V27' fill='none' stroke='%23fffdf9' stroke-width='4'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23b52b32'%3ECT%3C/text%3E%3C/svg%3E">
   <title>Casa Tito | Todo empieza con una buena elección</title>
+  <!-- Catálogo de lanzamiento de Casa Tito: 9 productos Blancaley (Pinturas y látex, Membranas). Precios, códigos y variantes según la lista recibida. -->
+  <meta property="og:title" content="Casa Tito | Catálogo de pinturas y membranas">
+  <meta property="og:description" content="Autoservicio ferretero desde 1953. Consultá precios y disponibilidad por WhatsApp.">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -57,7 +62,8 @@
     .section-heading__copy { max-width: 380px; color: var(--muted); font-size: 15px; line-height: 1.7; }
     .section-heading__copy p { margin: 0; }
     .button { min-height: 48px; padding: 13px 18px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid transparent; border-radius: var(--radius); font-size: 12px; font-weight: 700; letter-spacing: .035em; transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease; }
-    .button:hover { transform: translateY(-2px); box-shadow: 0 9px 18px rgba(16,41,67,.15); }
+    .button:active { transform: scale(.97); }
+    @media (hover: hover) and (pointer: fine) { .button:hover { transform: translateY(-2px); box-shadow: 0 9px 18px rgba(16,41,67,.15); } .button:active { transform: scale(.97); } }
     .button--yellow { color: var(--blue-950); background: var(--yellow-500); }
     .button--yellow:hover { background: var(--yellow-300); }
     .button--red { color: var(--white); background: var(--red-600); }
@@ -120,10 +126,21 @@
     .hero-legacy__since { max-width: 440px; margin: 22px 0 0; color: rgba(255,253,249,.9); font-size: 17px; line-height: 1.55; }
     .hero-legacy__note { max-width: 370px; margin: 14px 0 0; color: rgba(255,253,249,.7); font-size: 14px; line-height: 1.6; }
 
-    /* ===== Entrada minimalista de Casa Tito ===== */
-    /* Presentación inicial: sección normal al comienzo de la página (no una capa fija).
-       Se puede salir haciendo scroll y volver arriba; la casita queda abierta (ver data-state). */
+    /* ===== Entrada de Casa Tito: la casita ===== */
+    /* Sección normal al comienzo de la página (no una capa fija): se puede salir con scroll y volver.
+       El CSS base describe el ESTADO FINAL. Sin JavaScript, con movimiento reducido o si algo falla, la casita se ve terminada.
+       Secuencia (una vez por carga, 2,9 s), todo con transform y opacity:
+         0 ms     fachada        sube 12 px con la vidriera y su marco
+         120 ms   techo          baja 14 px y se dibuja su filo dorado
+         300 ms   lateral        el muro y la pendiente salen de detrás de la fachada (profundidad)
+         640 ms   sombra de base
+         900 ms   vidriera       se ilumina, con reflejo en la pared y el piso
+         1200 ms  productos      plano de fondo, 1300 medio, 1380 frente
+         1780 ms  hojas          se abren hacia afuera y quedan sobre la fachada
+         2340 ms  mensaje, 2460 ms «Ver productos» */
     .welcome-screen {
+      --ease-build: cubic-bezier(.23,1,.32,1);
+      --ease-swing: cubic-bezier(.65,0,.2,1);
       position: relative;
       display: grid;
       place-items: center;
@@ -145,50 +162,82 @@
     .welcome-screen::before { width: min(86vw, 720px); height: min(86vw, 720px); right: -18vw; top: -35vw; }
     .welcome-screen::after { width: min(68vw, 560px); height: min(68vw, 560px); left: -27vw; bottom: -31vw; opacity: .55; }
     .welcome-inner { position: relative; z-index: 1; width: min(100%, 620px); display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .welcome-brand { margin: 0 0 26px; color: var(--white); font: 800 clamp(56px, 12vw, 112px)/.88 var(--display); letter-spacing: -.085em; }
+    .welcome-brand { margin: 0 0 22px; color: var(--white); font: 800 clamp(56px, 12vw, 112px)/.88 var(--display); letter-spacing: -.085em; word-spacing: .14em; }
     .welcome-brand span { color: var(--yellow-300); }
-    .welcome-house { width: min(100%, 440px); aspect-ratio: 400 / 270; position: relative; }
-    .welcome-house svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-    .welcome-house .intro-draw { fill: none; stroke: var(--white); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: intro-draw 1.15s cubic-bezier(.5,0,.2,1) .15s forwards; }
-    .welcome-house .intro-roof { stroke: var(--red-600); stroke-width: 5; }
-    .welcome-house .intro-ground { fill: rgba(8,20,34,.28); opacity: 0; animation: intro-fade .7s ease .72s forwards; }
-    .intro-window { position: absolute; z-index: 2; left: 28%; top: 44.44%; width: 44%; height: 40%; overflow: hidden; border: 3px solid var(--white); background: #14304f; opacity: 0; transform: scale(.94); animation: intro-window-in .65s ease .95s forwards; box-shadow: 0 0 0 4px rgba(16,41,67,.35); perspective: 520px; }
-    .intro-window::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 38%, rgba(255,239,174,.62), rgba(235,209,123,.14) 47%, transparent 74%); }
-    .intro-scene { position: absolute; inset: 0; z-index: 0; opacity: 0; transform: scale(.9); transform-origin: 50% 58%; animation: intro-scene-in 1.2s cubic-bezier(.2,.75,.2,1) 1.08s forwards; }
+    .welcome-house { position: relative; width: min(100%, 470px, 70svh); aspect-ratio: 426 / 270; }
+    .welcome-house::before { content: ""; position: absolute; inset: -14% -10% -6%; background: radial-gradient(58% 58% at 50% 56%, rgba(70,120,172,.34), transparent 72%); pointer-events: none; }
+    .house-art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .house-art .welcome-anim { transform-box: fill-box; transform-origin: center; }
+    .house-sign { font: 800 11.5px var(--display); letter-spacing: 1.7px; }
+    /* Vidriera y hojas: misma caja, en % del viewBox (x 112–288, y 120–228 de 426 × 270) */
+    .intro-window, .intro-leaves { position: absolute; left: 26.291%; top: 44.444%; width: 41.315%; height: 40%; }
+    .intro-window { z-index: 2; overflow: hidden; background: #0e2339; }
+    .intro-window::after { content: ""; position: absolute; z-index: 3; inset: 0; box-shadow: inset 7px 6px 9px rgba(10,24,39,.42), inset -1px -1px 2px rgba(10,24,39,.2); pointer-events: none; }
+    .intro-scene { position: absolute; inset: 0; z-index: 0; }
     .intro-scene svg { display: block; width: 100%; height: 100%; }
-    .intro-scene .scene-object { transform-box: fill-box; transform-origin: center; animation: intro-object-in .7s cubic-bezier(.2,.8,.2,1) both; }
-    .intro-scene .scene-object--back { animation-delay: 1.2s; }
-    .intro-scene .scene-object--middle { animation-delay: 1.34s; }
-    .intro-scene .scene-object--front { animation-delay: 1.48s; }
-    .intro-leaf { position: absolute; z-index: 1; top: 0; bottom: 0; width: 50%; border: 2px solid var(--white); background: linear-gradient(160deg, #2b5584, #173657); animation-duration: 1.35s; animation-timing-function: cubic-bezier(.2,.7,.2,1); animation-delay: 1.22s; animation-fill-mode: forwards; }
-    .intro-leaf::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: rgba(255,253,249,.85); }
-    .intro-leaf--l { left: 0; transform-origin: 0 50%; animation-name: intro-open-l; }
-    .intro-leaf--r { right: 0; transform-origin: 100% 50%; animation-name: intro-open-r; }
-    .welcome-tagline { max-width: 430px; margin: 24px 0 0; color: rgba(255,253,249,.84); font-size: 16px; line-height: 1.55; opacity: 0; transform: translateY(12px); animation: intro-cta-in .75s cubic-bezier(.2,.8,.2,1) 1.85s forwards; }
-    .welcome-action { margin-top: 22px; min-width: 190px; min-height: 52px; opacity: 0; transform: translateY(12px); animation: intro-cta-in .75s cubic-bezier(.2,.8,.2,1) 2.05s forwards; }
-    @keyframes intro-draw { to { stroke-dashoffset: 0; } }
-    @keyframes intro-fade { to { opacity: 1; } }
-    @keyframes intro-window-in { to { opacity: 1; transform: none; } }
-    @keyframes intro-scene-in { to { opacity: 1; transform: none; } }
-    @keyframes intro-object-in { from { opacity: 0; transform: translateY(7px) scale(.94); } to { opacity: 1; transform: none; } }
-    @keyframes intro-open-l { to { transform: rotateY(-64deg); } }
-    @keyframes intro-open-r { to { transform: rotateY(64deg); } }
-    @keyframes intro-cta-in { to { opacity: 1; transform: none; } }
-    /* Estados de la casita: closed (inicial, nada se dibuja todavía) → opening (animación en curso) → open (terminada y persistente).
-       Las animaciones solo existen mientras data-state != "closed". Como el estado nunca vuelve a "closed",
-       ninguna animación puede reiniciarse durante la misma carga de la página. */
-    .js .welcome-screen[data-state="closed"] :is(.intro-draw, .intro-ground, .intro-window, .intro-scene, .scene-object, .intro-leaf, .welcome-tagline, .welcome-action) { animation: none; }
-    .js .welcome-screen[data-state="closed"] .welcome-action { visibility: hidden; }
-    @media (prefers-reduced-motion: reduce) {
-      .welcome-house .intro-draw, .welcome-house .intro-ground, .intro-window, .intro-scene, .intro-scene .scene-object, .intro-leaf, .welcome-tagline, .welcome-action { animation-duration: .01ms; animation-delay: 0s; animation-iteration-count: 1; }
-      .welcome-house .intro-draw { stroke-dashoffset: 0; }
-      .welcome-house .intro-ground, .intro-window, .intro-scene, .welcome-tagline, .welcome-action { opacity: 1; transform: none; }
+    .intro-scene .scene-object { transform-box: fill-box; transform-origin: center bottom; }
+    .intro-light { position: absolute; z-index: 1; inset: 0; background: radial-gradient(70% 62% at 50% 22%, rgba(255,240,186,.42), rgba(255,240,186,0) 72%); pointer-events: none; }
+    .intro-dim { position: absolute; z-index: 2; inset: 0; opacity: 0; background: #0e2339; pointer-events: none; }
+    .intro-leaves { z-index: 3; perspective: 760px; perspective-origin: 60% 32%; pointer-events: none; }
+    .intro-leaf { position: absolute; top: 0; bottom: 0; width: 50%; overflow: hidden; border: 3px solid #1b4068; background: linear-gradient(118deg, rgba(255,255,255,.15) 0 16%, rgba(255,255,255,0) 16% 31%, rgba(255,255,255,.08) 31% 37%, rgba(255,255,255,0) 37%), rgba(24,56,90,.42); box-shadow: inset 0 0 0 1px rgba(235,209,123,.6), 0 0 0 1px rgba(10,24,39,.5); will-change: auto; }
+    .intro-leaf::before { content: ""; position: absolute; inset: 0; background: #0e2339; opacity: .3; }
+    .intro-leaf::after { content: ""; position: absolute; left: 0; right: 0; top: 52%; height: 2px; background: rgba(235,209,123,.75); }
+    .intro-leaf--l { left: 0; transform-origin: 0 50%; transform: rotateY(-114deg); }
+    .intro-leaf--r { right: 0; transform-origin: 100% 50%; transform: rotateY(114deg); }
+    .welcome-tagline { max-width: 430px; margin: 22px 0 0; color: rgba(255,253,249,.84); font-size: 16px; line-height: 1.55; }
+    .welcome-action { margin-top: 20px; min-width: 190px; min-height: 52px; font-size: 14px; }
+
+    @keyframes welcome-rise { from { opacity: 0; transform: translateY(12px); } }
+    @keyframes welcome-drop { from { opacity: 0; transform: translateY(-14px); } }
+    @keyframes welcome-extrude { from { opacity: 0; transform: translate(-28px, 2px); } }
+    @keyframes welcome-ground { from { opacity: 0; transform: scaleX(.82); } }
+    @keyframes welcome-fade { from { opacity: 0; } }
+    @keyframes welcome-lit { from { opacity: 1; } }
+    @keyframes welcome-draw { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+    @keyframes plane-back { from { opacity: 0; transform: translateY(5px) scale(.97); } }
+    @keyframes plane-middle { from { opacity: 0; transform: translate(-8px, 6px) scale(.95); } }
+    @keyframes plane-front { from { opacity: 0; transform: translate(10px, 10px) scale(.93); } }
+    @keyframes leaf-open-l { from { transform: rotateY(0deg); } }
+    @keyframes leaf-open-r { from { transform: rotateY(0deg); } }
+    @keyframes leaf-shade { from { opacity: 0; } }
+    @keyframes welcome-cta-in { from { opacity: 0; transform: translateY(10px); } }
+
+    /* Estados: closed (antes de arrancar) → opening (animación) → open (estado final, sin animaciones).
+       Solo se avanza: al llegar a «open» no queda nada que pueda reiniciarse durante la misma carga. */
+    @media (prefers-reduced-motion: no-preference) {
+      .js .welcome-screen[data-state="closed"] .welcome-anim { opacity: 0; }
+      .js .welcome-screen[data-state="closed"] .welcome-action { visibility: hidden; }
+      .js .welcome-screen[data-state="closed"] .intro-leaf { transform: none; }
+      .js .welcome-screen[data-state="closed"] .intro-dim { opacity: 1; }
+
+      .js [data-state="opening"] .house-facade { animation: welcome-rise 540ms var(--ease-build) both; }
+      .js [data-state="opening"] .intro-window,
+      .js [data-state="opening"] .intro-leaves { animation: welcome-rise 540ms var(--ease-build) both; }
+      .js [data-state="opening"] .house-roof { animation: welcome-drop 560ms var(--ease-build) 120ms both; }
+      .js [data-state="opening"] .house-roof-edge { animation: welcome-draw 760ms var(--ease-swing) 120ms both; }
+      .js [data-state="opening"] .house-depth { animation: welcome-extrude 520ms var(--ease-build) 300ms both; }
+      .js [data-state="opening"] .house-ground { animation: welcome-ground 460ms var(--ease-build) 640ms both; }
+      .js [data-state="opening"] .intro-dim { animation: welcome-lit 460ms ease-out 900ms both; }
+      .js [data-state="opening"] .intro-light,
+      .js [data-state="opening"] .house-wall-glow,
+      .js [data-state="opening"] .house-spill { animation: welcome-fade 520ms ease-out 900ms both; }
+      .js [data-state="opening"] .scene-object--back { animation: plane-back 460ms var(--ease-build) 1200ms both; }
+      .js [data-state="opening"] .scene-object--middle { animation: plane-middle 480ms var(--ease-build) 1300ms both; }
+      .js [data-state="opening"] .scene-object--front { animation: plane-front 520ms var(--ease-build) 1380ms both; }
+      .js [data-state="opening"] .intro-leaf--l { animation: leaf-open-l 760ms var(--ease-swing) 1780ms both; }
+      .js [data-state="opening"] .intro-leaf--r { animation: leaf-open-r 760ms var(--ease-swing) 1780ms both; }
+      .js [data-state="opening"] .intro-leaf::before { animation: leaf-shade 760ms var(--ease-swing) 1780ms both; }
+      .js [data-state="opening"] .house-leaf-shadow { animation: welcome-fade 480ms ease-out 2060ms both; }
+      .js [data-state="opening"] .welcome-tagline { animation: welcome-cta-in 460ms var(--ease-build) 2340ms both; }
+      .js [data-state="opening"] .welcome-action { animation: welcome-cta-in 460ms var(--ease-build) 2460ms both; }
     }
     @media (max-width: 520px) {
       .welcome-screen { padding: 24px 18px; }
-      .welcome-brand { margin-bottom: 17px; }
+      .welcome-brand { margin-bottom: 14px; }
       .welcome-tagline { margin-top: 18px; font-size: 15px; }
-      .welcome-action { margin-top: 18px; }
+      .welcome-action { margin-top: 16px; }
+      .intro-leaves { perspective: 460px; }
+      .intro-leaf { border-width: 2px; }
     }
 
     .trust-strip { color: var(--white); background: var(--red-600); }
@@ -212,13 +261,22 @@
     .category-card:nth-child(3n + 1) { background: var(--blue-900); }
     .category-card:nth-child(3n + 2) { background: var(--red-600); }
     .category-card:nth-child(4n) { background: #6b4e32; }
-    .category-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    @media (hover: hover) and (pointer: fine) { .category-card:not(.category-card--soon):hover { transform: translateY(-5px); box-shadow: var(--shadow); } }
+    .category-card:not(.category-card--soon):active { transform: scale(.98); }
+    .category-card.category-card--soon, .category-card.category-card--soon:nth-child(n) { color: var(--blue-900); background: #e6e6e0; }
+    .category-card--soon::after { border-color: rgba(23,54,87,.1); box-shadow: 0 0 0 26px rgba(23,54,87,.025), 0 0 0 54px rgba(23,54,87,.015); }
+    .category-card--soon .category-card__number { color: var(--muted); }
+    .category-card--soon .category-card__icon { color: var(--blue-800); border-color: rgba(36,74,120,.3); }
+    .category-card--soon p { color: var(--muted); }
+    .category-card__soon { align-self: flex-start; position: relative; z-index: 1; margin-top: 12px; padding: 4px 9px; color: var(--blue-950); background: var(--yellow-300); font-size: 11px; font-weight: 800; letter-spacing: .02em; }
+    .category-card__title, .category-card__short { display: block; }
     .category-card__top { display: flex; align-items: start; justify-content: space-between; gap: 15px; }
     .category-card__number { color: var(--yellow-300); font-size: 11px; font-weight: 800; letter-spacing: .1em; }
     .category-card__icon { width: 43px; height: 43px; display: grid; place-items: center; color: var(--yellow-300); border: 1px solid rgba(235,209,123,.6); border-radius: 50%; }
     .category-card__icon .icon { width: 22px; height: 22px; }
-    .category-card h3 { max-width: 175px; margin: 0; font: 700 23px/1.03 var(--display); letter-spacing: -.045em; }
-    .category-card p { max-width: 190px; margin: 7px 0 0; color: rgba(255,253,249,.72); font-size: 12px; line-height: 1.45; }
+    .category-card h3, .category-card__title { max-width: 175px; margin: 0; font: 700 23px/1.03 var(--display); letter-spacing: -.045em; }
+    .category-card p, .category-card__short { max-width: 190px; margin: 7px 0 0; color: rgba(255,253,249,.72); font-size: 12px; line-height: 1.45; }
+    .category-card--soon p { color: var(--muted); }
     .category-card__link { position: absolute; right: 19px; bottom: 19px; color: var(--yellow-300); font-size: 20px; line-height: 1; }
 
     .catalog { background: var(--paper-2); }
@@ -235,14 +293,17 @@
     .product-rail__track { display:grid; grid-auto-columns:calc((100% - 42px) / 4); grid-auto-flow:column; gap:14px; overflow-x:auto; overscroll-behavior-inline:contain; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:var(--yellow-500) transparent; padding:2px 1px 13px; }
     .rail-product { min-width:0; display:flex; flex-direction:column; scroll-snap-align:start; background:var(--paper); border:1px solid rgba(23,34,45,.09); }
     .rail-product__art { height:142px; position:relative; display:grid; place-items:center; overflow:hidden; }
+    .rail-product__art .product-photo { width:100%; height:100%; padding:10px; position:relative; z-index:1; object-fit:contain; background:#fff; }
     .rail-product__art .icon { width:62px; height:62px; position:relative; z-index:1; }
     .rail-product__art.product-art--red { background:#f0dfe0; } .rail-product__art.product-art--yellow { background:#f2e7bb; } .rail-product__art.product-art--blue { background:#dce8f1; } .rail-product__art.product-art--sand { background:#e8ddd2; }
     .rail-product__badge { position:absolute; top:10px; left:10px; z-index:2; padding:5px 7px; color:var(--blue-950); background:var(--yellow-500); font-size:9px; font-weight:800; text-transform:uppercase; }
+    .rail-product .price-tag { margin-top:auto; padding-top:2px; }
+    .rail-product .price-tag__value { font-size:24px; }
     .rail-product__body { display:flex; flex:1; flex-direction:column; align-items:flex-start; padding:13px; }
     .rail-product__category { margin:0 0 6px; color:var(--red-600); font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
     .rail-product h4 { min-height:38px; margin:0; color:var(--blue-900); font:700 15px/1.2 var(--display); }
     .rail-product__description { margin:8px 0 13px; color:var(--muted); font-size:11px; line-height:1.45; }
-    .rail-product .query-button { width:100%; margin-top:auto; white-space:normal; }
+    .rail-product .query-button { width:100%; white-space:normal; }
     @media(max-width:1040px) { .product-rail__track { grid-auto-columns:calc((100% - 28px) / 3); } }
     @media(max-width:720px) { .product-rail { margin-bottom:35px; padding:16px 12px 10px; } .product-rail__head { align-items:center; gap:10px; } .product-rail__title { font-size:24px; } .product-rail__note { font-size:11px; } .product-rail__arrow { width:36px; height:36px; } .product-rail__track { grid-auto-columns:68%; gap:10px; } .rail-product__art { height:130px; } }
     @media(max-width:390px) { .product-rail__track { grid-auto-columns:78%; } .product-rail__controls { gap:5px; } }
@@ -259,29 +320,76 @@
     .filter-chip { min-height: 37px; padding: 8px 11px; color: var(--blue-800); background: var(--paper); border: 1px solid var(--line); border-radius: 99px; font-size: 11px; font-weight: 700; }
     .filter-chip:hover, .filter-chip.is-active { color: var(--white); background: var(--blue-800); border-color: var(--blue-800); }
     .catalog-status { min-height: 21px; margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+    .catalog-demo-notice { margin: 0 0 22px; padding: 13px 15px; color: var(--blue-950); background: var(--yellow-300); border-left: 3px solid var(--red-600); font-size: 13px; line-height: 1.55; }
+    .category-picker, #casa-tito, #contacto, #productos { scroll-margin-top: 112px; }
+    .story { padding-top: 52px; padding-bottom: 52px; }
+    .story-grid--compact { display: block; max-width: 900px; }
+    .story-grid--compact .story-copy h2 { max-width: 760px; margin-bottom: 16px; font-size: clamp(36px, 5vw, 56px); }
+    .story-grid--compact .story-copy > p:not(.eyebrow) { max-width: 700px; margin-bottom: 0; }
     .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .product-card { min-width: 0; display: flex; flex-direction: column; background: var(--white); border: 1px solid rgba(23,34,45,.08); transition: transform .23s ease, box-shadow .23s ease; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    @media (hover: hover) and (pointer: fine) { .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); } }
     .product-art { height: 180px; position: relative; display: grid; place-items: center; overflow: hidden; color: var(--blue-900); background: #dfe6ea; }
     .product-art::before { content: ""; position: absolute; inset: 0; opacity: .3; background-image: linear-gradient(135deg, transparent 0 47%, rgba(255,255,255,.55) 48% 49%, transparent 50% 100%); background-size: 26px 26px; }
     .product-art--red { color: var(--red-700); background: #f0dfe0; }
     .product-art--yellow { color: #765919; background: #f2e7bb; }
     .product-art--blue { color: var(--blue-800); background: #dce8f1; }
     .product-art--sand { color: #6b4e32; background: #e8ddd2; }
+    .product-art .product-photo { width:100%; height:100%; object-fit:contain; position:relative; z-index:1; padding:12px; background:#fff; }
+    .product-art { padding: 12px; }
+    .product-art .product-photo { width:100%; height:100%; padding:0; }
     .product-art svg { width: 84px; height: 84px; position: relative; z-index: 1; }
     .product-art__tag { position: absolute; z-index: 2; left: 12px; top: 12px; padding: 5px 7px; color: var(--blue-950); background: var(--yellow-500); font-size: 9px; font-weight: 800; text-transform: uppercase; }
     .product-card__body { flex: 1; padding: 17px 15px 15px; display: flex; flex-direction: column; }
     .product-card__category { margin: 0 0 7px; color: var(--red-600); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .product-card h3 { min-height: 45px; margin: 0; color: var(--blue-900); font: 700 18px/1.15 var(--display); letter-spacing: -.035em; }
-    .product-card p { margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.48; }
-    .product-card details { margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--line); color: var(--blue-800); font-size: 11px; }
-    .product-card summary { cursor: pointer; font-weight: 700; }
-    .product-card details p { margin: 7px 0 0; font-size: 11px; }
-    .product-card__footer { margin-top: auto; padding-top: 16px; display: flex; align-items: end; justify-content: space-between; gap: 10px; }
-    .product-card__note { max-width: 130px; color: var(--muted); font-size: 10px; line-height: 1.25; }
-    .query-button { min-height: 34px; padding: 8px 9px; color: var(--white); background: var(--red-600); font-size: 10px; font-weight: 800; white-space: nowrap; }
-    .query-button:hover, .query-button.is-added { background: var(--blue-800); }
+    .product-group + .product-group { margin-top: 44px; }
+    .product-group__title { display: flex; align-items: baseline; gap: 10px; margin: 0 0 16px; color: var(--blue-950); font: 800 clamp(22px, 2.6vw, 28px)/1.1 var(--display); letter-spacing: -.04em; }
+    .product-group__count { color: var(--muted); font: 700 13px var(--sans); letter-spacing: 0; }
+    .product-card h4 { margin: 0; color: var(--blue-900); font: 700 18px/1.15 var(--display); letter-spacing: -.035em; }
+    .product-card p { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.48; }
+    .product-card__footer { margin-top: auto; padding-top: 16px; display: block; }
+    .product-card__footer .query-button { width:100%; white-space:normal; }
+    /* El precio es lo más grande de cada tarjeta */
+    .price-tag { display: block; margin-bottom: 12px; color: var(--blue-950); }
+    .price-tag__from { display: block; margin-bottom: 1px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .price-tag__value { display: block; font: 800 clamp(24px, 2.3vw, 28px)/1.08 var(--display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+    .price-tag__code { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .query-button { min-height: 44px; padding: 10px 12px; color: var(--white); background: var(--red-600); font-size: 12px; font-weight: 800; white-space: nowrap; transition: transform .16s ease-out, background-color .2s ease; }
+    .query-button:active { transform: scale(.97); }
+    .query-button:hover { background: var(--red-700); }
+    .query-button.is-added, .query-button.is-added:hover { background: var(--blue-800); }
     .no-results { padding: 60px 20px; color: var(--muted); background: var(--white); text-align: center; }
+    .product-card, .rail-product { cursor: pointer; }
+    .product-modal { position:fixed; inset:0; z-index:1200; display:grid; place-items:center; padding:20px; background:rgba(10,24,39,.72); }
+    .product-modal[hidden] { display:none; }
+    .product-modal__panel { width:min(920px,100%); height:min(90vh,680px); overflow:hidden; position:relative; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); grid-template-rows:minmax(0,1fr); background:var(--white); box-shadow:var(--shadow); }
+    .product-modal__close { position:absolute; z-index:2; top:12px; right:12px; width:42px; height:42px; color:var(--blue-950); background:var(--white); border:1px solid var(--line); font-size:25px; }
+    .product-modal__visual { min-height:0; display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr); place-items:center; padding:14px; background:#fff; border-right:1px solid var(--line); }
+    .product-modal__image { display:block; width:100%; height:100%; min-height:0; object-fit:contain; }
+    .product-modal__fallback { color:var(--muted); text-align:center; }
+    .product-modal__fallback .icon { width:72px; height:72px; margin:0 auto 12px; color:var(--blue-800); }
+    .product-modal__content { min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:clamp(26px,4vw,36px) clamp(26px,4vw,36px) 0; }
+    .product-modal__content h2 { margin:0; padding-right:44px; color:var(--blue-900); font:800 clamp(26px,3.4vw,36px)/1.05 var(--display); letter-spacing:-.04em; }
+    .product-modal__category { margin:0 0 10px; color:var(--red-600); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .product-modal__brand { margin:8px 0 0; color:var(--muted); font-size:13px; font-weight:700; }
+    .product-modal__variant { min-width:0; margin:18px 0 0; padding:0; border:0; }
+    .product-modal__variant legend { margin-bottom:9px; padding:0; color:var(--blue-800); font-size:12px; font-weight:800; }
+    .variant-list { display:grid; gap:7px; }
+    .variant-option { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:0 10px; min-height:50px; padding:7px 12px; background:var(--white); border:1px solid var(--line); border-radius:var(--radius); cursor:pointer; transition:border-color .15s ease, background-color .15s ease; }
+    .variant-option input { grid-row:1 / span 2; width:18px; height:18px; margin:0; accent-color:var(--red-600); }
+    .variant-option__label { color:var(--blue-950); font-size:14px; font-weight:700; line-height:1.25; }
+    .variant-option__code { grid-column:2; color:var(--muted); font-size:11px; line-height:1.3; }
+    .variant-option__price { grid-column:3; grid-row:1 / span 2; color:var(--blue-900); font:800 16px var(--display); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
+    @media (hover: hover) and (pointer: fine) { .variant-option:hover { border-color:var(--blue-800); } }
+    .variant-option.is-selected { background:#fbf3f1; border-color:var(--red-600); box-shadow:inset 0 0 0 1px var(--red-600); }
+    .product-modal__summary { margin:18px 0 0; padding-top:14px; border-top:1px solid var(--line); }
+    .product-modal__price { margin:0; color:var(--blue-950); font:800 clamp(30px,4vw,38px)/1.05 var(--display); letter-spacing:-.035em; font-variant-numeric:tabular-nums; }
+    .product-modal__code { margin:5px 0 0; color:var(--blue-800); font-size:12px; font-weight:600; }
+    .product-modal__notice { margin:10px 0 0; color:var(--muted); font-size:12px; line-height:1.45; }
+    .product-modal__description { margin:10px 0 0; color:var(--muted); font-size:14px; line-height:1.55; }
+    .product-modal__actions { position:sticky; bottom:0; display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:8px; margin-top:6px; padding:12px 0 clamp(16px,3vw,26px); background:linear-gradient(rgba(255,253,249,0), var(--white) 12px); }
+    .product-modal__actions .button { width:100%; min-height:48px; padding-inline:10px; font-size:13px; line-height:1.2; text-align:center; }
+    @media(max-width:640px) { .product-modal { padding:10px; } .product-modal__panel { display:flex; flex-direction:column; height:auto; max-height:94vh; max-height:94dvh; } .product-modal__visual { flex:none; height:24vh; min-height:130px; padding:12px 44px; border-right:0; border-bottom:1px solid var(--line); } .product-modal__content { flex:1; padding:16px 16px 0; } .product-modal__description { display:none; } .product-modal__price { font-size:30px; } .product-modal__summary { margin-top:14px; padding-top:12px; } .product-modal__actions { padding-bottom:14px; } }
     .no-results strong { display: block; margin-bottom: 8px; color: var(--blue-900); font: 700 21px var(--display); }
     .catalog-footnote { margin-top: 26px; color: var(--muted); font-size: 12px; }
     .catalog-footnote strong { color: var(--blue-900); }
@@ -355,8 +463,8 @@
     .footer-slogan em { color: var(--yellow-300); font-style: normal; }
     .footer-bottom { margin-top: 34px; color: rgba(255,253,249,.42); font-size: 11px; }
 
-    .query-tray { position: fixed; z-index: 35; left: 50%; bottom: 20px; width: min(680px, calc(100% - 32px)); padding: 13px 15px; display: flex; align-items: center; gap: 14px; color: var(--white); background: var(--blue-950); border: 1px solid rgba(235,209,123,.55); box-shadow: 0 14px 35px rgba(16,41,67,.28); transform: translate(-50%, calc(100% + 35px)); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
-    .query-tray.is-visible { transform: translate(-50%, 0); }
+    .query-tray { position: fixed; z-index: 35; left: 50%; bottom: 20px; width: min(680px, calc(100% - 32px)); padding: 13px 15px; display: flex; align-items: center; gap: 14px; color: var(--white); background: var(--blue-950); border: 1px solid rgba(235,209,123,.55); box-shadow: 0 14px 35px rgba(16,41,67,.28); transform: translate(-50%, calc(100% + 35px)); visibility: hidden; transition: transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s linear .3s; }
+    .query-tray.is-visible { transform: translate(-50%, 0); visibility: visible; transition: transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s; }
     .query-tray__copy { min-width: 0; flex: 1; }
     .query-tray__copy strong { display: block; color: var(--yellow-300); font: 700 16px var(--display); }
     .query-tray__copy span { display: block; overflow: hidden; color: rgba(255,253,249,.65); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
@@ -365,13 +473,13 @@
     .query-tray__clear { color: var(--white); background: transparent; border: 1px solid rgba(255,253,249,.3); }
     .query-tray__send { color: var(--blue-950); background: var(--yellow-500); }
     .query-tray__send:hover { background: var(--yellow-300); }
-    .toast { position: fixed; z-index: 60; right: 22px; bottom: 22px; max-width: min(390px, calc(100% - 44px)); padding: 13px 16px; display: flex; align-items: center; gap: 10px; color: var(--white); background: var(--blue-950); border-left: 3px solid var(--yellow-500); box-shadow: var(--shadow); transform: translateY(140%); transition: transform .3s ease; }
+    .toast { position: fixed; z-index: 1300; right: 22px; bottom: 22px; max-width: min(390px, calc(100% - 44px)); padding: 13px 16px; display: flex; align-items: center; gap: 10px; color: var(--white); background: var(--blue-950); border-left: 3px solid var(--yellow-500); box-shadow: var(--shadow); transform: translateY(calc(100% + 30px)); transition: transform .3s ease; }
     .toast.is-visible { transform: translateY(0); }
     .toast strong { color: var(--yellow-300); font-size: 18px; }
     .toast p { margin: 0; font-size: 12px; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
-    .reveal.is-visible { opacity: 1; transform: none; }
+    .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
 
     @media (max-width: 1040px) {
       .shell { width: min(100% - 42px, 760px); }
@@ -433,11 +541,11 @@
       .product-art svg { width: 64px; height: 64px; }
       .product-card__body { padding: 13px 10px 11px; }
       .product-card__category { font-size: 8px; }
-      .product-card h3 { min-height: 46px; font-size: 15px; }
+      .product-card h4 { min-height: 40px; font-size: 15px; }
       .product-card p { font-size: 11px; }
-      .product-card details { font-size: 10px; }
-      .product-card__footer { display: block; }
-      .product-card__note { max-width: none; margin-bottom: 10px; }
+      .price-tag__value { font-size: clamp(19px, 6vw, 26px); }
+      .rail-product .price-tag__value { font-size: 22px; }
+      .query-button { padding-inline: 8px; }
       .query-button { width: 100%; }
       .story-grid, .contact-grid { display: flex; flex-direction: column; gap: 44px; }
       .story-art { width: 100%; min-height: 340px; }
@@ -458,21 +566,23 @@
       .query-tray__actions { flex-direction: column; }
       .query-tray__actions button { min-height: 32px; }
       .toast { right: 14px; bottom: 14px; max-width: calc(100% - 28px); }
+      .query-tray.is-visible ~ .toast { bottom: 116px; }
     }
 
     @media (max-width: 390px) {
       .shell { width: calc(100% - 28px); }
-      .category-card { min-height: 172px; padding: 13px; }
+      .category-card { min-height: 190px; padding: 13px 13px 38px; justify-content: flex-start; gap: 14px; }
+      .category-card > span:nth-child(2) { padding-right: 7px; }
       .category-card h3 { font-size: 18px; }
       .product-grid { gap: 7px; }
       .product-art { height: 145px; }
-      .product-card h3 { font-size: 14px; }
+      .product-card h4 { font-size: 14px; }
       .contact h2 { font-size: 46px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
-      .reveal { opacity: 1; transform: none; }
+      .js .reveal { opacity: 1; transform: none; }
     }
 
     /* Insignia de trayectoria: sello editorial propio, sobrio y ligado a la identidad de Casa Tito */
@@ -486,60 +596,169 @@
     .experience-badge__since { color:var(--blue-800,#244a78); font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
     .experience-badge__claim { margin-top:2px; color:#5f6871; font-family:var(--sans,sans-serif); font-size:12px; line-height:1.35; }
     @media(max-width:480px) { .experience-badge { gap:12px; padding:12px 13px 12px 9px; margin-bottom:22px; } .experience-badge__medal { flex-basis:67px; width:67px; height:73px; } .experience-badge__medal svg { width:67px; height:73px; } .experience-badge__copy { padding-left:12px; } .experience-badge__years { font-size:25px; } .experience-badge__kicker { font-size:8px; letter-spacing:.12em; } .experience-badge__claim { font-size:11px; max-width:210px; } }
+    /* Miniaturas: la foto entra completa en su caja, sobre blanco */
+    .product-art, .rail-product__art { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+    .product-art--photo, .rail-product__art.product-art--photo { background: #fff; border-bottom: 1px solid var(--line); }
+    .product-art--photo::before { content: none; }
+    /* Tablet: la navegación entra en una línea */
+    @media (min-width: 721px) and (max-width: 960px) { .desktop-nav a { white-space: nowrap; } .nav-whatsapp { display: none; } }
+    /* Contacto directo y menú móvil con enlaces reales */
+    .contact-data--inline { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .contact-data--inline .contact-card { flex: 1 1 240px; display: block; max-width: 340px; padding: 14px 16px; transition: border-color .2s ease, background-color .2s ease; }
+    @media (hover: hover) and (pointer: fine) { .contact-data--inline .contact-card:hover { background: rgba(255,253,249,.12); border-color: var(--yellow-500); } }
+    .contact-data--inline .contact-card__value { overflow-wrap: anywhere; }
+    .catalog-noscript { padding: 16px; background: var(--white); border-left: 3px solid var(--red-600); }
+    .mobile-menu a.mobile-contact { margin-top: 18px; padding: 13px 18px; display: inline-flex; justify-content: center; color: var(--white); border: 0; font: 700 13px var(--sans); }
+    .mobile-menu a.mobile-contact::after { content: none; }
   </style>
 </head>
 <body>
-  <div class="welcome-screen" id="welcome-screen" data-state="closed" aria-labelledby="welcome-title">
+  <section class="welcome-screen" id="welcome-screen" data-state="closed" aria-labelledby="welcome-title">
     <div class="welcome-inner">
       <h1 class="welcome-brand" id="welcome-title">Casa <span>Tito</span></h1>
       <div class="welcome-house" aria-hidden="true">
-        <svg viewBox="0 0 400 270" focusable="false" xmlns="http://www.w3.org/2000/svg">
-          <ellipse class="intro-ground" cx="200" cy="252" rx="190" ry="5"/>
-          <path class="intro-draw intro-roof" pathLength="1" d="M6 108 L200 24 L394 108"/>
-          <path class="intro-draw" pathLength="1" d="M24 100 V244 M376 100 V244 M24 244 H112 M376 244 H288 M104 235 H296"/>
+        <svg class="house-art" viewBox="0 0 426 270" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ct-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f70a3"/><stop offset=".55" stop-color="#2b5584"/><stop offset="1" stop-color="#1f4570"/></linearGradient>
+            <linearGradient id="ct-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#17365a"/><stop offset="1" stop-color="#0f2740"/></linearGradient>
+            <linearGradient id="ct-slope" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d44a4f"/><stop offset="1" stop-color="#93232a"/></linearGradient>
+            <linearGradient id="ct-barge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cf4046"/><stop offset=".5" stop-color="#b52b32"/><stop offset="1" stop-color="#9b252c"/></linearGradient>
+            <linearGradient id="ct-trim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d98d"/><stop offset=".55" stop-color="#d4ad43"/><stop offset="1" stop-color="#a97f2c"/></linearGradient>
+            <linearGradient id="ct-plinth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#15304f"/><stop offset="1" stop-color="#0d2237"/></linearGradient>
+            <linearGradient id="ct-floorfade" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#0a1827" stop-opacity="0"/><stop offset="1" stop-color="#0a1827" stop-opacity=".3"/></linearGradient>
+            <radialGradient id="ct-spill"><stop offset="0" stop-color="#f3d98f" stop-opacity=".5"/><stop offset=".55" stop-color="#f3d98f" stop-opacity=".2"/><stop offset="1" stop-color="#f3d98f" stop-opacity="0"/></radialGradient>
+            <linearGradient id="ct-leafshadow-l" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#0a1827" stop-opacity=".42"/><stop offset="1" stop-color="#0a1827" stop-opacity="0"/></linearGradient>
+            <linearGradient id="ct-leafshadow-r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a1827" stop-opacity=".42"/><stop offset="1" stop-color="#0a1827" stop-opacity="0"/></linearGradient>
+            <radialGradient id="ct-ground"><stop offset="0" stop-color="#050f1a" stop-opacity=".62"/><stop offset=".7" stop-color="#050f1a" stop-opacity=".28"/><stop offset="1" stop-color="#050f1a" stop-opacity="0"/></radialGradient>
+            <radialGradient id="ct-glow"><stop offset="0" stop-color="#f6dd97" stop-opacity=".3"/><stop offset=".6" stop-color="#f6dd97" stop-opacity=".1"/><stop offset="1" stop-color="#f6dd97" stop-opacity="0"/></radialGradient>
+            <pattern id="ct-siding" width="8" height="12" patternUnits="userSpaceOnUse"><path d="M0 11.5H8" stroke="#ffffff" stroke-opacity=".055"/></pattern>
+          </defs>
+
+          <!-- Sombra de base y luz de la vidriera sobre el piso -->
+          <ellipse class="house-ground welcome-anim" cx="214" cy="249" rx="212" ry="14" fill="url(#ct-ground)"/>
+          <ellipse class="house-spill welcome-anim" cx="200" cy="248" rx="118" ry="15" fill="url(#ct-spill)"/>
+
+          <!-- Profundidad: muro lateral y pendiente derecha, en fuga hacia atrás -->
+          <g class="house-depth welcome-anim">
+            <path d="M376 110 402.9 106.5V231.1L376 244Z" fill="url(#ct-side)"/>
+            <path d="M376 228 402.9 216.2V231.1L376 244Z" fill="#0b1e31"/>
+            <path d="M376 228 402.9 216.2" stroke="#b98f2f" stroke-width="1.2"/>
+            <path d="M376 110 402.9 106.5V122L376 129Z" fill="#071523" opacity=".5"/>
+            <path d="M200 23 239.2 25.6 422.4 105.5 397 109Z" fill="url(#ct-slope)"/>
+            <path d="M224.6 33.8 262.1 35.6M249.3 44.5 285 45.6M273.9 55.3 307.9 55.6M298.5 66 330.8 65.6M323.1 76.8 353.7 75.5M347.8 87.5 376.6 85.5M372.4 98.3 399.5 95.5" stroke="#6f161d" stroke-opacity=".38" stroke-width="1"/>
+            <path d="M239.2 25.6 422.4 105.5" stroke="#f3a9a0" stroke-opacity=".45" stroke-width="1"/>
+            <path d="M397 109 422.4 105.5V113.6L397 117.5Z" fill="#7b1b22"/>
+          </g>
+
+          <!-- Fachada -->
+          <g class="house-facade welcome-anim">
+            <path d="M24 104 200 28 376 104V244H24Z" fill="url(#ct-wall)"/>
+            <path d="M24 104 200 28 376 104V244H24Z" fill="url(#ct-siding)"/>
+            <path d="M24 104 200 28 376 104V244H24Z" fill="url(#ct-floorfade)"/>
+            <path d="M24 100H37V228H24Z" fill="#ffffff" opacity=".07"/>
+            <path d="M363 100H376V228H363Z" fill="#0a1827" opacity=".18"/>
+            <rect x="24" y="228" width="352" height="16" fill="url(#ct-plinth)"/>
+            <path d="M24 228H376" stroke="url(#ct-trim)" stroke-width="1.6"/>
+            <!-- Cartel -->
+            <rect x="148" y="84" width="104" height="23" rx="1.5" fill="#102943" stroke="url(#ct-trim)" stroke-width="1.5"/>
+            <text class="house-sign" x="200" y="99.6" text-anchor="middle" fill="#ebd17b">DESDE 1953</text>
+            <!-- Marco de la vidriera, con su retiro y el antepecho -->
+            <rect x="105" y="113" width="190" height="122" rx="1" fill="url(#ct-trim)"/>
+            <rect x="109" y="117" width="182" height="114" fill="#0b1e31"/>
+            <path d="M112 228H288L295 235H105Z" fill="#f0d98d"/>
+            <path d="M101 235H299V242H101Z" fill="#b98f2f"/>
+            <path d="M101 242H299L296 244.5H104Z" fill="#0a1827" opacity=".45"/>
+          </g>
+          <circle class="house-wall-glow welcome-anim" cx="200" cy="174" r="172" fill="url(#ct-glow)"/>
+          <path class="house-leaf-shadow welcome-anim" d="M76 122H105V232H76Z" fill="url(#ct-leafshadow-l)"/>
+          <path class="house-leaf-shadow welcome-anim" d="M295 122H324V232H295Z" fill="url(#ct-leafshadow-r)"/>
+
+          <!-- Techo: frente con espesor, sombra proyectada y filo dorado -->
+          <g class="house-roof welcome-anim">
+            <path d="M24 111 200 34 376 111V123L200 47 24 123Z" fill="#0a1827" opacity=".3"/>
+            <path d="M3 109 200 23 397 109V117.5L200 32 3 117.5Z" fill="url(#ct-barge)"/>
+            <path d="M3 117.5 200 32 397 117.5" fill="none" stroke="#6f161d" stroke-opacity=".55" stroke-width="1"/>
+          </g>
+          <path class="house-roof-edge" pathLength="1" d="M6 108 200 24 394 108" fill="none" stroke="#ebd17b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="intro-window">
-          <div class="intro-scene" aria-hidden="true">
-            <svg viewBox="0 0 176 108" preserveAspectRatio="xMidYMid slice" focusable="false" xmlns="http://www.w3.org/2000/svg">
+
+        <div class="intro-window welcome-anim">
+          <div class="intro-scene">
+            <svg viewBox="0 0 176 108" preserveAspectRatio="none" focusable="false" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <linearGradient id="intro-room" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e6af"/><stop offset="1" stop-color="#d8ad58"/></linearGradient>
-                <linearGradient id="intro-shelf" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b4e32"/><stop offset="1" stop-color="#a87536"/></linearGradient>
-                <radialGradient id="intro-lamp" cx="50%" cy="42%" r="58%"><stop offset="0" stop-color="#fff4bf" stop-opacity=".78"/><stop offset="1" stop-color="#fff4bf" stop-opacity="0"/></radialGradient>
+                <linearGradient id="intro-room" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9eabb"/><stop offset="1" stop-color="#e3bd70"/></linearGradient>
+                <linearGradient id="intro-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b98c43"/><stop offset="1" stop-color="#d9b163"/></linearGradient>
+                <linearGradient id="intro-floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8743a"/><stop offset="1" stop-color="#7a4f26"/></linearGradient>
+                <linearGradient id="intro-shelf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b98248"/><stop offset="1" stop-color="#6b4e32"/></linearGradient>
+                <linearGradient id="intro-cyl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000000" stop-opacity=".3"/><stop offset=".3" stop-color="#ffffff" stop-opacity=".24"/><stop offset=".55" stop-color="#000000" stop-opacity="0"/><stop offset="1" stop-color="#000000" stop-opacity=".36"/></linearGradient>
+                <radialGradient id="intro-lamp" cx="50%" cy="30%" r="60%"><stop offset="0" stop-color="#fff6c9" stop-opacity=".9"/><stop offset="1" stop-color="#fff6c9" stop-opacity="0"/></radialGradient>
+                <g id="ct-can">
+                  <path d="M0 3V24c0 2 5.4 3.4 12 3.4S24 26 24 24V3Z" fill="currentColor"/>
+                  <path d="M0 10.5c0 2 5.4 3.4 12 3.4s12-1.4 12-3.4v8c0 2-5.4 3.4-12 3.4S0 20.500 0 18.500Z" fill="#fffdf9" opacity=".9"/>
+                  <path d="M0 3V24c0 2 5.400 3.400 12 3.400S24 26 24 24V3Z" fill="url(#intro-cyl)"/>
+                  <ellipse cx="12" cy="3.200" rx="12" ry="3.200" fill="#eef1f2"/>
+                  <ellipse cx="12" cy="3.200" rx="8.800" ry="2" fill="#cdd3d7"/>
+                </g>
               </defs>
               <rect width="176" height="108" fill="url(#intro-room)"/>
+              <path d="M0 0H14V76L0 108Z" fill="url(#intro-side)"/>
+              <path d="M0 108 14 76H176V108Z" fill="url(#intro-floor)"/>
+              <path d="M14 76H176" stroke="#6b4e32" stroke-width="1.6"/>
               <rect width="176" height="108" fill="url(#intro-lamp)"/>
-              <path d="M0 78h176v30H0z" fill="#b27b35" opacity=".55"/>
-              <path d="M0 78h176" stroke="#6b4e32" stroke-width="2" opacity=".7"/>
-              <g class="scene-object scene-object--back">
-                <path d="M17 26h55v4H17zM19 30v22M70 30v22" fill="none" stroke="#6b4e32" stroke-width="2"/>
-                <rect x="23" y="34" width="11" height="14" rx="1" fill="#244a78"/><rect x="38" y="37" width="10" height="11" rx="1" fill="#b52b32"/><rect x="52" y="33" width="12" height="15" rx="1" fill="#d4ad43"/>
-                <path d="M27 35h3M42 38h3M56 34h4" stroke="#fff3bd" stroke-width="1" opacity=".75"/>
+
+              <g class="scene-object scene-object--back welcome-anim">
+                <rect x="24" y="30" width="62" height="3" fill="url(#intro-shelf)"/>
+                <rect x="24" y="54" width="62" height="3" fill="url(#intro-shelf)"/>
+                <use href="#ct-can" transform="translate(29 15.800) scale(.5)" color="#244a78"/>
+                <use href="#ct-can" transform="translate(45 15.800) scale(.5)" color="#b52b32"/>
+                <use href="#ct-can" transform="translate(61 15.800) scale(.5)" color="#d4ad43"/>
+                <use href="#ct-can" transform="translate(36 39.800) scale(.5)" color="#b52b32"/>
+                <use href="#ct-can" transform="translate(53 39.800) scale(.5)" color="#173657"/>
+                <rect x="104" y="12" width="58" height="46" rx="1" fill="#6b4e32" opacity=".28"/>
+                <path d="M118 19V48" stroke="#6b4e32" stroke-width="2.600" stroke-linecap="round"/>
+                <path d="M111 18H125V24H111Z" fill="#173657"/>
+                <path d="M137 21V49" stroke="#173657" stroke-width="2.800" stroke-linecap="round"/>
+                <path d="M132.500 18a5 5 0 0 0 9 0l-2.500 3h-4Z" fill="#173657"/>
+                <path d="M153 19 148 34H158ZM153 34V48" fill="#b52b32" stroke="#6b2b2f" stroke-width="1"/>
               </g>
-              <g class="scene-object scene-object--middle">
-                <path d="M92 22v37M86 26h12" stroke="#3b2d1f" stroke-width="2" stroke-linecap="round"/>
-                <path d="M82 25h20l-3 10H85z" fill="#b52b32" stroke="#6b2b2f" stroke-width="1.2"/>
-                <path d="M87 35h10v17H87z" fill="#f3d783" stroke="#6b4e32" stroke-width="1.2"/>
-                <path d="M88 42h8M88 46h8" stroke="#b8893a" stroke-width="1"/>
-                <path d="M108 57l14-21" stroke="#173657" stroke-width="3" stroke-linecap="round"/><path d="M116 34l6 2-3 6-6-2z" fill="#d4ad43"/>
+
+              <g class="scene-object scene-object--middle welcome-anim">
+                <ellipse cx="40" cy="84" rx="18" ry="2.400" fill="#3b2d1f" opacity=".3"/>
+                <use href="#ct-can" transform="translate(23 59) scale(.82)" color="#b52b32"/>
+                <ellipse cx="112" cy="84" rx="16" ry="2" fill="#3b2d1f" opacity=".28"/>
+                <rect x="97" y="43" width="29" height="10" rx="4.500" fill="#fffdf9"/>
+                <rect x="97" y="43" width="29" height="10" rx="4.500" fill="url(#intro-cyl)" opacity=".55"/>
+                <path d="M126 48h5v12H112v7" fill="none" stroke="#3b2d1f" stroke-width="1.800" stroke-linejoin="round"/>
+                <rect x="109" y="66" width="6" height="18" rx="2.500" fill="#b52b32"/>
               </g>
-              <g class="scene-object scene-object--front">
-                <path d="M24 86h128" stroke="#6b4e32" stroke-width="3" stroke-linecap="round"/>
-                <path d="M39 83l6-22h18l6 22z" fill="#d4ad43" stroke="#6b4e32" stroke-width="1.5"/>
-                <path d="M43 64h22" stroke="#fff3bd" stroke-width="2"/><path d="M47 61h14" stroke="#3b2d1f" stroke-width="2" stroke-linecap="round"/>
-                <path d="M78 83l12-18" stroke="#8a6428" stroke-width="3" stroke-linecap="round"/><path d="M87 67l6-8 4 3-5 8z" fill="#244a78"/>
-                <path d="M111 82c-4-7-3-13 3-17 5 4 6 10 2 17z" fill="none" stroke="#b52b32" stroke-width="2.5"/><path d="M113 66l4-5" stroke="#3b2d1f" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="136" cy="74" r="8" fill="#173657" stroke="#f3d783" stroke-width="1.5"/><path d="M132 73h8M136 69v8" stroke="#f3d783" stroke-width="1.3"/>
+
+              <g class="scene-object scene-object--front welcome-anim">
+                <ellipse cx="66" cy="100" rx="42" ry="3" fill="#2d2013" opacity=".34"/>
+                <use href="#ct-can" transform="translate(32 67) scale(1.200)" color="#d4ad43"/>
+                <use href="#ct-can" transform="translate(66 73) scale(.98)" color="#173657"/>
+                <g transform="rotate(14 118 84)">
+                  <rect x="115" y="60" width="6" height="19" rx="2.400" fill="#a87536"/>
+                  <rect x="113.500" y="78" width="9" height="5" fill="#c9ced2"/>
+                  <path d="M113 83H123L124.500 99H111.500Z" fill="#244a78"/>
+                </g>
+                <ellipse cx="151" cy="100.500" rx="15" ry="2.400" fill="#2d2013" opacity=".34"/>
+                <use href="#ct-can" transform="translate(139 78) scale(.82)" color="#b52b32"/>
               </g>
-              <path d="M13 102h150" stroke="#fff3bd" stroke-width="1" opacity=".6"/>
+              <rect y="101" width="176" height="7" fill="#5c3f22" opacity=".85"/>
+              <path d="M0 101H176" stroke="#f0d98d" stroke-opacity=".55" stroke-width=".8"/>
             </svg>
           </div>
+          <span class="intro-light welcome-anim"></span>
+          <span class="intro-dim"></span>
+        </div>
+        <div class="intro-leaves welcome-anim">
           <span class="intro-leaf intro-leaf--l"></span><span class="intro-leaf intro-leaf--r"></span>
         </div>
       </div>
-      <p class="welcome-tagline">Más de <span data-years>73</span> años acompañando a quienes construyen, reparan y transforman sus hogares.</p>
-      <button class="button button--yellow welcome-action" type="button" id="welcome-products">Ver productos</button>
+      <p class="welcome-tagline"><span data-years>73</span> años acompañando a quienes construyen, reparan y transforman sus hogares.</p>
+      <a class="button button--yellow welcome-action" href="#catalogo" id="welcome-products">Ver productos</a>
     </div>
-  </div>
+  </section>
 
   <div class="notice-bar" id="notice-bar">
     <span><strong>Casa Tito</strong> · Desde 1953, cerca tuyo.</span>
@@ -565,7 +784,7 @@
         <a href="#contacto">Contacto</a>
       </nav>
       <div class="nav-actions">
-        <button class="button nav-whatsapp" type="button" data-whatsapp>Consultar por WhatsApp</button>
+        <a class="button nav-whatsapp" href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito." target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
         <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -574,7 +793,7 @@
       <a href="#categorias">Categorías</a>
       <a href="#casa-tito">Nuestra historia</a>
       <a href="#contacto">Contacto</a>
-      <button class="button button--red mobile-contact" type="button" data-whatsapp>Consultar por WhatsApp</button>
+      <a class="button button--red mobile-contact" href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito." target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
     </nav>
   </header>
 
@@ -603,10 +822,10 @@
     <div class="shell offers-after-badge">
       <section class="product-rail" aria-labelledby="offers-title" data-product-rail="offers">
           <div class="product-rail__head">
-            <div><p class="product-rail__eyebrow">Para aprovechar</p><h3 class="product-rail__title" id="offers-title">Ofertas destacadas</h3><p class="product-rail__note">Espacio preparado para promociones reales. Precios, descuentos y disponibilidad se confirman antes de publicar cada oferta.</p></div>
-            <div class="product-rail__controls"><button class="product-rail__arrow" type="button" data-rail-prev aria-label="Productos anteriores de ofertas">‹</button><button class="product-rail__arrow" type="button" data-rail-next aria-label="Productos siguientes de ofertas">›</button></div>
+            <div><p class="product-rail__eyebrow">Selección Blancaley</p><h3 class="product-rail__title" id="offers-title">Productos destacados</h3><p class="product-rail__note">Consultanos por WhatsApp para confirmar precio y disponibilidad.</p></div>
+            <div class="product-rail__controls"><button class="product-rail__arrow" type="button" data-rail-prev aria-label="Ver productos anteriores">‹</button><button class="product-rail__arrow" type="button" data-rail-next aria-label="Ver más productos">›</button></div>
           </div>
-          <div class="product-rail__track" id="offers-track" tabindex="0" aria-label="Carrusel de ofertas destacadas"></div>
+          <div class="product-rail__track" id="offers-track" role="group" tabindex="0" aria-label="Productos destacados, desplazable"></div>
       </section>
     </div>
     <section class="section catalog" id="catalogo" aria-labelledby="catalog-title">
@@ -616,18 +835,30 @@
         </div>
 
 
-        <div class="category-picker" aria-label="Categorías del catálogo">
+        <div class="category-picker" id="categorias" role="group" aria-label="Categorías del catálogo">
           <div class="category-grid" id="category-grid"></div>
         </div>
-        <div class="catalog-products-heading" id="productos"><p class="eyebrow">Catálogo</p><h3>Todos los productos</h3></div>
+        <div class="catalog-products-heading" id="productos"><p class="eyebrow">Lanzamiento</p><h3>Pinturas, látex y membranas Blancaley</h3></div>
         <div class="catalog-toolbar" aria-label="Herramientas del catálogo">
           <label class="catalog-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">Buscar productos</span><input id="catalog-search" type="search" placeholder="Buscar por producto o categoría" autocomplete="off"></label>
           <div class="filter-list" id="filter-list" aria-label="Filtrar por categoría"></div>
         </div>
+        <p class="catalog-demo-notice"><strong>Importante:</strong> los precios publicados son de referencia. Consultanos por WhatsApp para confirmar precio y disponibilidad.</p>
         <p class="catalog-status" id="catalog-status" aria-live="polite"></p>
-        <div class="product-grid" id="product-grid"></div>
+        <div id="product-grid"></div>
+        <noscript><p class="catalog-noscript">Para ver el catálogo necesitás JavaScript activado. También podés <a href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito.">escribirnos por WhatsApp</a>.</p></noscript>
         <div class="no-results" id="no-results" hidden><strong>No encontramos esa coincidencia.</strong><span>Probá con otra palabra o consultanos directamente.</span><br><button class="text-link" type="button" id="reset-search">Ver todo el catálogo</button></div>
-        <p class="catalog-footnote"><strong>Importante:</strong> este catálogo no muestra precios ni promete stock. La información se confirma por consulta.</p>
+        <p class="catalog-footnote">Las demás categorías se suman próximamente. ¿Buscás otro producto? Escribinos y te ayudamos.</p>
+      </div>
+    </section>
+
+    <section class="section story" id="casa-tito" aria-labelledby="story-title">
+      <div class="shell story-grid story-grid--compact">
+        <div class="story-copy reveal">
+          <p class="eyebrow">Desde 1953</p>
+          <h2 id="story-title"><span data-years>73</span> años cerca de quienes <em>construyen.</em></h2>
+          <p>Casa Tito acompaña a quienes construyen, reparan y mantienen sus hogares. Queremos ayudarte a encontrar los productos que necesitás, con la información y la atención que cada consulta merece.</p>
+        </div>
       </div>
     </section>
 
@@ -637,7 +868,11 @@
           <p class="eyebrow eyebrow--light">¿Buscás algo en particular?</p>
           <h2 id="contact-title">Te <em>ayudamos.</em></h2>
           <p class="contact-lead">Consultanos por productos, precios y disponibilidad. Si no encontrás lo que buscás, escribinos.</p>
-          <div class="contact-actions"><button class="button button--yellow" type="button" data-whatsapp>Consultar por WhatsApp</button><a class="button button--ghost-light" href="#catalogo">Volver al catálogo</a></div>
+          <div class="contact-actions"><a class="button button--yellow" href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito." target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a><a class="button button--ghost-light" href="#catalogo">Volver al catálogo</a></div>
+          <div class="contact-data contact-data--inline">
+            <a class="contact-card" href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito." target="_blank" rel="noopener noreferrer"><span class="contact-card__label">WhatsApp</span><span class="contact-card__value">351 753-5587</span></a>
+            <a class="contact-card" href="mailto:casatito.sas@gmail.com"><span class="contact-card__label">Correo</span><span class="contact-card__value">casatito.sas@gmail.com</span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -654,7 +889,7 @@
     </div>
     <div class="shell footer-grid">
       <div><h3>Explorar</h3><a href="#catalogo">Catálogo</a><a href="#categorias">Categorías</a></div>
-      <div><h3>Contacto</h3><button class="footer-action" type="button" data-whatsapp>WhatsApp</button><a href="#contacto">Consultas</a></div>
+      <div><h3>Contacto</h3><a href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito." target="_blank" rel="noopener noreferrer">WhatsApp · 351 753-5587</a><a href="mailto:casatito.sas@gmail.com">casatito.sas@gmail.com</a><a href="#contacto">Consultas</a></div>
       <div class="footer-slogan"><strong>Desde 1953,<br><em>cerca tuyo.</em></strong></div>
     </div>
     <div class="shell footer-bottom">© <span id="current-year"></span> Casa Tito.</div>
@@ -662,9 +897,31 @@
 
   <div class="query-tray" id="query-tray" aria-live="polite" aria-hidden="true">
     <div class="query-tray__copy"><strong id="query-count">0 productos</strong><span id="query-summary">Todavía no agregaste productos a tu consulta.</span></div>
-    <div class="query-tray__actions"><button class="query-tray__clear" type="button" id="clear-query">Vaciar</button><button class="query-tray__send" type="button" id="send-query">Enviar consulta</button></div>
+    <div class="query-tray__actions"><button class="query-tray__clear" type="button" id="clear-query">Vaciar</button><button class="query-tray__send" type="button" id="send-query">Consultar por WhatsApp</button></div>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"><strong>✓</strong><p></p></div>
+  <div class="product-modal" id="product-modal" hidden>
+    <section class="product-modal__panel" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" aria-describedby="product-modal-description">
+      <button class="product-modal__close" type="button" aria-label="Cerrar ficha del producto">×</button>
+      <div class="product-modal__visual"><img class="product-modal__image" id="product-modal-image" alt=""><div class="product-modal__fallback" id="product-modal-fallback" hidden></div></div>
+      <div class="product-modal__content">
+        <p class="product-modal__category" id="product-modal-category"></p>
+        <h2 id="product-modal-title"></h2>
+        <p class="product-modal__brand" id="product-modal-brand"></p>
+        <p class="product-modal__description" id="product-modal-description"></p>
+        <fieldset class="product-modal__variant" id="product-modal-variant-wrap" hidden><legend>Elegí una presentación</legend><div class="variant-list" id="product-modal-variants"></div></fieldset>
+        <div class="product-modal__summary">
+          <p class="product-modal__price" id="product-modal-price" aria-live="polite"></p>
+          <p class="product-modal__code" id="product-modal-code"></p>
+          <p class="product-modal__notice">Precio de referencia. Confirmá precio y disponibilidad por WhatsApp.</p>
+        </div>
+        <div class="product-modal__actions">
+          <a class="button button--red" id="product-modal-whatsapp" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+          <button class="button button--outline" id="product-modal-query" type="button"></button>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <svg width="0" height="0" aria-hidden="true" style="position:absolute">
     <defs>
@@ -676,11 +933,9 @@
 
   <script>
     /*
-      Presentación de Casa Tito: la casita se dibuja y abre sus ventanas UNA vez por carga de la página.
+      Presentación de Casa Tito: la casita se construye UNA vez por carga de la página.
       Estados: closed → opening → open. Solo se puede avanzar; nunca retroceder ni repetir.
-      El estado vive en memoria (esta carga de página): no hace falta sessionStorage/localStorage,
-      porque al recargar la página la animación debe poder ejecutarse de nuevo.
-      No depende de IntersectionObserver, scroll ni resize: arranca una sola vez al cargar.
+      El CSS base ya es el estado final: si algo falla, la casita y «Ver productos» quedan visibles.
     */
     (function () {
       var welcome = document.getElementById("welcome-screen");
@@ -688,6 +943,8 @@
 
       var ORDER = ["closed", "opening", "open"];
       var state = "closed";
+      var FALLBACK_MS = 3300; /* la secuencia dura 2920 ms */
+      var started = false;
 
       function reducedMotion() {
         try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; }
@@ -700,49 +957,37 @@
         welcome.setAttribute("data-state", state);
       }
 
-      /* Reafirma el estado alcanzado si algo externo tocara el atributo (nunca reinicia la animación). */
       function sync() {
         if (welcome.getAttribute("data-state") !== state) welcome.setAttribute("data-state", state);
       }
 
       function finish() { if (state === "opening") setState("open"); }
 
-      function start() {
-        if (state !== "closed") return;
-        if (reducedMotion()) { setState("opening"); setState("open"); return; }
+      function begin() {
+        if (started) return;
+        started = true;
         setState("opening");
+        if (reducedMotion()) { setState("open"); return; }
+        setTimeout(finish, FALLBACK_MS);
       }
 
-      /* La animación termina cuando aparece el último elemento: el botón «Ver productos». */
       var button = document.getElementById("welcome-products");
       if (button) {
+        /* La animación termina con el último elemento: el botón «Ver productos». */
         button.addEventListener("animationend", function (event) {
-          if (event.animationName === "intro-cta-in") finish();
+          if (event.animationName === "welcome-cta-in" && event.target === button) finish();
         });
-        /* «Ver productos» va directo al catálogo real (#catalogo), sin pantallas intermedias, cada vez que se pulsa. */
-        button.addEventListener("click", function () {
-          var target = document.getElementById("catalogo");
-          if (target) target.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
-        });
+        /* Si alguien llega con el teclado antes de tiempo, la casita se completa: nunca hay foco sobre algo invisible. */
+        button.addEventListener("focus", finish);
       }
-
-      /* Respaldo: si el navegador no emitiera animationend, el estado igualmente llega a «open». */
-      function begin() {
-        start();
-        setTimeout(finish, 3600);
-      }
+      document.addEventListener("keydown", function (event) { if (event.key === "Tab") finish(); });
 
       document.addEventListener("visibilitychange", sync);
       window.addEventListener("pageshow", sync);
 
-      /* Arranque único, con la página ya pintada en estado «closed» para que la animación comience desde cero. */
-      if (document.readyState === "complete") {
-        requestAnimationFrame(function () { requestAnimationFrame(begin); });
-      } else {
-        window.addEventListener("load", function () {
-          requestAnimationFrame(function () { requestAnimationFrame(begin); });
-        }, { once: true });
-      }
+      /* Dos fotogramas en «closed» para arrancar desde cero; el temporizador cubre pestañas en segundo plano, donde requestAnimationFrame no corre. */
+      requestAnimationFrame(function () { requestAnimationFrame(begin); });
+      setTimeout(begin, 500);
     })();
   </script>
   <script>
@@ -753,8 +998,9 @@
       Ejemplo de formato: 549351XXXXXXXX (reemplazá las X por el número real).
     */
     const SITE_CONFIG = {
-      whatsapp: "",
-      whatsappLabel: "Número a confirmar",
+      whatsapp: "5493517535587",
+      whatsappLabel: "351 753-5587",
+      email: "casatito.sas@gmail.com",
       hours: "Información a completar"
     };
 
@@ -774,22 +1020,297 @@
       { id: "hogar", name: "Hogar", short: "Soluciones prácticas para tu casa.", icon: "home" },
       { id: "mantenimiento", name: "Mantenimiento", short: "Reparar, cuidar y prolongar.", icon: "wrench" }
     ];
+    /* Categorías con productos en este lanzamiento: el resto se muestra como «Próximamente». */
+    const launchCategoryIds = new Set(["pinturas", "membranas"]);
 
     /* Lista editable: son referencias de catálogo, no promesas de stock ni precios. */
-    const products = [
-      { id: "latex-interior", name: "Látex para interior", category: "pinturas", description: "Para renovar ambientes y superficies interiores.", detail: "Consultá colores, terminación, rendimiento y marcas disponibles.", tag: "Pinturas", art: "red", icon: "paint" },
-      { id: "membrana-liquida", name: "Membrana líquida", category: "membranas", description: "Una referencia para trabajos de protección y reparación.", detail: "Consultá tipo de superficie, presentación y aplicación recomendada.", tag: "Protección", art: "yellow", icon: "roof" },
-      { id: "tornillos", name: "Tornillos y fijaciones", category: "fijaciones", description: "Opciones para madera, metal y usos generales.", detail: "Consultá medida, material, cabeza, cantidad y accesorio adecuado.", tag: "Fijaciones", art: "blue", icon: "bolt" },
-      { id: "tarugos", name: "Tarugos y anclajes", category: "fijaciones", description: "Para elegir una sujeción acorde a cada superficie.", detail: "Consultá diámetro, tipo de pared y carga de trabajo.", tag: "Fijaciones", art: "sand", icon: "bolt" },
-      { id: "llaves", name: "Juego de llaves combinadas", category: "manuales", description: "Herramientas de mano para mantenimiento y taller.", detail: "Consultá medidas, cantidad de piezas y marcas disponibles.", tag: "Herramientas", art: "blue", icon: "wrench" },
-      { id: "martillo", name: "Martillo de uña", category: "manuales", description: "Una herramienta esencial para tareas de reparación.", detail: "Consultá peso, mango y opciones disponibles.", tag: "Herramientas", art: "red", icon: "hammer" },
-      { id: "taladro", name: "Taladro percutor", category: "electricas", description: "Potencia para perforar y avanzar en distintos trabajos.", detail: "Consultá potencia, accesorios, tensión y garantía.", tag: "Eléctricas", art: "yellow", icon: "drill" },
-      { id: "amoladora", name: "Amoladora angular", category: "electricas", description: "Para corte, desbaste y tareas de obra o taller.", detail: "Consultá diámetro de disco, potencia y accesorios.", tag: "Eléctricas", art: "sand", icon: "drill" },
-      { id: "cemento", name: "Materiales para obra", category: "construccion", description: "Referencias para reparación, obra y mantenimiento.", detail: "Consultá disponibilidad, presentación y uso recomendado.", tag: "Construcción", art: "sand", icon: "bricks" },
-      { id: "organizacion", name: "Organización para el hogar", category: "hogar", description: "Soluciones prácticas para ordenar y resolver.", detail: "Consultá medidas, materiales y alternativas.", tag: "Hogar", art: "blue", icon: "home" },
-      { id: "sellador", name: "Selladores y adhesivos", category: "mantenimiento", description: "Para reparar, fijar y mantener superficies.", detail: "Consultá compatibilidad, aplicación y tiempo de secado.", tag: "Mantenimiento", art: "red", icon: "wrench" },
-      { id: "lubricante", name: "Lubricación y cuidado", category: "mantenimiento", description: "Ayudas para prolongar la vida útil de herramientas y piezas.", detail: "Consultá uso, formato y superficie compatible.", tag: "Mantenimiento", art: "yellow", icon: "wrench" }
-    ];
+    const products =
+[
+  {
+    "id": "casa-tito-50",
+    "name": "Blanca Matt",
+    "brand": "Blancaley",
+    "category": "pinturas",
+    "description": "Presentaciones de 4, 10 y 20 L.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "426740, 427101, 427106",
+    "price": "$41.194,03 · $23.153,00 · $10.815,30",
+    "image": "images/Blancaley/ListaPrecios_p02_img09_481x481.png",
+    "variants": [
+      {
+        "label": "4 L",
+        "price": "$10.815,30",
+        "code": "427106"
+      },
+      {
+        "label": "10 L",
+        "price": "$23.153,00",
+        "code": "427101"
+      },
+      {
+        "label": "20 L",
+        "price": "$41.194,03",
+        "code": "426740"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-48",
+    "name": "Blanca Plus",
+    "brand": "Blancaley",
+    "category": "pinturas",
+    "description": "Blanco. Presentaciones de 4, 10 y 20 L.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "429941, 429947, 429952",
+    "price": "$15.102,29 · $33.883,70 · $63.194,74",
+    "image": "images/Blancaley/ListaPrecios_p02_img05_617x464.png",
+    "variants": [
+      {
+        "label": "4 L",
+        "price": "$15.102,29",
+        "code": "429941"
+      },
+      {
+        "label": "10 L",
+        "price": "$33.883,70",
+        "code": "429947"
+      },
+      {
+        "label": "20 L",
+        "price": "$63.194,74",
+        "code": "429952"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-49",
+    "name": "Blanca Top Profesional",
+    "brand": "Blancaley",
+    "category": "pinturas",
+    "description": "Presentaciones de 1, 4, 10 y 20 L.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "428759, 427069, 427074, 427079",
+    "price": "$4.601,96 · $12.263,66 · $26.652,36 · $47.721,41",
+    "image": "images/Blancaley/ListaPrecios_p02_img08_659x495.png",
+    "variants": [
+      {
+        "label": "1 L",
+        "price": "$4.601,96",
+        "code": "428759"
+      },
+      {
+        "label": "4 L",
+        "price": "$12.263,66",
+        "code": "427069"
+      },
+      {
+        "label": "10 L",
+        "price": "$26.652,36",
+        "code": "427074"
+      },
+      {
+        "label": "20 L",
+        "price": "$47.721,41",
+        "code": "427079"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-51",
+    "name": "Nueva Obra",
+    "brand": "Blancaley",
+    "category": "pinturas",
+    "description": "Presentaciones de 4, 10 y 20 L.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "431892, 431897, 431902",
+    "price": "$9.279,16 · $19.412,57 · $35.178,13",
+    "image": "images/Blancaley/ListaPrecios_p02_img10_594x445.png",
+    "variants": [
+      {
+        "label": "4 L",
+        "price": "$9.279,16",
+        "code": "431892"
+      },
+      {
+        "label": "10 L",
+        "price": "$19.412,57",
+        "code": "431897"
+      },
+      {
+        "label": "20 L",
+        "price": "$35.178,13",
+        "code": "431902"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-55",
+    "name": "Fijador y sellador",
+    "brand": "Blancaley",
+    "category": "pinturas",
+    "description": "Presentaciones de 1, 4, 10 y 20 L.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "430699, 430705, 09135, 09136",
+    "price": "$3.897,77 · $12.877,91 · $21.019,92 · $40.733,86",
+    "image": "images/Blancaley/ListaPrecios_p11_img05_602x452.png",
+    "variants": [
+      {
+        "label": "1 L",
+        "price": "$3.897,77",
+        "code": "430699"
+      },
+      {
+        "label": "4 L",
+        "price": "$12.877,91",
+        "code": "430705"
+      },
+      {
+        "label": "10 L",
+        "price": "$21.019,92",
+        "code": "09135"
+      },
+      {
+        "label": "20 L",
+        "price": "$40.733,86",
+        "code": "09136"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-56",
+    "name": "Masilla + enduido",
+    "brand": "Blancaley",
+    "category": "pinturas",
+    "description": "Presentaciones de 1, 7, 16 y 32 kg.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "428754, 427095, 427111, 427116",
+    "price": "$3.891,80 · $10.043,53 · $19.552,24 · $34.384,34",
+    "image": "images/Blancaley/ListaPrecios_p11_img07_545x409.png",
+    "variants": [
+      {
+        "label": "1 kg",
+        "price": "$3.891,80",
+        "code": "428754"
+      },
+      {
+        "label": "7 kg",
+        "price": "$10.043,53",
+        "code": "427095"
+      },
+      {
+        "label": "16 kg",
+        "price": "$19.552,24",
+        "code": "427111"
+      },
+      {
+        "label": "32 kg",
+        "price": "$34.384,34",
+        "code": "427116"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-54",
+    "name": "Membrana de caucho",
+    "brand": "Blancaley",
+    "category": "membranas",
+    "description": "Presentaciones de 5, 13 y 26 kg.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "430710, 430715, 430720",
+    "price": "$22.855,71 · $53.054,75 · $103.392,06",
+    "image": "images/Blancaley/ListaPrecios_p08_img09_512x512.png",
+    "variants": [
+      {
+        "label": "5 kg",
+        "price": "$22.855,71",
+        "code": "430710"
+      },
+      {
+        "label": "13 kg",
+        "price": "$53.054,75",
+        "code": "430715"
+      },
+      {
+        "label": "26 kg",
+        "price": "$103.392,06",
+        "code": "430720"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-52",
+    "name": "Membrana líquida",
+    "brand": "Blancaley",
+    "category": "membranas",
+    "description": "Presentaciones de 10 L (13 kg) y 20 L (26 kg).",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "paint",
+    "sku": "427122, 427127",
+    "price": "$36.524,40 · $70.600,02",
+    "image": "images/Blancaley/ListaPrecios_p08_img05_722x542.png",
+    "variants": [
+      {
+        "label": "10 L · 13 kg",
+        "price": "$36.524,40",
+        "code": "427122"
+      },
+      {
+        "label": "20 L · 26 kg",
+        "price": "$70.600,02",
+        "code": "427127"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-53",
+    "name": "Membrana poliuretánica",
+    "brand": "Blancaley",
+    "category": "membranas",
+    "description": "Presentaciones de 13 y 26 kg.",
+    "detail": "",
+    "tag": "Blancaley",
+    "art": "blue",
+    "icon": "roof",
+    "sku": "429957, 429486",
+    "price": "$44.835,82 · $86.673,63",
+    "image": "",
+    "variants": [
+      {
+        "label": "13 kg",
+        "price": "$44.835,82",
+        "code": "429957"
+      },
+      {
+        "label": "26 kg",
+        "price": "$86.673,63",
+        "code": "429486"
+      }
+    ]
+  }
+];
 
     const iconPaths = {
       paint: '<path d="M5 17h10M7 14l8-8 3 3-8 8H7zM16 5l2-2 3 3-2 2M5 20h14"/>',
@@ -805,7 +1326,10 @@
     const $ = (selector, root = document) => root.querySelector(selector);
     const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
     const plain = value => String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
     const icon = name => `<svg class="icon" aria-hidden="true" viewBox="0 0 24 24">${iconPaths[name] || iconPaths.wrench}</svg>`;
+    const productImageSrc = path => path || "";
+
     const categoryMap = Object.fromEntries(categories.map(category => [category.id, category]));
     let activeCategory = "all";
     let queryItems = [];
@@ -820,22 +1344,20 @@
     }
 
     function renderCategories() {
-      $("#category-grid").innerHTML = categories.map((category, index) => `
-        <button class="category-card reveal" type="button" data-category="${category.id}" aria-label="Filtrar por ${category.name}">
-          <span class="category-card__top"><span class="category-card__number">0${index + 1}</span><span class="category-card__icon">${icon(category.icon)}</span></span>
-          <span><h3>${category.name}</h3><p>${category.short}</p></span>
-          <span class="category-card__link" aria-hidden="true">↗</span>
-        </button>
-      `).join("");
-      $$(".category-card").forEach(card => card.addEventListener("click", () => {
+      $("#category-grid").innerHTML = categories.map((category, index) => {
+        const top = `<span class="category-card__top"><span class="category-card__number">0${index + 1}</span><span class="category-card__icon">${icon(category.icon)}</span></span>`;
+        if (!launchCategoryIds.has(category.id)) {
+          return `<div class="category-card category-card--soon">${top}<div><h3>${category.name}</h3><p>${category.short}</p><span class="category-card__soon">Próximamente</span></div></div>`;
+        }
+        return `<button class="category-card" type="button" data-category="${category.id}" aria-label="${category.name}, ver productos">${top}<span><span class="category-card__title">${category.name}</span><span class="category-card__short">${category.short}</span></span><span class="category-card__link" aria-hidden="true">↗</span></button>`;
+      }).join("");
+      $$(".category-card[data-category]").forEach(card => card.addEventListener("click", () => {
         setCategory(card.dataset.category);
         $("#productos").scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
       }));
-      observeReveals($("#category-grid"));
     }
-
     function renderFilters() {
-      $("#filter-list").innerHTML = [{ id: "all", name: "Todo el catálogo" }, ...categories].map(category => `
+      $("#filter-list").innerHTML = [{ id: "all", name: "Todo el catálogo" }, ...categories.filter(category => launchCategoryIds.has(category.id))].map(category => `
         <button class="filter-chip${category.id === "all" ? " is-active" : ""}" type="button" data-filter="${category.id}">${category.name}</button>
       `).join("");
       $$(".filter-chip").forEach(button => button.addEventListener("click", () => setCategory(button.dataset.filter)));
@@ -843,40 +1365,169 @@
 
     function productMatches(product, query) {
       const category = categoryMap[product.category];
-      const haystack = plain(`${product.name} ${product.description} ${product.tag} ${category.name}`);
+      const haystack = plain(`${product.name} ${product.brand} ${product.sku} ${product.description} ${product.tag} ${category.name}`);
       return !query || haystack.includes(plain(query));
+    }
+
+    let modalVariantIndex = 0;
+    let activeModalProductId = null;
+    let lastModalTrigger = null;
+
+    function variantsFor(product) {
+      return product.variants?.length ? product.variants : [{ label: "Presentación única", price: product.price || "", code: product.sku || "" }];
+    }
+    function queryContains(productId, variantIndex) {
+      return queryItems.some(item => item.productId === productId && (variantIndex == null || item.variantIndex === variantIndex));
+    }
+    function priceAmount(value) {
+      return Number(String(value).replace(/[^0-9,.-]/g, "").replace(/\./g, "").replace(",", ".")) || Number.POSITIVE_INFINITY;
+    }
+    /* Varias presentaciones: «Desde» y el menor precio. Una sola: el precio directo. */
+    function productCardPrice(product) {
+      const variants = variantsFor(product);
+      if (variants.length < 2) return { from: false, value: variants[0].price || "Consultar precio", code: variants[0].code };
+      const cheapest = [...variants].sort((a, b) => priceAmount(a.price) - priceAmount(b.price))[0];
+      return { from: true, value: cheapest.price };
+    }
+    function priceMarkup(product) {
+      const price = productCardPrice(product);
+      return `<span class="price-tag">${price.from ? `<span class="price-tag__from">Desde </span>` : ""}<strong class="price-tag__value">${price.value}</strong>${price.code ? `<span class="price-tag__code">Código: ${price.code}</span>` : ""}</span>`;
+    }
+    function queryButtonLabel(product) {
+      if (queryContains(product.id, null)) return "En tu consulta · ver";
+      return variantsFor(product).length > 1 ? "Elegir presentación" : "Ver producto";
+    }
+    function queryButtonMarkup(product) {
+      return `<button class="query-button${queryContains(product.id, null) ? " is-added" : ""}" type="button" data-query="${product.id}" aria-label="${queryButtonLabel(product)}: ${product.name}">${queryButtonLabel(product)}</button>`;
+    }
+    function syncQueryButtons() {
+      $$("[data-query]").forEach(button => {
+        const product = products.find(item => item.id === button.dataset.query);
+        if (!product) return;
+        button.classList.toggle("is-added", queryContains(product.id, null));
+        button.textContent = queryButtonLabel(product);
+        button.setAttribute("aria-label", `${queryButtonLabel(product)}: ${product.name}`);
+      });
+    }
+    function productArtMarkup(product) {
+      return product.image ? `<img class="product-photo" src="${productImageSrc(product.image)}" alt="${product.name}, ${product.brand}" loading="lazy" decoding="async">` : icon(product.icon);
+    }
+    function productCardMarkup(product) {
+      return `
+        <article class="product-card" data-product-open="${product.id}">
+          <div class="product-art product-art--${product.art}${product.image ? " product-art--photo" : ""}"><span class="product-art__tag">${product.tag}</span>${productArtMarkup(product)}</div>
+          <div class="product-card__body">
+            <h4>${product.name}</h4>
+            <p>${product.description}</p>
+            <div class="product-card__footer">${priceMarkup(product)}${queryButtonMarkup(product)}</div>
+          </div>
+        </article>`;
     }
 
     function renderProducts() {
       const query = $("#catalog-search").value.trim();
-      const visibleProducts = products.filter(product => (activeCategory === "all" || product.category === activeCategory) && productMatches(product, query));
-      $("#catalog-status").textContent = `${visibleProducts.length} ${visibleProducts.length === 1 ? "referencia disponible" : "referencias disponibles"}`;
+      const visibleProducts = products.filter(product => launchCategoryIds.has(product.category) && (activeCategory === "all" || product.category === activeCategory) && productMatches(product, query));
+      $("#catalog-status").textContent = `${visibleProducts.length} ${visibleProducts.length === 1 ? "producto" : "productos"}`;
       $("#no-results").hidden = visibleProducts.length > 0;
-      $("#product-grid").innerHTML = visibleProducts.map(product => `
-        <article class="product-card reveal">
-          <div class="product-art product-art--${product.art}"><span class="product-art__tag">${product.tag}</span>${icon(product.icon)}</div>
-          <div class="product-card__body">
-            <p class="product-card__category">${categoryMap[product.category].name}</p>
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <details><summary>¿Para qué sirve?</summary><p>${product.detail}</p></details>
-            <div class="product-card__footer"><span class="product-card__note">Precio y stock a confirmar</span><button class="query-button${queryItems.includes(product.id) ? " is-added" : ""}" type="button" data-query="${product.id}">${queryItems.includes(product.id) ? "Agregado" : "Sumar a mi consulta"}</button></div>
-          </div>
-        </article>
-      `).join("");
-      $$("[data-query]", $("#product-grid")).forEach(button => button.addEventListener("click", () => toggleQuery(button.dataset.query)));
-      observeReveals($("#product-grid"));
+      $("#product-grid").innerHTML = categories.filter(category => launchCategoryIds.has(category.id)).map(category => {
+        const items = visibleProducts.filter(product => product.category === category.id);
+        if (!items.length) return "";
+        return `<section class="product-group" aria-labelledby="group-${category.id}"><h3 class="product-group__title" id="group-${category.id}">${category.name} <span class="product-group__count">${items.length} ${items.length === 1 ? "producto" : "productos"}</span></h3><div class="product-grid">${items.map(productCardMarkup).join("")}</div></section>`;
+      }).join("");
     }
 
+    function whatsappLink(message) {
+      const url = whatsappUrl();
+      return url ? `${url}?text=${encodeURIComponent(message)}` : "#contacto";
+    }
+    function variantLine(product, variant) {
+      return `${product.name} — ${variant.label} — ${variant.price || "Consultar precio"}${variant.code ? ` — Código: ${variant.code}` : ""}`;
+    }
+    function syncModalVariant(product, index) {
+      const variants = variantsFor(product);
+      modalVariantIndex = Math.max(0, Math.min(index, variants.length - 1));
+      const variant = variants[modalVariantIndex];
+      $("#product-modal-price").textContent = variant.price || "Consultar precio";
+      $("#product-modal-code").textContent = `${variant.label}${variant.code ? ` · Código: ${variant.code}` : ""}`;
+      $$(".variant-option").forEach((option, optionIndex) => {
+        const selected = optionIndex === modalVariantIndex;
+        option.classList.toggle("is-selected", selected);
+        $("input", option).checked = selected;
+      });
+      $("#product-modal-whatsapp").href = whatsappLink(`Hola, Casa Tito. Quiero consultar por ${variantLine(product, variant)}. ¿Podrían confirmarme precio y disponibilidad?`);
+      const add = $("#product-modal-query");
+      add.textContent = queryContains(product.id, modalVariantIndex) ? "Quitar de mi consulta" : "Sumar a mi consulta";
+    }
+    function openProductDetail(productId, trigger) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      const modal = $("#product-modal");
+      const image = $("#product-modal-image");
+      const fallback = $("#product-modal-fallback");
+      lastModalTrigger = trigger || document.activeElement;
+      activeModalProductId = product.id;
+      $("#product-modal-category").textContent = categoryMap[product.category]?.name || "Producto";
+      $("#product-modal-title").textContent = product.name;
+      $("#product-modal-brand").textContent = product.brand || "";
+      $("#product-modal-description").textContent = product.description || "";
+      const variants = variantsFor(product);
+      const hasOptions = variants.length > 1;
+      $("#product-modal-variant-wrap").hidden = !hasOptions;
+      $("#product-modal-variants").innerHTML = hasOptions ? variants.map((variant, index) => `<label class="variant-option"><input type="radio" name="product-variant" value="${index}"><span class="variant-option__label">${variant.label}</span><span class="variant-option__code">Código: ${variant.code || "Consultar"}</span><span class="variant-option__price">${variant.price || "Consultar"}</span></label>`).join("") : "";
+      fallback.innerHTML = `${icon(product.icon)}<div>Imagen no disponible para este producto.</div>`;
+      image.onerror = () => { image.hidden = true; fallback.hidden = false; };
+      image.hidden = !product.image;
+      fallback.hidden = Boolean(product.image);
+      if (product.image) { image.alt = `${product.name}, ${product.brand}`; image.src = productImageSrc(product.image); } else { image.removeAttribute("src"); image.alt = ""; }
+      /* Se abre en la presentación de menor precio, la misma que muestra la tarjeta. */
+      const cheapest = variants.reduce((best, variant, index) => priceAmount(variant.price) < priceAmount(variants[best].price) ? index : best, 0);
+      syncModalVariant(product, cheapest);
+      modal.hidden = false;
+      document.body.classList.add("modal-open");
+      $(".product-modal__content", modal).scrollTop = 0;
+      $(".product-modal__close", modal).focus();
+    }
+
+    function closeProductDetail() {
+      const modal = $("#product-modal");
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.classList.remove("modal-open");
+      activeModalProductId = null;
+      if (lastModalTrigger?.isConnected) lastModalTrigger.focus();
+    }
+
+    document.addEventListener("click", event => {
+      if (event.target.closest(".product-modal__close") || event.target === $("#product-modal")) { closeProductDetail(); return; }
+      const card = event.target.closest("[data-product-open]");
+      if (!card || event.target.closest("a, input, select, textarea")) return;
+      openProductDetail(card.dataset.productOpen, event.target.closest("[data-query]") || $("[data-query]", card));
+    });
+    document.addEventListener("keydown", event => {
+      const modal = $("#product-modal");
+      if (modal.hidden) return;
+      if (event.key === "Escape") { closeProductDetail(); return; }
+      if (event.key !== "Tab") return;
+      /* El foco queda dentro de la ficha mientras está abierta. */
+      const focusable = $$("a[href], button:not([disabled]), input:not([disabled])", modal).filter(element => !element.closest("[hidden]") && (element.type !== "radio" || element.checked));
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    /* Si una foto no carga, la tarjeta muestra el ícono del producto en lugar de una imagen rota. */
+    document.addEventListener("error", event => {
+      const image = event.target;
+      if (!(image instanceof HTMLImageElement) || !image.matches(".product-photo")) return;
+      const product = products.find(item => item.id === image.closest("[data-product-open]")?.dataset.productOpen);
+      image.outerHTML = icon(product?.icon || "paint");
+    }, true);
 
     function renderProductRails() {
-      const rail = { id: "offers-track", ids: ["latex-interior", "membrana-liquida", "taladro", "amoladora", "sellador"], badge: "Oferta a configurar" };
-      const track = $("#" + rail.id);
-      const items = rail.ids.map(id => products.find(product => product.id === id)).filter(Boolean);
-      track.innerHTML = items.map(product => `
-        <article class="rail-product">
-          <div class="rail-product__art product-art--${product.art}"><span class="rail-product__badge">${rail.badge}</span>${icon(product.icon)}</div>
-          <div class="rail-product__body"><p class="rail-product__category">${categoryMap[product.category].name}</p><h4>${product.name}</h4><p class="rail-product__description">${product.description}</p><button class="query-button${queryItems.includes(product.id) ? " is-added" : ""}" type="button" data-query="${product.id}">${queryItems.includes(product.id) ? "Agregado a mi consulta" : "Consultar producto"}</button></div>
+      const track = $("#offers-track");
+      track.innerHTML = products.slice(0, 5).map(product => `
+        <article class="rail-product" data-product-open="${product.id}">
+          <div class="rail-product__art product-art--${product.art}${product.image ? " product-art--photo" : ""}"><span class="rail-product__badge">${product.tag}</span>${productArtMarkup(product)}</div>
+          <div class="rail-product__body"><p class="rail-product__category">${categoryMap[product.category].name}</p><h4>${product.name}</h4><p class="rail-product__description">${product.description}</p>${priceMarkup(product)}${queryButtonMarkup(product)}</div>
         </article>`).join("");
       const railSection = $('[data-product-rail="offers"]');
       const move = direction => {
@@ -884,28 +1535,13 @@
         if (!card) return;
         const distance = card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0);
         const max = track.scrollWidth - track.clientWidth;
-        if (direction > 0 && track.scrollLeft >= max - 8) track.scrollTo({ left: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-        else if (direction < 0 && track.scrollLeft <= 8) track.scrollTo({ left: max, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-        else track.scrollBy({ left: distance * direction, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+        const behavior = prefersReducedMotion() ? "auto" : "smooth";
+        if (direction > 0 && track.scrollLeft >= max - 8) track.scrollTo({ left: 0, behavior });
+        else if (direction < 0 && track.scrollLeft <= 8) track.scrollTo({ left: max, behavior });
+        else track.scrollBy({ left: distance * direction, behavior });
       };
       $("[data-rail-prev]", railSection).addEventListener("click", () => move(-1));
       $("[data-rail-next]", railSection).addEventListener("click", () => move(1));
-      let interval;
-      const stop = () => { if (interval) clearInterval(interval); interval = null; };
-      const start = () => {
-        stop();
-        if (prefersReducedMotion() || track.scrollWidth <= track.clientWidth + 8) return;
-        interval = setInterval(() => { if (!railSection.matches(":hover") && !railSection.contains(document.activeElement)) move(1); }, 4200);
-      };
-      railSection.addEventListener("mouseenter", stop);
-      railSection.addEventListener("mouseleave", start);
-      railSection.addEventListener("focusin", stop);
-      railSection.addEventListener("focusout", event => { if (!railSection.contains(event.relatedTarget)) start(); });
-      track.addEventListener("pointerdown", stop, { passive: true });
-      track.addEventListener("pointerup", start, { passive: true });
-      window.addEventListener("resize", start, { passive: true });
-
-
     }
 
     function setCategory(category) {
@@ -914,35 +1550,39 @@
       renderProducts();
     }
 
-    function toggleQuery(productId) {
+    function toggleQuery(productId, variantIndex = 0) {
       const product = products.find(item => item.id === productId);
       if (!product) return;
-      if (queryItems.includes(productId)) {
-        queryItems = queryItems.filter(id => id !== productId);
-        showToast(`${product.name} salió de tu consulta.`);
+      const variants = variantsFor(product);
+      const index = Math.max(0, Math.min(variantIndex, variants.length - 1));
+      const existing = queryItems.findIndex(item => item.productId === productId && item.variantIndex === index);
+      if (existing >= 0) {
+        queryItems.splice(existing, 1);
+        showToast(`${product.name} (${variants[index].label}) salió de tu consulta.`);
       } else {
-        queryItems.push(productId);
-        showToast(`${product.name} se sumó a tu consulta.`);
+        queryItems.push({ productId, variantIndex: index });
+        showToast(`${product.name} (${variants[index].label}) se sumó a tu consulta.`);
       }
-      renderProducts();
-      $$('[data-query]', document).forEach(button => {
-        const selected = queryItems.includes(button.dataset.query);
-        button.classList.toggle("is-added", selected);
-        button.textContent = selected
-          ? (button.closest(".rail-product") ? "Agregado a mi consulta" : "Agregado")
-          : (button.closest(".rail-product") ? "Consultar producto" : "Sumar a mi consulta");
-      });
+      syncQueryButtons();
       renderQueryTray();
     }
 
+    function selectedQueryEntries() {
+      return queryItems.map(item => {
+        const product = products.find(product => product.id === item.productId);
+        if (!product) return null;
+        const variants = variantsFor(product);
+        return { product, variant: variants[item.variantIndex] || variants[0] };
+      }).filter(Boolean);
+    }
     function renderQueryTray() {
       const tray = $("#query-tray");
-      const selected = queryItems.map(id => products.find(product => product.id === id)).filter(Boolean);
+      const selected = selectedQueryEntries();
       const count = selected.length;
       tray.classList.toggle("is-visible", count > 0);
       tray.setAttribute("aria-hidden", String(count === 0));
       $("#query-count").textContent = `${count} ${count === 1 ? "producto" : "productos"}`;
-      $("#query-summary").textContent = count ? selected.map(product => product.name).join(" · ") : "Todavía no agregaste productos a tu consulta.";
+      $("#query-summary").textContent = count ? selected.map(({product,variant}) => `${product.name} · ${variant.label}`).join(" · ") : "Todavía no agregaste productos a tu consulta.";
     }
 
     function whatsappUrl() {
@@ -957,14 +1597,18 @@
         $("#contacto").scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
         return;
       }
-      window.open(`${url}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+      window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
     }
 
     function sendQuery() {
-      const selected = queryItems.map(id => products.find(product => product.id === id)).filter(Boolean);
+      const selected = selectedQueryEntries();
       if (!selected.length) return;
-      const lines = selected.map((product, index) => `${index + 1}. ${product.name} — ${categoryMap[product.category].name}`);
-      sendWhatsApp(`Hola, Casa Tito. Quiero consultar por estos productos:\n\n${lines.join("\n")}\n\n¿Podrían indicarme precio, marca y disponibilidad?`);
+      const lines = selected.map(({ product, variant }, index) => `${index + 1}. ${variantLine(product, variant)}`);
+      sendWhatsApp(`Hola, Casa Tito. Quiero consultar por estas presentaciones:
+
+${lines.join("\n")}
+
+¿Podrían confirmarme precio y disponibilidad?`);
     }
 
     function prefersReducedMotion() { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
@@ -1010,17 +1654,17 @@
 
     $("#catalog-search").addEventListener("input", renderProducts);
     $("#reset-search").addEventListener("click", () => { $("#catalog-search").value = ""; setCategory("all"); });
-    $("#clear-query").addEventListener("click", () => { queryItems = []; renderProducts(); renderQueryTray(); });
+    $("#product-modal-variants").addEventListener("change", event => { const product = products.find(item => item.id === activeModalProductId); if (product && event.target.matches("input")) syncModalVariant(product, Number(event.target.value)); });
+    $("#product-modal-query").addEventListener("click", () => { const product = products.find(item => item.id === activeModalProductId); if (!product) return; toggleQuery(product.id, modalVariantIndex); syncModalVariant(product, modalVariantIndex); });
+    $("#clear-query").addEventListener("click", () => { queryItems = []; syncQueryButtons(); renderQueryTray(); });
     $("#send-query").addEventListener("click", sendQuery);
     $("#menu-toggle").addEventListener("click", () => setMenu(!$("#mobile-menu").classList.contains("is-open")));
     $$("#mobile-menu a, #mobile-menu button").forEach(element => element.addEventListener("click", () => setMenu(false)));
     $("#notice-close").addEventListener("click", () => $("#notice-bar").remove());
-    $$("[data-whatsapp]").forEach(button => button.addEventListener("click", () => sendWhatsApp()));
     $$('a[href="#inicio"]').forEach(link => link.addEventListener("click", event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" }); }));
     document.addEventListener("keydown", event => { if (event.key === "Escape") setMenu(false); });
     window.addEventListener("scroll", () => $(".site-header").classList.toggle("is-scrolled", window.scrollY > 10), { passive: true });
 
-    $("#contact-whatsapp").textContent = SITE_CONFIG.whatsappLabel || "Número a confirmar";
   </script>
 </body>
 </html>
