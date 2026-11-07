@@ -7,8 +7,8 @@
   <meta name="description" content="Casa Tito: autoservicio ferretero fundado en 1953. Explorá productos, imágenes completas y consultá por WhatsApp.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23173657'/%3E%3Cpath d='M8 29 32 11l24 18' fill='none' stroke='%23d4ad43' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 27v25h34V27' fill='none' stroke='%23fffdf9' stroke-width='4'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23b52b32'%3ECT%3C/text%3E%3C/svg%3E">
   <title>Casa Tito | Todo empieza con una buena elección</title>
-  <!-- Catálogo de lanzamiento de Casa Tito: 9 productos Blancaley (Pinturas y látex, Membranas). Precios, códigos y variantes del catálogo vigente. -->
-  <meta property="og:title" content="Casa Tito | Catálogo de pinturas y membranas">
+  <!-- Catálogo de Casa Tito: Blancaley (Pinturas y látex, Membranas) y Penetrit (Hogar). Precios, códigos y variantes del catálogo vigente. -->
+  <meta property="og:title" content="Casa Tito | Catálogo de pinturas, membranas y hogar">
   <meta property="og:description" content="Autoservicio ferretero desde 1953. Consultá precios y disponibilidad por WhatsApp.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -838,7 +838,7 @@
         <div class="category-picker" id="categorias" role="group" aria-label="Categorías del catálogo">
           <div class="category-grid" id="category-grid"></div>
         </div>
-        <div class="catalog-products-heading" id="productos"><p class="eyebrow">Lanzamiento</p><h3>Pinturas, látex y membranas Blancaley</h3></div>
+        <div class="catalog-products-heading" id="productos"><p class="eyebrow">Lanzamiento</p><h3>Pinturas, membranas y productos para el hogar</h3></div>
         <div class="catalog-toolbar" aria-label="Herramientas del catálogo">
           <label class="catalog-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">Buscar productos</span><input id="catalog-search" type="search" placeholder="Buscar por producto o categoría" autocomplete="off"></label>
           <div class="filter-list" id="filter-list" aria-label="Filtrar por categoría"></div>
@@ -1021,7 +1021,7 @@
       { id: "mantenimiento", name: "Mantenimiento", short: "Reparar, cuidar y prolongar.", icon: "wrench" }
     ];
     /* Categorías con productos en este lanzamiento: el resto se muestra como «Próximamente». */
-    const launchCategoryIds = new Set(["pinturas", "membranas"]);
+    const launchCategoryIds = new Set(["pinturas", "membranas", "hogar"]);
 
     /* Lista editable: son referencias de catálogo, no promesas de stock ni precios. */
     const products =
@@ -1309,6 +1309,519 @@
         "code": "429486"
       }
     ]
+  },
+  {
+    "id": "casa-tito-08",
+    "name": "10 funciones / multifunción",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Aerosol de 216 y 432 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430344, 430339",
+    "price": "$6.218,50 · $9.646,72",
+    "image": "images/Penetrit/Penetrit_p02_img14_839x1145.png",
+    "variants": [
+      {
+        "label": "Aerosol · 216 cc",
+        "price": "$6.218,50",
+        "code": "430344"
+      },
+      {
+        "label": "Aerosol · 432 cc",
+        "price": "$9.646,72",
+        "code": "430339"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-19",
+    "name": "Alcohol isopropílico",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 400 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430286",
+    "price": "$9.903,72",
+    "image": "images/Penetrit/Penetrit_p02_img07_437x437.png",
+    "variants": [
+      {
+        "label": "400 cc",
+        "price": "$9.903,72",
+        "code": "430286"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-05",
+    "name": "Cero olor",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 1 L.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432809",
+    "price": "$10.928,84",
+    "image": "images/Penetrit/Penetrit_p01_img15_217x503.png",
+    "variants": [
+      {
+        "label": "1 L",
+        "price": "$10.928,84",
+        "code": "432809"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-06",
+    "name": "Curador para pisos",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentaciones de 1 y 5 L.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432777, 432485",
+    "price": "$7.892,47 · $35.224,32",
+    "image": "images/Penetrit/Penetrit_p01_img12_191x343.png",
+    "variants": [
+      {
+        "label": "1 L",
+        "price": "$7.892,47",
+        "code": "432777"
+      },
+      {
+        "label": "5 L",
+        "price": "$35.224,32",
+        "code": "432485"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-16",
+    "name": "Desengrasante",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 250 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430349",
+    "price": "$5.822,01",
+    "image": "images/Penetrit/Penetrit_p02_img16_423x423.png",
+    "variants": [
+      {
+        "label": "250 cc",
+        "price": "$5.822,01",
+        "code": "430349"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-04",
+    "name": "Destapa cañerías",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 500 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432803",
+    "price": "$3.214,37",
+    "image": "images/Penetrit/Penetrit_p01_img08_182x326.png",
+    "variants": [
+      {
+        "label": "500 cc",
+        "price": "$3.214,37",
+        "code": "432803"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-29",
+    "name": "Destapa cañerías concentrado",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Gel y Pro FX5, en 5 L.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432766, 432475",
+    "price": "$21.729,96 · $27.540,68",
+    "image": "images/Penetrit/Penetrit_p02_img25_195x351.png",
+    "variants": [
+      {
+        "label": "Gel · 5 L",
+        "price": "$21.729,96",
+        "code": "432766"
+      },
+      {
+        "label": "Pro FX5 · 5 L",
+        "price": "$27.540,68",
+        "code": "432475"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-13",
+    "name": "Grasa blanca",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Aerosol de 250 g.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430328",
+    "price": "$8.781,93",
+    "image": "images/Penetrit/Penetrit_p02_img42_423x423.png",
+    "variants": [
+      {
+        "label": "Aerosol · 250 g",
+        "price": "$8.781,93",
+        "code": "430328"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-11",
+    "name": "Grasa de litio",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentaciones de 100 g, 250 cc, 450 g y 1 kg, y aerosol de 250 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430296, 430312, 432750, 432459, 432756",
+    "price": "$4.612,85 · $7.412,62 · $8.578,13 · $14.392,65 · $26.362,69",
+    "image": "images/Penetrit/Penetrit_p02_img17_1000x1000.png",
+    "variants": [
+      {
+        "label": "100 g",
+        "price": "$4.612,85",
+        "code": "430296"
+      },
+      {
+        "label": "Aerosol · 250 cc",
+        "price": "$7.412,62",
+        "code": "430312"
+      },
+      {
+        "label": "250 cc",
+        "price": "$8.578,13",
+        "code": "432750"
+      },
+      {
+        "label": "450 g",
+        "price": "$14.392,65",
+        "code": "432459"
+      },
+      {
+        "label": "1 kg",
+        "price": "$26.362,69",
+        "code": "432756"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-14",
+    "name": "Grasa grafitada",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentaciones de 100, 250 y 450 g, y 1 kg.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432676, 432671, 430307, 432454",
+    "price": "$3.893,30 · $7.156,54 · $12.207,57 · $22.349,86",
+    "image": "images/Penetrit/Penetrit_p02_img04_427x427.png",
+    "variants": [
+      {
+        "label": "100 g",
+        "price": "$3.893,30",
+        "code": "432676"
+      },
+      {
+        "label": "250 g",
+        "price": "$7.156,54",
+        "code": "432671"
+      },
+      {
+        "label": "450 g",
+        "price": "$12.207,57",
+        "code": "430307"
+      },
+      {
+        "label": "1 kg",
+        "price": "$22.349,86",
+        "code": "432454"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-15",
+    "name": "Grasa para rodamientos",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentaciones de 100, 250 y 450 g, y 1 kg.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430302, 432464, 430323, 430318",
+    "price": "$5.083,09 · $9.725,09 · $15.498,92 · $27.440,37",
+    "image": "images/Penetrit/Penetrit_p02_img05_261x261.png",
+    "variants": [
+      {
+        "label": "100 g",
+        "price": "$5.083,09",
+        "code": "430302"
+      },
+      {
+        "label": "250 g",
+        "price": "$9.725,09",
+        "code": "432464"
+      },
+      {
+        "label": "450 g",
+        "price": "$15.498,92",
+        "code": "430323"
+      },
+      {
+        "label": "1 kg",
+        "price": "$27.440,37",
+        "code": "430318"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-24",
+    "name": "Lava parabrisas concentrado",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 500 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "431770",
+    "price": "$8.553,84",
+    "image": "images/Penetrit/Penetrit_p02_img35_174x470.png",
+    "variants": [
+      {
+        "label": "500 cc",
+        "price": "$8.553,84",
+        "code": "431770"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-03",
+    "name": "Limpia horno y parrillas",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 500 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432772",
+    "price": "$8.507,36",
+    "image": "images/Penetrit/Penetrit_p01_img20_164x345.png",
+    "variants": [
+      {
+        "label": "500 cc",
+        "price": "$8.507,36",
+        "code": "432772"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-07",
+    "name": "Limpia metales",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 250 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432814",
+    "price": "$6.000,15",
+    "image": "images/Penetrit/Penetrit_p01_img18_143x369.png",
+    "variants": [
+      {
+        "label": "250 cc",
+        "price": "$6.000,15",
+        "code": "432814"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-30",
+    "name": "Limpia restos materiales",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 1 L.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430360",
+    "price": "$5.472,68",
+    "image": "images/Penetrit/Penetrit_p02_img38_195x351.png",
+    "variants": [
+      {
+        "label": "1 L",
+        "price": "$5.472,68",
+        "code": "430360"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-20",
+    "name": "Lubricante con PTFE",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Aerosol de 250 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "431749",
+    "price": "$8.495,84",
+    "image": "images/Penetrit/Penetrit_p02_img08_425x425.png",
+    "variants": [
+      {
+        "label": "Aerosol · 250 cc",
+        "price": "$8.495,84",
+        "code": "431749"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-22",
+    "name": "Lubricante para armas",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "En aerosol y en botella de 100 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "432819, 432501",
+    "price": "$4.071,53 · $4.268,42",
+    "image": "images/Penetrit/Penetrit_p02_img13_425x425.png",
+    "variants": [
+      {
+        "label": "Aerosol",
+        "price": "$4.071,53",
+        "code": "432819",
+        "image": "images/Penetrit/Penetrit_p02_img13_425x425.png"
+      },
+      {
+        "label": "Botella · 100 cc",
+        "price": "$4.268,42",
+        "code": "432501",
+        "image": "images/Penetrit/Penetrit_p02_img15_290x290.png"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-21",
+    "name": "Lubricante seco",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Aerosol de 250 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "431754",
+    "price": "$12.757,41",
+    "image": "images/Penetrit/Penetrit_p02_img09_429x429.png",
+    "variants": [
+      {
+        "label": "Aerosol · 250 cc",
+        "price": "$12.757,41",
+        "code": "431754"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-25",
+    "name": "Revitalizador carbón negro",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Presentación de 500 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "431765",
+    "price": "$5.955,80",
+    "image": "images/Penetrit/Penetrit_p02_img31_132x354.png",
+    "variants": [
+      {
+        "label": "500 cc",
+        "price": "$5.955,80",
+        "code": "431765"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-23",
+    "name": "Shampoo para autos",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "431738",
+    "price": "$6.413,94",
+    "image": "images/Penetrit/Penetrit_p02_img32_429x429.png",
+    "variants": [
+      {
+        "label": "Presentación única",
+        "price": "$6.413,94",
+        "code": "431738"
+      }
+    ]
+  },
+  {
+    "id": "casa-tito-26",
+    "name": "Silicona",
+    "brand": "Penetrit",
+    "category": "hogar",
+    "description": "Aerosol de 440 cc.",
+    "detail": "",
+    "tag": "Penetrit",
+    "art": "blue",
+    "icon": "wrench",
+    "sku": "430291",
+    "price": "$7.531,37",
+    "image": "images/Penetrit/Penetrit_p02_img26_421x421.png",
+    "variants": [
+      {
+        "label": "Aerosol · 440 cc",
+        "price": "$7.531,37",
+        "code": "430291"
+      }
+    ]
   }
 ];
 
@@ -1449,6 +1962,11 @@
       const variant = variants[modalVariantIndex];
       $("#product-modal-price").textContent = variant.price || "Consultar precio";
       $("#product-modal-code").textContent = `${variant.label}${variant.code ? ` · Código: ${variant.code}` : ""}`;
+      const image = $("#product-modal-image");
+      const imagePath = productImageSrc(variant.image || product.image);
+      image.hidden = !imagePath;
+      $("#product-modal-fallback").hidden = Boolean(imagePath);
+      if (imagePath) { image.alt = `${product.name}, ${product.brand}`; if (image.getAttribute("src") !== imagePath) image.src = imagePath; } else { image.removeAttribute("src"); image.alt = ""; }
       $$(".variant-option").forEach((option, optionIndex) => {
         const selected = optionIndex === modalVariantIndex;
         option.classList.toggle("is-selected", selected);
@@ -1476,9 +1994,6 @@
       $("#product-modal-variants").innerHTML = hasOptions ? variants.map((variant, index) => `<label class="variant-option"><input type="radio" name="product-variant" value="${index}"><span class="variant-option__label">${variant.label}</span><span class="variant-option__code">Código: ${variant.code || "Consultar"}</span><span class="variant-option__price">${variant.price || "Consultar"}</span></label>`).join("") : "";
       fallback.innerHTML = `${icon(product.icon)}<div>Imagen no disponible para este producto.</div>`;
       image.onerror = () => { image.hidden = true; fallback.hidden = false; };
-      image.hidden = !product.image;
-      fallback.hidden = Boolean(product.image);
-      if (product.image) { image.alt = `${product.name}, ${product.brand}`; image.src = productImageSrc(product.image); } else { image.removeAttribute("src"); image.alt = ""; }
       /* Se abre en la presentación de menor precio, la misma que muestra la tarjeta. */
       const cheapest = variants.reduce((best, variant, index) => priceAmount(variant.price) < priceAmount(variants[best].price) ? index : best, 0);
       syncModalVariant(product, cheapest);
