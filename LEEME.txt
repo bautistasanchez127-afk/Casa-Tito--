@@ -2,9 +2,18 @@ CASA TITO — CATÁLOGO WEB DE LANZAMIENTO
 
 El catálogo incluye 9 productos Blancaley (6 en Pinturas y látex y 3 en Membranas) y 25 productos Penetrit en Hogar. Las demás categorías siguen visibles con el aviso "Próximamente".
 
-La bienvenida anima la casita una vez por carga: se construyen el techo y la fachada con su profundidad, aparece la sombra de base, se ilumina la vidriera, entran los productos por planos, se abren las hojas del escaparate y después aparecen el mensaje y el botón "Ver productos". Respeta la preferencia del navegador para reducir movimiento: en ese caso se muestra terminada desde el inicio.
+ESTRUCTURA
+  index.html                 Página completa. Los productos, precios y la lógica del catálogo siguen dentro de este archivo (se editan igual que antes).
+  assets/css/casa-tito.css   Sistema visual: colores, tipografía, espaciados, componentes y animaciones.
+  assets/js/cinematica.js    Introducción, entrada de la portada y menú activo.
+  assets/img/                Logotipo optimizado (WebP y JPG) generado a partir de logo-casa-tito.png, que se conserva sin cambios.
+  images/Blancaley, images/Penetrit   Fotos de producto. Hay que conservar la carpeta completa junto a index.html.
 
-Las fotos se cargan desde images/Blancaley e images/Penetrit: para abrir el sitio hay que conservar la carpeta completa junto a index.html.
+INTRODUCCIÓN
+Una vez por sesión del navegador aparece el logotipo original sobre fondo azul y el telón sube hacia la portada (unos 2 segundos). Se puede omitir con el botón "Omitir intro", un clic, una tecla o desplazando. No aparece si el navegador pide reducir el movimiento, si se entra directo a una sección (por ejemplo #catalogo) ni sin JavaScript.
+
+PORTADA
+Al retirarse el telón aparecen el título, los botones y la casita: se construyen techo y fachada, se ilumina la vidriera, entran los productos y se abren las hojas. Debajo, el sello de trayectoria (73 años · Desde 1953) y enseguida los productos destacados. Con movimiento reducido o sin JavaScript todo se muestra terminado desde el inicio.
 
 Contacto: WhatsApp 351 753-5587 · casatito.sas@gmail.com
 
