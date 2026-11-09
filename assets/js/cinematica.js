@@ -141,6 +141,129 @@
     casitaObserver.observe(casita);
   }
 
+  /* ---------- 6. Escena de la portada (del lienzo «Casa Tito Premium Cinematográfico») ----------
+     El scroll nativo de la página mueve la escena: nunca se frena ni se secuestra.
+     measure() mide; update() sólo escribe transform/opacity en cada cuadro. */
+  var track = document.querySelector(".ct-track");
+  var scene = document.querySelector(".ct-scene");
+  var header = document.querySelector(".site-header");
+  var sceneM = null, sceneFrame = 0, lastW = 0, lastVh = 0;
+  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+  var ease = function (t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; };
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var hoverNone = window.matchMedia ? window.matchMedia("(hover: none)").matches : false;
+
+  function sceneReset() {
+    root.classList.remove("scene-pin");
+    ["--H", "--edge0", "--edge1"].forEach(function (k) { root.style.removeProperty(k); });
+    if (track) track.style.height = "";
+    [".band", ".ct-strip", ".ct-shelf", ".ct-giant", ".ct-seal"].forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (el) { el.style.transform = ""; el.style.opacity = ""; el.style.visibility = ""; }
+    });
+    sceneM = null;
+  }
+
+  function sceneMeasure(force) {
+    if (!track || !scene || !header) return;
+    var vh = window.innerHeight;
+    var W = document.documentElement.clientWidth;
+    /* En el celular, la barra del navegador cambia el alto al desplazarse: no remedir por eso */
+    if (!force && sceneM && hoverNone && W === lastW && Math.abs(vh - lastVh) < 160) return;
+    lastW = W; lastVh = vh;
+    var hdr = header.offsetHeight;
+    root.style.setProperty("--hdr", hdr + "px");
+    var wantPin = !reducedMotion() && vh >= 460 && vh <= 1300 && W >= 300;
+    if (!wantPin) { sceneReset(); return; }
+    var H = vh - hdr;
+    var compact = W < 768;
+    var edge0 = Math.round(H * (compact ? .85 : .79));
+    var edge1 = Math.round(H * (compact ? .37 : .45));
+    root.classList.add("scene-pin");
+    root.style.setProperty("--H", H + "px");
+    root.style.setProperty("--edge0", edge0 + "px");
+    root.style.setProperty("--edge1", edge1 + "px");
+    var strip = scene.querySelector(".ct-strip");
+    var shelf = scene.querySelector(".ct-shelf");
+    var giant = scene.querySelector(".ct-giant");
+    strip.style.transform = "";
+    var stripW = strip.scrollWidth;
+    var endX = Math.min(0, W - stripW - (compact ? 16 : 28));
+    var qDist = H * .72;
+    var sStart = qDist * .42;
+    var sDist = Math.max(H * .5, (W - endX) * .86);
+    var total = Math.max(qDist, sStart + sDist) + H * .06;
+    track.style.height = (H + total) + "px";
+    sceneM = {
+      H: H, W: W, hdr: hdr, edge0: edge0, edge1: edge1, endX: endX, qDist: qDist, sStart: sStart, sDist: sDist, total: total, compact: compact,
+      shelfScale: compact ? .94 : .64,
+      shelfX0: compact ? 16 : Math.round(W * .47),
+      shelfW: shelf.scrollWidth,
+      giantW: giant.scrollWidth,
+      cards: Array.prototype.slice.call(scene.querySelectorAll(".feature-card")),
+      lead: scene.querySelector(".ct-lead"),
+      band: scene.querySelector(".band"), strip: strip, shelf: shelf, giant: giant,
+      seal: scene.querySelector(".ct-seal"),
+      counter: scene.querySelector(".ct-counter"),
+      counterN: scene.querySelector(".ct-counter-n"),
+      prog: scene.querySelector(".ct-progress i")
+    };
+    sceneUpdate();
+  }
+
+  function sceneUpdate() {
+    sceneFrame = 0;
+    var m = sceneM; if (!m) return;
+    var y = clamp(m.hdr - track.getBoundingClientRect().top, 0, m.total);
+    var q = clamp(y / m.qDist, 0, 1), eq = ease(q);
+    var edge = lerp(m.edge0, m.edge1, eq);
+    m.band.style.transform = "translate3d(0," + (edge - m.edge1).toFixed(1) + "px,0)";
+    m.band.scrollLeft = 0; m.strip.scrollLeft = 0; /* el foco del navegador no debe correr la tira */
+    var s = clamp((y - m.sStart) / m.sDist, 0, 1);
+    var sx = lerp(m.W, m.endX, s);
+    m.strip.style.transform = "translate3d(" + sx.toFixed(1) + "px,0,0)";
+    var travel = Math.max(0, m.shelfW * m.shelfScale - m.W * .7);
+    var shelfX = lerp(m.shelfX0, 16 - travel, y / m.total);
+    m.shelf.style.transform = "translate3d(" + shelfX.toFixed(1) + "px," + (edge - m.edge0).toFixed(1) + "px,0) scale(" + lerp(1, m.shelfScale, eq).toFixed(4) + ")";
+    m.giant.style.transform = "translate3d(" + lerp(m.W, -m.giantW, s).toFixed(1) + "px,0,0)";
+    m.seal.style.opacity = (1 - clamp(q / .5, 0, 1)).toFixed(3);
+    m.seal.style.transform = "translate3d(0," + (-q * 34).toFixed(1) + "px,0)";
+    m.seal.style.visibility = q > .6 ? "hidden" : "visible";
+    m.counter.style.opacity = q > .94 ? "1" : "0";
+    m.prog.style.transform = "scaleX(" + (y / m.total).toFixed(4) + ")";
+    var current = 1;
+    var reveal = function (el, left) { el.style.setProperty("--reveal", (clamp((.98 - left / m.W) / .3, -.4, 1.6) * 100).toFixed(1) + "%"); };
+    reveal(m.lead, sx + m.lead.offsetLeft);
+    m.cards.forEach(function (card, i) {
+      var left = sx + card.offsetLeft;
+      reveal(card, left);
+      if (left < m.W * .55) current = i + 1;
+    });
+    m.counterN.textContent = String(current).padStart(2, "0");
+  }
+
+  /* Con teclado: al enfocar una tarjeta de la tira, la página baja hasta mostrarla */
+  function sceneFocus(target) {
+    var m = sceneM; if (!m || !target) return;
+    var card = target.closest(".feature-card, .ct-lead"); if (!card) return;
+    var targetX = Math.max(m.endX, Math.min(m.W, (m.compact ? 12 : m.W * .18) - card.offsetLeft));
+    var s = (m.W - targetX) / (m.W - m.endX);
+    var want = m.sStart + s * m.sDist;
+    var now = clamp(m.hdr - track.getBoundingClientRect().top, 0, m.total);
+    window.scrollBy({ top: want - now, behavior: "instant" });
+  }
+
+  if (track && scene) {
+    window.addEventListener("scroll", function () { if (!sceneFrame) sceneFrame = requestAnimationFrame(sceneUpdate); }, { passive: true });
+    window.addEventListener("resize", function () { sceneMeasure(false); }, { passive: true });
+    scene.addEventListener("focusin", function (event) { if (sceneM) sceneFocus(event.target); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sceneMeasure(true); });
+    window.addEventListener("load", function () { sceneMeasure(true); });
+    sceneMeasure(true);
+    var noticeClose = document.getElementById("notice-close");
+    if (noticeClose) noticeClose.addEventListener("click", function () { setTimeout(function () { sceneMeasure(true); }, 0); });
+  }
+
   /* ---------- 5. Menú: sección activa ---------- */
   var links = Array.prototype.slice.call(document.querySelectorAll('.desktop-nav a[href^="#"]'));
   var targets = [

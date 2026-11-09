@@ -1,7 +1,29 @@
-# Rediseño visual premium · v2 «Tablero» — informe
+# Rediseño visual premium · v3 — informe
 
 Fecha: 2026-11-09 · Rama: `claude/remote-control-mz8xa5` (no publicada en producción)
 Base: maqueta «Tienda completa · escritorio» + rediseño anterior (v1) + catálogo vigente.
+
+## v3 · El lienzo como fuente principal
+El usuario indicó que el lienzo de diseño **«Casa Tito Premium Cinematográfico»** (claude.ai, tableros «Tienda completa · escritorio», «· celular», «Entrada cinematográfica», «Storyboard» y «Sistema visual y estados») es el que más le gustó, y pidió tomarlo como la fuente más fuerte. Sus tableros `Main` e `IntroCinema` son idénticos a los del zip; además trae el sistema visual y el storyboard de la entrada.
+
+Cambios de la v3 respecto de la v2, para seguir el lienzo con fidelidad:
+- **Escena anclada de la portada**, portada desde la lógica del lienzo a JS simple (`transform`/`opacity`, `requestAnimationFrame`). Mientras se baja:
+  - la banda azul sube desde el 79 % hasta el 45 % de la pantalla;
+  - el sello se desvanece y la góndola se achica y se corre;
+  - la tira de destacados entra de costado y «DESDE 1953» cruza detrás de la góndola;
+  - aparecen el contador «01 de 05 · Producto destacado» y la barra de progreso;
+  - los títulos se revelan con un barrido blanco → rojo.
+  
+  Lo mueve el scroll nativo, sin frenarlo ni secuestrarlo. Con teclado, enfocar una tarjeta lleva la página hasta mostrarla. En el celular no se remide cuando la barra del navegador cambia el alto.
+- **Sin escena** (movimiento reducido o pantallas muy bajas o altas): sello, góndola y banda con carrusel nativo y flechas.
+- **Medidas y texturas del lienzo**: encabezado de 68 px (58 en el celular), góndola apoyada sobre el filo rojo de la banda, puntos claros del tablero en la banda, las categorías y la historia, y fondo de puntos oscuros en la presentación. Las tarjetas no se elevan al pasar el cursor; sólo cambian borde y sombra. Contacto en azul oscuro con énfasis rojo. Botón rojo en las tarjetas de destacados.
+- **Presentación según el storyboard**: herramientas en metal (rojo y acero) sobre el tablero, foco de luz, logotipo y sello, y la casa que se abre con un borde de luz.
+
+Se mantuvieron dos excepciones al lienzo porque el brief las marca como innegociables:
+1. **El logotipo original** en lugar del texto «CASA TITO».
+2. **La paleta institucional** (#173B70, #102947, #D62839, #F2C230) en lugar de los tonos del lienzo (#173657, #102943, #B52B32). Están centralizados en `:root` de `assets/css/casa-tito.css`: pasar a los tonos del lienzo es cambiar esas variables.
+
+Del sistema visual del lienzo no se publicó el «molde de oferta» con [PRECIO] y [FECHA A CONFIRMAR], porque no hay datos confirmados de ofertas. Tampoco se muestran categorías que no existen en los datos (Plomería, Sanitarios), como indica el propio lienzo.
 
 ## Dirección de arte
 El motivo material es el **tablero perforado de ferretería**. Aparece en la presentación, la banda de destacados, las categorías y la historia. Une todo en un mismo sistema sin caer en una plantilla genérica. El azul manda; el rojo aparece en los filos, en WhatsApp y en los énfasis; el amarillo queda como acento (sello, punto «Próximamente», año actual).
@@ -20,7 +42,7 @@ El motivo material es el **tablero perforado de ferretería**. Aparece en la pre
 - El logotipo estaba **recreado en texto** («CASA TITO» con techo). Ahora se usa siempre el **logotipo original** (`logo-casa-tito.png`, optimizado a WebP/JPG sin alterarlo) en la presentación, el encabezado y el pie.
 - Se reemplazó la paleta anterior (#173657 / #b52b32) por la institucional (#173B70 / #102947 / #D62839 / #F2C230).
 - La presentación usaba **WebGL**. Se rehízo en CSS liviano (tablero, foco, herramientas en SVG y apertura con `clip-path`), sin bibliotecas.
-- La maqueta **anclaba la escena y movía la banda en horizontal con el scroll**. Se reemplazó por una transición nativa: la portada queda quieta y la banda sube por encima. No se secuestra el scroll y la banda se recorre con su propio carrusel.
+- (v2) La escena anclada se había simplificado. En la v3 se recuperó tal como la propone el lienzo, siempre con scroll nativo.
 - Se sacaron React y el runtime de la herramienta de diseño. El sitio sigue siendo HTML + CSS + JS simple, y los productos se editan igual que antes en `index.html`.
 
 ## Del rediseño v1 se conservó

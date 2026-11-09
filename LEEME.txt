@@ -12,8 +12,10 @@ ESTRUCTURA
 PRESENTACIÓN
 Una vez por sesión: tablero perforado en penumbra, un foco de luz recorre las herramientas, aparece el logotipo original con el sello "73 años · Desde 1953" y la escena se abre con forma de casa hacia la portada (unos 2 segundos). Se omite con "Omitir presentación", una tecla, la rueda o un toque, y se puede repetir desde el pie ("Ver la presentación otra vez"). No aparece si el navegador pide reducir el movimiento, si se entra directo a una sección (por ejemplo #catalogo) ni sin JavaScript.
 
-PORTADA
-Sello de trayectoria (73 años · Desde 1953), título, buscador y una góndola con fotos reales de producto. Al bajar, la banda azul de productos destacados sube por encima de la portada. Las fotos de la góndola se eligen en el HTML; las de las categorías, en CATEGORY_IMAGES (dentro del script de index.html). Son sólo presentación: no cambian el catálogo.
+PORTADA (escena del lienzo «Casa Tito Premium Cinematográfico»)
+Sello de trayectoria (73 años · Desde 1953), título, buscador y góndola con fotos reales sobre el filo rojo de la banda. Al bajar, la banda azul sube, la góndola se achica, la tira de "Productos destacados" entra de costado, "DESDE 1953" cruza la pantalla y aparecen el contador y la barra de progreso. Lo mueve el scroll normal del navegador. Con movimiento reducido o pantallas muy bajas, se muestra quieta y los destacados se recorren con flechas.
+Las fotos de la góndola se eligen en el HTML; las de las categorías, en CATEGORY_IMAGES (dentro del script de index.html). Son sólo presentación: no cambian el catálogo.
+Los colores están en assets/css/casa-tito.css, al comienzo (:root).
 
 Contacto: WhatsApp 351 753-5587 · casatito.sas@gmail.com
 
