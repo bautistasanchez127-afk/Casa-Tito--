@@ -1,29 +1,56 @@
-# Rediseño visual premium — informe
+# Rediseño visual premium · v2 «Tablero» — informe
 
 Fecha: 2026-11-09 · Rama: `claude/remote-control-mz8xa5` (no publicada en producción)
+Base: maqueta «Tienda completa · escritorio» + rediseño anterior (v1) + catálogo vigente.
 
-## Qué se hizo
-- **Sistema de diseño** en `assets/css/casa-tito.css`: paleta institucional (#173B70, #102947, #D62839, #F2C230), escala tipográfica (Manrope títulos, DM Sans textos), espaciado de base 4 px, radios, sombras, duraciones (200–350 ms en microinteracciones) y curvas de movimiento, todo en variables.
-- **Introducción**: fondo azul oscuro, el logotipo original (`logo-casa-tito.png`, optimizado a WebP/JPG sin alterarlo) aparece con opacidad y escala sobre su placa blanca; un telón con filo rojo sube hacia la portada. ~2,2 s, una vez por sesión, con "Omitir intro".
-- **Portada**: composición editorial asimétrica sobre azul oscuro con una grilla de plano muy sutil; título "Todo empieza con una buena elección." revelado línea por línea con máscara; la casita existente se reutiliza como pieza visual con su construcción acortada a ~2 s; banda inferior con el sello de 73 años, catálogo y WhatsApp.
-- **Encabezado**: ahora usa el logotipo original (antes era una recreación en texto "CASA TITO"). Menú con subrayado animado y sección activa.
-- **Secciones numeradas** (01 Destacados · 02 Catálogo · 03 Historia · 04 Contacto) con el mismo lenguaje de índice, título y nota.
-- **Tarjetas**: categorías en azul (activas) y neutras (próximamente); productos con imagen sobre blanco, precio protagonista y botón azul. El rojo queda reservado a WhatsApp y a énfasis; el amarillo, a acentos puntuales.
-- **Historia desde 1953**: "1953" monumental + línea de tiempo 1953 → 73 años → año actual, que se dibuja al entrar en pantalla.
-- **Movimiento**: revelado al desplazarse con escalonado, imágenes que se asientan, parallax mínimo en CSS (sólo navegadores compatibles), ficha de producto con entrada suave. Sin scroll hijacking ni movimiento permanente. Respeta `prefers-reduced-motion`.
+## Dirección de arte
+El motivo material es el **tablero perforado de ferretería**. Aparece en la presentación, la banda de destacados, las categorías y la historia. Une todo en un mismo sistema sin caer en una plantilla genérica. El azul manda; el rojo aparece en los filos, en WhatsApp y en los énfasis; el amarillo queda como acento (sello, punto «Próximamente», año actual).
+
+## De la maqueta se tomó
+- Portada blanca con el sello «Casa Tito · 73 años · Desde 1953», el título «Todo empieza con una buena elección.», un buscador y una **góndola con fotos reales** de producto sobre un estante azul con filo rojo. Detrás, «DESDE 1953» en tipografía gigante.
+- Banda oscura de **Productos destacados** con filo rojo y tarjetas editoriales separadas por líneas finas.
+- **3 categorías grandes** con collage de fotos reales y la cantidad de productos; las 5 restantes como recuadros «Próximamente».
+- Tarjetas de catálogo con etiqueta de marca, **botón directo de WhatsApp** y botón «Elegir presentación / Ver producto» con flecha.
+- Barra de búsqueda y filtros fija al desplazarse, y un fundido breve al cambiar de categoría.
+- Ficha de producto con fondo de chapa clara, que en el celular se abre como hoja inferior.
+- Pie con «Ver la presentación otra vez».
+- De la presentación, el concepto: tablero en penumbra, herramientas, foco de luz y apertura con forma de casa.
+
+## Qué se corrigió de la maqueta
+- El logotipo estaba **recreado en texto** («CASA TITO» con techo). Ahora se usa siempre el **logotipo original** (`logo-casa-tito.png`, optimizado a WebP/JPG sin alterarlo) en la presentación, el encabezado y el pie.
+- Se reemplazó la paleta anterior (#173657 / #b52b32) por la institucional (#173B70 / #102947 / #D62839 / #F2C230).
+- La presentación usaba **WebGL**. Se rehízo en CSS liviano (tablero, foco, herramientas en SVG y apertura con `clip-path`), sin bibliotecas.
+- La maqueta **anclaba la escena y movía la banda en horizontal con el scroll**. Se reemplazó por una transición nativa: la portada queda quieta y la banda sube por encima. No se secuestra el scroll y la banda se recorre con su propio carrusel.
+- Se sacaron React y el runtime de la herramienta de diseño. El sitio sigue siendo HTML + CSS + JS simple, y los productos se editan igual que antes en `index.html`.
+
+## Del rediseño v1 se conservó
+- La historia con la **casita iluminada**, que ahora se construye al entrar en pantalla, sobre un panel de tablero, junto a la **línea de tiempo** 1953 → 73 años → año actual.
+- El sistema de variables, el revelado al desplazarse, el menú con sección activa y el respeto por el movimiento reducido.
+
+## Presentación (≈2,2 s)
+Tablero en penumbra → el foco cruza hacia el centro y se dejan ver las herramientas → aparece el logotipo original sobre su placa → entra el sello «73 años · Desde 1953» → la escena **se abre con forma de casa** y deja ver la portada, cuyos elementos entran escalonados.
+- Se ve una vez por sesión. Se puede omitir con el botón, una tecla, la rueda o un toque, y repetir desde el pie.
+- No aparece con movimiento reducido, sin JavaScript ni al entrar a una sección (#catalogo).
 
 ## Qué no se tocó
-Productos, precios, códigos, categorías, enlaces y número de WhatsApp, correo, buscador, filtros, ficha, bandeja de consulta y mensaje armado para WhatsApp. Se verificó por comparación automática que `SITE_CONFIG`, `categories` y `products` son idénticos al original.
+Productos, precios, códigos, categorías, número y enlaces de WhatsApp, correo, buscador, filtros, ficha, bandeja de consulta y mensaje de WhatsApp. Se verificó automáticamente que `SITE_CONFIG`, `categories` y `products` son idénticos al original. El botón directo de WhatsApp de cada tarjeta usa el mismo número y el mismo formato de mensaje que la ficha.
 
 ## Textos
-No se inventaron datos. Los textos nuevos son reubicaciones de copy existente o rótulos de interfaz ("Omitir intro", "Nuestra historia", "Catálogo", "Consultas", "Generación tras generación"). **Para confirmar:** "Sucesores de Pablo Antonini" se tomó del propio logotipo y se usa como firma en la historia.
+No se inventaron datos. «Sucesores de Pablo Antonini» sale del propio logotipo y se aprobó para usarlo como firma en la historia.
 
-## Verificado (Chromium, escritorio 1440/1280/1024, tablet 820, móvil 390/360/320)
-Sin errores de consola; sin desbordamiento horizontal; intro, omitir y no repetición en la sesión; ficha, variantes, sumar a consulta, bandeja y apertura de WhatsApp; buscador, filtros, tarjetas de categoría, carrusel, menú móvil, aviso superior; movimiento reducido; sin JavaScript (contenido visible).
+## Verificado (Chromium; escritorio 1920/1440/1280/1024, tablet 820, móvil 390/360/320)
+- Sin errores de consola y sin desbordamiento horizontal.
+- La presentación completa con apertura en forma de casa; omitir, no repetirla en la sesión y volver a verla desde el pie.
+- El buscador de la portada sincronizado con el del catálogo.
+- Filtros (`aria-pressed`), tarjetas de categoría, carrusel de destacados y WhatsApp directo con el mensaje correcto.
+- Ficha con presentaciones, «Sumar a mi consulta», bandeja y apertura de WhatsApp.
+- La casita que se construye al llegar, el menú activo, el menú móvil y la ficha como hoja inferior en el celular.
+- Con movimiento reducido no hay presentación y todo se ve quieto; sin JavaScript se ven la portada y los encabezados, junto con el aviso del catálogo que ya existía.
 
 ## No verificado
-Safari/iOS y Firefox reales (el parallax CSS no corre en Firefox: queda estático, a propósito). Dispositivos físicos. Rendimiento en red lenta real.
+- Safari/iOS y Firefox reales. Los efectos que dependen del scroll en CSS (portada que se aleja, «DESDE 1953» que se desliza) no corren en Firefox: queda estático, a propósito. La apertura en forma de casa necesita `@property`; sin soporte, se abre de golpe.
+- Dispositivos físicos y red lenta real.
 
 ## Pendiente sugerido
-- Optimizar las fotos de producto a WebP (hoy 4,1 MB en PNG); implica cambiar rutas en el catálogo, por eso no se hizo sin aprobación.
-- Logo maestro vectorial para nitidez total en tamaños chicos.
+- Optimizar las fotos de producto a WebP (4,1 MB en PNG). Implica cambiar rutas del catálogo.
+- Logo maestro vectorial.

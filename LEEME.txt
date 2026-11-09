@@ -9,11 +9,11 @@ ESTRUCTURA
   assets/img/                Logotipo optimizado (WebP y JPG) generado a partir de logo-casa-tito.png, que se conserva sin cambios.
   images/Blancaley, images/Penetrit   Fotos de producto. Hay que conservar la carpeta completa junto a index.html.
 
-INTRODUCCIÓN
-Una vez por sesión del navegador aparece el logotipo original sobre fondo azul y el telón sube hacia la portada (unos 2 segundos). Se puede omitir con el botón "Omitir intro", un clic, una tecla o desplazando. No aparece si el navegador pide reducir el movimiento, si se entra directo a una sección (por ejemplo #catalogo) ni sin JavaScript.
+PRESENTACIÓN
+Una vez por sesión: tablero perforado en penumbra, un foco de luz recorre las herramientas, aparece el logotipo original con el sello "73 años · Desde 1953" y la escena se abre con forma de casa hacia la portada (unos 2 segundos). Se omite con "Omitir presentación", una tecla, la rueda o un toque, y se puede repetir desde el pie ("Ver la presentación otra vez"). No aparece si el navegador pide reducir el movimiento, si se entra directo a una sección (por ejemplo #catalogo) ni sin JavaScript.
 
 PORTADA
-Al retirarse el telón aparecen el título, los botones y la casita: se construyen techo y fachada, se ilumina la vidriera, entran los productos y se abren las hojas. Debajo, el sello de trayectoria (73 años · Desde 1953) y enseguida los productos destacados. Con movimiento reducido o sin JavaScript todo se muestra terminado desde el inicio.
+Sello de trayectoria (73 años · Desde 1953), título, buscador y una góndola con fotos reales de producto. Al bajar, la banda azul de productos destacados sube por encima de la portada. Las fotos de la góndola se eligen en el HTML; las de las categorías, en CATEGORY_IMAGES (dentro del script de index.html). Son sólo presentación: no cambian el catálogo.
 
 Contacto: WhatsApp 351 753-5587 · casatito.sas@gmail.com
 

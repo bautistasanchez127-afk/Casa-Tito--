@@ -1,9 +1,12 @@
 /*
-  CASA TITO — Experiencia cinematográfica
-  1. Introducción: logotipo original sobre fondo azul, una vez por sesión. Se puede omitir
-     (botón, clic, tecla, rueda o gesto). Con movimiento reducido o sin JavaScript no aparece.
-  2. Entrada escalonada de la portada y de la casita cuando el telón se retira.
-  3. Estado activo del menú según la sección visible.
+  CASA TITO — Experiencia cinematográfica (v2 «Tablero»)
+  1. Presentación: tablero en penumbra, foco de luz, logotipo original y sello de 73 años;
+     la escena se abre con forma de casa hacia la portada. Una vez por sesión, se puede omitir
+     (botón, tecla, clic, rueda o gesto) y repetir desde el pie. Nunca con movimiento reducido.
+  2. Entrada escalonada de la portada cuando se abre la escena.
+  3. Luz de la portada que sigue al puntero (sólo mouse).
+  4. La casita de la historia se construye al entrar en pantalla.
+  5. Estado activo del menú según la sección visible.
   Todo es mejora progresiva: el CSS base ya muestra el estado final y tiene seguros por tiempo.
 */
 (function () {
@@ -11,72 +14,134 @@
 
   var root = document.documentElement;
   var hero = document.querySelector(".hero");
-  var heroStarted = false;
+  var intro = document.getElementById("intro");
 
   function reducedMotion() {
     try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; }
   }
 
+  /* ---------- 2. Portada ---------- */
   function startHero() {
-    if (heroStarted || !hero) return;
-    heroStarted = true;
+    if (!hero || hero.classList.contains("is-in")) return;
     hero.classList.add("is-in");
   }
-
-  /* ---------- 1. Introducción ---------- */
-  var intro = document.getElementById("intro");
-  var introActive = intro && root.classList.contains("intro-on") && !reducedMotion();
-
-  if (!introActive) {
-    if (intro) intro.remove();
-    root.classList.remove("intro-on");
-    /* Dos fotogramas para que la portada arranque desde su estado inicial */
-    requestAnimationFrame(function () { requestAnimationFrame(startHero); });
-  } else {
-    try { sessionStorage.setItem("ct-intro", "1"); } catch (e) { /* sin almacenamiento: se verá de nuevo */ }
-
-    var leaving = false;
-    var timers = [];
-    var skipEvents = ["keydown", "wheel", "touchmove"];
-
-    var leave = function (fast) {
-      if (leaving) return;
-      leaving = true;
-      timers.forEach(clearTimeout);
-      skipEvents.forEach(function (type) { window.removeEventListener(type, skip); });
-      intro.classList.add(fast ? "is-skipped" : "is-leaving");
-      /* La portada empieza a aparecer mientras sube el telón */
-      setTimeout(startHero, fast ? 40 : 140);
-      setTimeout(function () {
-        root.classList.remove("intro-on");
-        if (intro.parentNode) intro.parentNode.removeChild(intro);
-      }, fast ? 460 : 880);
-    };
-    var skip = function () { leave(true); };
-
-    var play = function () {
-      if (leaving || intro.classList.contains("is-playing")) return;
-      intro.classList.add("is-playing");
-      timers.push(setTimeout(function () { leave(false); }, 1420));
-    };
-
-    intro.addEventListener("click", skip);
-    skipEvents.forEach(function (type) { window.addEventListener(type, skip, { passive: true }); });
-
-    /* Espera a que el logotipo esté decodificado (máximo 700 ms) para no revelar una placa vacía */
-    var img = intro.querySelector("img");
-    var ready = img && img.decode ? img.decode().catch(function () {}) : Promise.resolve();
-    Promise.race([ready, new Promise(function (resolve) { setTimeout(resolve, 700); })])
-      .then(function () { requestAnimationFrame(play); });
-
-    /* Seguro: pase lo que pase, la intro no dura más de 3 s */
-    timers.push(setTimeout(function () { leave(true); }, 3000));
+  function restartHero() {
+    if (!hero) return;
+    hero.classList.remove("is-in");
+    void hero.offsetWidth; /* vuelve al estado inicial antes de entrar de nuevo */
   }
 
-  /* Seguro general para la portada */
-  setTimeout(startHero, 3400);
+  /* ---------- 1. Presentación ---------- */
+  var OPEN_AT = 1450;    /* ms desde que arranca hasta que se abre la casa */
+  var OPEN_MS = 780;     /* duración de la apertura */
+  var running = null;
 
-  /* ---------- 3. Menú: sección activa ---------- */
+  function runIntro(isReplay) {
+    if (!intro || running) return;
+    var timers = [];
+    var done = false;
+    var skipEvents = ["keydown", "wheel", "touchstart"];
+
+    intro.classList.remove("is-playing", "is-opening", "is-skipped");
+    if (isReplay) intro.classList.add("is-replay");
+    intro.hidden = false;
+
+    function cleanup() {
+      done = true;
+      timers.forEach(clearTimeout);
+      skipEvents.forEach(function (type) { window.removeEventListener(type, skip, true); });
+      intro.removeEventListener("pointerdown", skip);
+      intro.classList.remove("is-playing", "is-opening", "is-skipped", "is-replay");
+      intro.hidden = true;
+      root.classList.remove("intro-on");
+      running = null;
+    }
+    function open() {
+      if (done) return;
+      intro.classList.add("is-opening");
+      timers.push(setTimeout(startHero, 90));
+      timers.push(setTimeout(cleanup, OPEN_MS + 40));
+    }
+    function skip(event) {
+      if (done) return;
+      if (event && event.type === "keydown" && (event.key === "Shift" || event.key === "Control" || event.key === "Alt" || event.key === "Meta")) return;
+      timers.forEach(clearTimeout);
+      intro.classList.add("is-skipped");
+      startHero();
+      timers.push(setTimeout(cleanup, 340));
+    }
+    function play() {
+      if (done) return;
+      intro.classList.add("is-playing");
+      timers.push(setTimeout(open, OPEN_AT));
+    }
+
+    running = { skip: skip };
+    skipEvents.forEach(function (type) { window.addEventListener(type, skip, { passive: true, capture: true }); });
+    intro.addEventListener("pointerdown", skip);
+
+    /* Espera a que el logotipo esté listo (máximo 600 ms) para no revelar una placa vacía */
+    var img = intro.querySelector(".intro__plate img");
+    var ready = img && img.decode ? img.decode().catch(function () {}) : Promise.resolve();
+    Promise.race([ready, new Promise(function (r) { setTimeout(r, 600); })])
+      .then(function () { requestAnimationFrame(function () { requestAnimationFrame(play); }); });
+
+    /* Tope duro: pase lo que pase, la presentación termina en 3,4 s */
+    timers.push(setTimeout(function () { if (!done) skip(); }, 3400));
+  }
+
+  var introActive = intro && root.classList.contains("intro-on") && !reducedMotion();
+  if (introActive) {
+    try { sessionStorage.setItem("ct-intro", "1"); } catch (e) { /* sin almacenamiento: puede repetirse */ }
+    runIntro(false);
+  } else {
+    root.classList.remove("intro-on");
+    if (intro) intro.hidden = true;
+    requestAnimationFrame(function () { requestAnimationFrame(startHero); });
+  }
+  /* Seguro general de la portada */
+  setTimeout(startHero, 3800);
+
+  var replay = document.getElementById("replay-intro");
+  if (replay) {
+    if (reducedMotion()) replay.hidden = true;
+    replay.addEventListener("click", function () {
+      if (reducedMotion() || running) return;
+      window.scrollTo({ top: 0, behavior: "instant" });
+      restartHero();
+      runIntro(true);
+    });
+  }
+
+  /* ---------- 3. Luz de la portada ---------- */
+  if (hero && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reducedMotion()) {
+    var lightFrame = 0;
+    hero.addEventListener("pointermove", function (event) {
+      if (event.pointerType !== "mouse" || lightFrame) return;
+      lightFrame = requestAnimationFrame(function () {
+        lightFrame = 0;
+        var rect = hero.getBoundingClientRect();
+        hero.style.setProperty("--mx", ((event.clientX - rect.left) / rect.width * 100).toFixed(1) + "%");
+        hero.style.setProperty("--my", ((event.clientY - rect.top) / rect.height * 100).toFixed(1) + "%");
+      });
+    });
+  }
+
+  /* ---------- 4. La casita de la historia ---------- */
+  var casita = document.querySelector(".casita");
+  if (casita && "IntersectionObserver" in window && !reducedMotion()) {
+    casita.classList.add("is-armed");
+    var casitaObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        casita.classList.add("is-in");
+        casitaObserver.disconnect();
+      });
+    }, { threshold: 0.35 });
+    casitaObserver.observe(casita);
+  }
+
+  /* ---------- 5. Menú: sección activa ---------- */
   var links = Array.prototype.slice.call(document.querySelectorAll('.desktop-nav a[href^="#"]'));
   var targets = [
     ["catalogo", "#catalogo"],
@@ -95,7 +160,6 @@
       var line = window.innerHeight * 0.35;
       var next = null;
       targets.forEach(function (item) { if (item.el.getBoundingClientRect().top <= line) next = item.href; });
-      /* Al llegar al final de la página, se marca Contacto */
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) next = "#contacto";
       if (next === current) return;
       current = next;
