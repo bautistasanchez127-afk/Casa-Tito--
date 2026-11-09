@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://casatito.com.ar/sitemap.xml
