@@ -1246,6 +1246,26 @@ button { border: 0; background: none; cursor: pointer; }
 .contact-card { border-color: rgba(255, 255, 255, .45); background: rgba(120, 10, 20, .14); }
 .contact-card__label, .contact-card .icon { color: rgba(255, 255, 255, .86); }
 
+/* Ubicación: mapa de Google en el azul de la marca */
+.ubicacion { position: relative; z-index: 2; color: var(--ct-white); background: var(--ct-blue-deep); }
+.ubicacion__layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: clamp(32px, 5vw, 80px); }
+.ubicacion .section-title { color: var(--ct-white); font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem); }
+.ubicacion .section-title em { color: var(--ct-yellow); }
+.ubicacion .section-index--light .n { color: var(--ct-yellow); }
+.ubicacion__dir { display: grid; gap: 4px; margin: var(--sp-6) 0; padding-left: var(--sp-4); border-left: 2px solid var(--ct-red); font-style: normal; }
+.ubicacion__label { color: var(--ct-text-light); font-size: var(--fs-micro); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.ubicacion__dir strong { color: var(--ct-white); font: 700 clamp(1.125rem, 1rem + .5vw, 1.5rem)/1.3 var(--font-display); }
+.ubicacion__dir span:last-child { color: var(--ct-text-light); }
+.ubicacion__mapa { position: relative; overflow: hidden; aspect-ratio: 7 / 5; background: var(--ct-blue-ink); border: 1px solid rgba(255, 255, 255, .24); border-radius: var(--r-xs); }
+/* El mapa se oscurece invirtiendo colores y se tiñe de azul; los colores del pin se conservan */
+.ubicacion__mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: invert(.9) hue-rotate(180deg); }
+.ubicacion__mapa::after { content: ""; position: absolute; inset: 0; background: #6F93D6; opacity: .68; mix-blend-mode: multiply; pointer-events: none; }
+@media (max-width: 900px) {
+  .ubicacion__layout { grid-template-columns: 1fr; }
+  .ubicacion__mapa { aspect-ratio: auto; height: min(68vh, 480px); }
+}
+@media (max-width: 767px) { .ubicacion .button { width: 100%; } }
+
 /* Pie: franja de marca arriba */
 .site-footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--ct-red) 0 33.3%, var(--ct-yellow) 33.3% 66.6%, var(--ct-blue-600) 66.6%); }
 
@@ -1687,6 +1707,21 @@ button.ct-marquee__tile { position: relative; margin: 0; border: 0; color: inher
           <a class="contact-card" href="mailto:casatito.sas@gmail.com"><span class="contact-card__label">Correo</span><span class="contact-card__value">casatito.sas@gmail.com</span><svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="contact-card" href="https://maps.google.com/?cid=532302601172370895" target="_blank" rel="noopener noreferrer"><span class="contact-card__label">Dirección</span><span class="contact-card__value">Av. Fuerza Aérea Argentina 3118, Córdoba</span><svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <div class="contact-card"><span class="contact-card__label">Horarios</span><span class="contact-card__value contact-card__value--hours">Lunes y de miércoles a sábado: 8&nbsp;a&nbsp;19&nbsp;h<br>Martes: 8&nbsp;a&nbsp;13&nbsp;h<br>Domingo: cerrado</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · Ubicación -->
+    <section class="section ubicacion" id="ubicacion" aria-labelledby="ubicacion-title">
+      <div class="shell ubicacion__layout">
+        <div class="ubicacion__copy reveal">
+          <p class="section-index section-index--light"><span class="n">05</span>Visitanos</p>
+          <h2 class="section-title" id="ubicacion-title">Dónde nos <em>encontramos.</em></h2>
+          <address class="ubicacion__dir"><span class="ubicacion__label">Dirección</span><strong>Av. Fuerza Aérea Argentina 3118</strong><span>X5000 Córdoba</span></address>
+          <a class="button button--red" href="https://www.google.com/maps/dir/?api=1&amp;destination=Av.%20Fuerza%20A%C3%A9rea%20Argentina%203118%2C%20X5000%20C%C3%B3rdoba" target="_blank" rel="noopener noreferrer">Cómo llegar<svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="ubicacion__mapa reveal" style="--d:140ms">
+          <iframe src="https://maps.google.com/maps?cid=532302601172370895&amp;hl=es&amp;z=15&amp;output=embed" title="Mapa de Google con la ubicación de Casa Tito, Av. Fuerza Aérea Argentina 3118, Córdoba" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
       </div>
     </section>

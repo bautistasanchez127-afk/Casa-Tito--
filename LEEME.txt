@@ -8,5 +8,6 @@ Las fotos se cargan en formato WebP desde images/Blancaley e images/Penetrit: pa
 
 Contacto: WhatsApp 351 753-5587 · casatito.sas@gmail.com
 Local: Av. Fuerza Aérea Argentina 3118, Córdoba · lunes y de miércoles a sábado de 8 a 19 h; martes de 8 a 13 h; domingo cerrado.
+Al final de la página, «Dónde nos encontramos» muestra el mapa de Google de la ficha; se carga recién cuando el visitante llega a esa parte.
 
 Los precios, códigos y presentaciones son los del catálogo vigente; confirmar disponibilidad y precio vigente por WhatsApp.
