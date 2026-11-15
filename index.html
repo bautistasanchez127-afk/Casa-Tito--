@@ -79,11 +79,11 @@
   </script>
   <script>
     /* Medición de visitas con Google Analytics 4. Apagada mientras GA_ID esté vacío.
-       Para activarla: poner el ID de medición («G-…») de la propiedad de casatito.com.ar.
+       Propiedad «casatito.com.ar» de la cuenta de Analytics «Casa Tito» (creada el 2026-11-15). Para apagarla, dejar GA_ID vacío.
        La librería se pide recién después de cargar la página, para no trabar la presentación.
        Cuenta además los clics a WhatsApp, «Cómo llegar», correo y teléfono, con la parte de la página. */
     (function () {
-      var GA_ID = "";
+      var GA_ID = "G-11G084L2H1";
       window.ctMedir = function () {};
       if (!GA_ID) return;
       window.dataLayer = window.dataLayer || [];
@@ -1785,7 +1785,7 @@ button.ct-marquee__tile { position: relative; margin: 0; border: 0; color: inher
         <div class="footer-col"><h3>Explorar</h3><a href="#catalogo">Catálogo</a><a href="#categorias">Categorías</a><a href="#casa-tito">Nuestra historia</a></div>
         <div class="footer-col"><h3>Contacto</h3><a href="https://wa.me/5493517535587?text=Hola%2C%20quiero%20hacer%20una%20consulta%20sobre%20productos%20de%20Casa%20Tito." target="_blank" rel="noopener noreferrer">WhatsApp · 351 753-5587</a><a href="mailto:casatito.sas@gmail.com">casatito.sas@gmail.com</a><a href="https://maps.google.com/?cid=532302601172370895" target="_blank" rel="noopener noreferrer">Av. Fuerza Aérea Argentina 3118 (Ruta&nbsp;20), Córdoba</a><span>Lun. a sáb. 8&nbsp;a&nbsp;19&nbsp;h</span><a href="#contacto">Consultas</a></div>
       </div>
-      <div class="footer-bottom"><span>© <span id="current-year"></span> Casa Tito. Desde 1953, cerca tuyo. Parte de la Red Disensa.</span><button class="link-button" type="button" id="replay-intro">Ver la presentación otra vez</button></div>
+      <div class="footer-bottom"><span>© <span id="current-year"></span> Casa Tito. Desde 1953, cerca tuyo. Parte de la Red Disensa. Usamos Google Analytics para contar visitas.</span><button class="link-button" type="button" id="replay-intro">Ver la presentación otra vez</button></div>
     </div>
   </footer>
 
