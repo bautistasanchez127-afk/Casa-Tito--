@@ -1,10 +1,10 @@
 CASA TITO — CATÁLOGO WEB DE LANZAMIENTO
 
-El catálogo incluye 9 productos Blancaley (6 en Pinturas y látex y 3 en Membranas) y 25 productos Penetrit en Hogar. Las demás categorías siguen visibles con el aviso "Próximamente".
+El catálogo tiene 68 productos en cinco categorías: Pinturas y látex, Membranas, Construcción, Hogar y Mantenimiento (Blancaley, Murella, Penetrit, Sinteplast, Emapi, Aero Fácil, Cerroclor y otras marcas). Las demás categorías siguen visibles con el aviso "Próximamente".
 
 La presentación dibuja el logo oficial (la casita con techo rojo y "CASA TITO") en cada carga y la escena se abre con forma de casa hacia la portada, donde gira una casa 3D con las cifras de la casa. Respeta la preferencia del navegador para reducir movimiento. Sin 3D disponible, se muestra el logo.
 
-Las fotos se cargan en formato WebP desde images/Blancaley e images/Penetrit: para abrir el sitio hay que conservar la carpeta completa junto a index.html. Los PNG de esas carpetas son los originales.
+Las fotos se cargan en formato WebP desde images/Blancaley, images/Penetrit e images/productos: para abrir el sitio hay que conservar la carpeta completa junto a index.html. Los PNG de images/Blancaley e images/Penetrit son los originales. En images/productos van las fotos con fondo blanco (una por presentación, 900 px), con el código de DirSis en el nombre del archivo.
 
 Contacto: WhatsApp 351 753-5587 · casatito.sas@gmail.com
 Local: Av. Fuerza Aérea Argentina 3118, Córdoba · lunes a sábado de 8 a 19 h; domingo cerrado.
